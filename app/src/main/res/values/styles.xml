@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Input">
+        <item name="android:layout_width">325dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/input</item>
+        <item name="android:padding">11dp</item>
+        <item name="android:textColor">@color/textPrimary</item>
+        <item name="android:textColorHint">@color/textColorHint</item>
+        <item name="android:autofillHints">""</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat">
+        <item name="buttonStyle">@style/NotCapsButton</item>
+    </style>
+
+    <style name="NotCapsButton" parent="Widget.AppCompat.Button">
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Button" parent="NotCapsButton">
+        <item name="android:layout_width">325dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="Button.Commerce" >
+        <item name="android:textColor">@color/textCommerceButton</item>
+        <item name="android:background">@drawable/commerce_button</item>
+    </style>
+
+    <style name="Button.Secondary">
+        <item name="android:textColor">#3f8ae0</item>
+        <item name="android:background">@drawable/secondary_button</item>
+    </style>
+
+    <style name="Button.Tertiary">
+        <item name="android:textColor">#3f8ae0</item>
+        <item name="android:background">@drawable/outline_button</item>
+    </style>
+
+
+</resources>

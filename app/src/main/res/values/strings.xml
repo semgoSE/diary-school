@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">dairy_1</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="sign_in">Вход</string>
+    <string name="sign_up">Регистрация</string>
+    <string name="password">Пароль</string>
+    <string name="login">Логин</string>
+
+</resources>
