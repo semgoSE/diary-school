@@ -23,7 +23,6 @@ import com.google.android.material.snackbar.Snackbar;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import ru.semgose.dairy_1.App;
 import ru.semgose.dairy_1.MainActivity;
 import ru.semgose.dairy_1.R;
 import ru.semgose.dairy_1.SignActivity;

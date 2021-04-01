@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 
 import ru.semgose.dairy_1.ui.sign.SignInFragment;
 import ru.semgose.dairy_1.ui.sign.up.MenuSignUpFragment;
+import ru.semgose.dairy_1.ui.sign.up.WebViewSignUpFragment;
 
 public class SignActivity extends AppCompatActivity {
 
@@ -39,6 +40,15 @@ public class SignActivity extends AppCompatActivity {
         //SignInFragment fr = (SignInFragment) fm.findFragmentByTag("SIGN_IN");
         fm.beginTransaction()
                 .replace(R.id.container_sign, fr, tag)
+                .addToBackStack(tag)
+                .commit();
+    }
+
+    public static void openWebView(String url, String tag) {
+        Bundle bundle = new Bundle();
+        bundle.putString("url", url);
+        fm.beginTransaction()
+                .replace(R.id.container_sign, WebViewSignUpFragment.class, bundle, tag)
                 .addToBackStack(tag)
                 .commit();
     }
