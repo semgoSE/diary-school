@@ -23,7 +23,7 @@ public class WebViewGosSignUpFragment extends Fragment {
         webView = (WebView) view.findViewById(R.id.webview_gos);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebClient());
-        webView.loadUrl("https://esia.gosuslugi.ru/idp/rlogin?cc=bp");
+        webView.loadUrl("https://esia.gosuslugi.ru/?cc=bp");
         return view;
     }
 }
