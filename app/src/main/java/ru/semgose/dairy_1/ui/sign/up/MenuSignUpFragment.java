@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 
 import ru.semgose.dairy_1.R;
 import ru.semgose.dairy_1.SignActivity;
-import ru.semgose.dairy_1.ui.sign.SignInFragment;
 
 public class MenuSignUpFragment extends Fragment {
     @Nullable
@@ -24,7 +23,7 @@ public class MenuSignUpFragment extends Fragment {
         btn_sign_up_gos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SignActivity.nextSignUp(new WebViewGosSignUpFragment(), "WEBVIEW_SIGN_UP_GOS");
+                SignActivity.openWebView("https://esia.gosuslugi.ru/?cc=bp", "WEBVIEW_SIGN_UP_GOS");
             }
         });
         return view;

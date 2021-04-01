@@ -13,5 +13,11 @@ public class WebClient extends WebViewClient {
             view.loadUrl(request.getUrl().toString());
             return true;
         }
+
+    @Override
+    public void onPageFinished(WebView view, String url) {
+
+        super.onPageFinished(view, url);
     }
+}
 

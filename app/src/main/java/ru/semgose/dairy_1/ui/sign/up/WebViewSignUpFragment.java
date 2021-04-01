@@ -10,20 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+
 import ru.semgose.dairy_1.R;
 import ru.semgose.dairy_1.componets.WebClient;
 
-public class WebViewGosSignUpFragment extends Fragment {
+public class WebViewSignUpFragment extends Fragment {
 
     WebView webView;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.sign_up_gos_webview_fragment, container, false);
-        webView = (WebView) view.findViewById(R.id.webview_gos);
+        View view = inflater.inflate(R.layout.sign_up_webview_fragment, container, false);
+        webView = (WebView) view.findViewById(R.id.webview_sign_up);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebClient());
-        webView.loadUrl("https://esia.gosuslugi.ru/idp/rlogin?cc=bp");
+        webView.loadUrl(savedInstanceState.getString("url"));
         return view;
     }
 }
