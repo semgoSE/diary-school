@@ -23,7 +23,7 @@ public class MenuSignUpFragment extends Fragment {
         btn_sign_up_gos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SignActivity.openWebView("https://esia.gosuslugi.ru/?cc=bp", "WEBVIEW_SIGN_UP_GOS");
+                SignActivity.openWebView("https://e-school.ryazangov.ru/auth/esia/send-authn-request", "WEBVIEW_SIGN_UP_GOS");
             }
         });
         return view;

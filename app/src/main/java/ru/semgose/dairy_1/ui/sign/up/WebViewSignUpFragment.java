@@ -1,5 +1,7 @@
 package ru.semgose.dairy_1.ui.sign.up;
 
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +11,13 @@ import android.webkit.WebView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.loader.content.AsyncTaskLoader;
 
 
 import ru.semgose.dairy_1.R;
+import ru.semgose.dairy_1.SignActivity;
+import ru.semgose.dairy_1.componets.SpinnerFragment;
 import ru.semgose.dairy_1.componets.WebClient;
 
 public class WebViewSignUpFragment extends Fragment {
@@ -25,10 +31,13 @@ public class WebViewSignUpFragment extends Fragment {
         webView = (WebView) view.findViewById(R.id.webview_sign_up);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebClient());
-        webView.loadUrl(savedInstanceState.getString("url"));
-        webView.loadUrl("https://esia.gosuslugi.ru/?cc=bp");
+        webView.loadUrl(getArguments().getString("url"));
         return view;
     }
+
+
+
+
 }
 
 
