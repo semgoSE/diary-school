@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#fff"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -23,17 +24,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_marginStart="169dp"
-        android:layout_marginTop="258dp"
-        android:layout_marginEnd="184dp"
-        android:layout_marginBottom="454dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/title"
+        style="@style/Title.level_2"
+        android:text="#2 - Привязка"
+        app:layout_constraintBottom_toTopOf="@+id/add"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/Title.level_2" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.212" />
 
     <Button
         android:id="@+id/button"
@@ -44,6 +43,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/add"
+        style="@style/Button.Cell"
+        android:layout_marginTop="212dp"
+        android:drawableLeft="@drawable/ic_add_sign_up"
+        android:text="Добавить привязку"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TextView
+        android:id="@+id/description"
+        android:text="Для удобства входа можете привязать различные соц. сети."
+        app:layout_constraintBottom_toTopOf="@+id/add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        style="@style/Description" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
