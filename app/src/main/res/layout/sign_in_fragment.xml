@@ -74,8 +74,8 @@
 
     <Button
         android:id="@+id/sign_up_btn"
-        style="@style/Button.Outline"
-        android:layout_marginBottom="36dp"
+        style="@style/Button.Primary"
+        android:layout_marginBottom="32dp"
         android:text="@string/sign_up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

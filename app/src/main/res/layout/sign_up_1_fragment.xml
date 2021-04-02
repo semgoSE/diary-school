@@ -30,13 +30,7 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scrollbarStyle="outsideOverlay"
-        android:textColor="@color/black"
-        android:text="Или"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        style="@style/Title.level_2"
         app:layout_constraintBottom_toTopOf="@+id/sign_up_dairy_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,12 +47,8 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
         android:text="#1 - Вход"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        style="@style/Title.level_2"
         app:layout_constraintBottom_toTopOf="@+id/sign_up_gos_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

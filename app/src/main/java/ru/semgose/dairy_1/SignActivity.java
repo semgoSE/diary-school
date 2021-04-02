@@ -44,7 +44,6 @@ public class SignActivity extends AppCompatActivity {
         Log.d("sign", tag);
         fm.beginTransaction()
                 .replace(R.id.container_sign, fr, tag)
-                .addToBackStack(tag)
                 .commit();
     }
 
