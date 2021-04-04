@@ -35,9 +35,50 @@
         <item name="android:background">@drawable/secondary_button</item>
     </style>
 
-    <style name="Button.Tertiary">
+    <style name="Button.Primary">
+        <item name="android:textColor">#ffff</item>
+        <item name="android:background">@drawable/primary_button</item>
+    </style>
+
+    <style name="Button.Outline">
         <item name="android:textColor">#3f8ae0</item>
         <item name="android:background">@drawable/outline_button</item>
+    </style>
+
+    <style name="Title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Title.level_1">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="Title.level_2">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Title.level_3">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Button.Cell">
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:background">@drawable/cell_button</item>
+        <item name="android:textColor">@color/accent</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
+    <style name="Description">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/color_subhead</item>
+        <item name="android:padding">40dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
 

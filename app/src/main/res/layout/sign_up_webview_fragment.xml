@@ -4,16 +4,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/backgroundPage"
     android:layout_height="match_parent">
 
-
     <FrameLayout
-        android:id="@+id/container_sign"
+        android:id="@+id/webview_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+    <WebView
+        android:id="@+id/webview_sign_up"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
 
+    </WebView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
