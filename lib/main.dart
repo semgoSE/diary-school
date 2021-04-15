@@ -13,6 +13,7 @@ void main() async {
 
   runApp(
     MaterialApp(
+      theme: ThemeData(),
       initialRoute: "/sign_in",
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
