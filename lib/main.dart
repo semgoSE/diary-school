@@ -1,6 +1,7 @@
 import 'package:dairy_app/helpers/api.dart';
 import 'package:dairy_app/models/store.dart';
 import 'package:dairy_app/views/sign_in/sign_in.dart';
+import 'package:dairy_app/views/sign_up/sign_up_1.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -26,6 +27,9 @@ void main() async {
         },
         '/sign_in': (BuildContext context) {
           return SignIn();
+        },
+        '/sign_up_1': (BuildContext context) {
+          return SignUp_1();
         }
       },
     ),

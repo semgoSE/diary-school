@@ -1,4 +1,5 @@
 import 'package:dairy_app/components/Button.dart';
+import 'package:dairy_app/components/Input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -46,55 +47,13 @@ class SignInState extends State {
                 ),
                 PrimaryButton(
                   text: "Регситрация",
-                  click: () {},
+                  click: () {
+                    Navigator.pushNamed(context, "/sign_up_1");
+                  },
                 ),
               ],
               // mainAxisAlignment: MainAxisAlignment.center,
             )),
         onWillPop: () => Future.value(false));
-  }
-}
-
-class Input extends StatelessWidget {
-  String hints = "";
-
-  Input({this.hints, Key key}) : super(key: key);
-
-  Widget build(BuildContext context) {
-    return (Container(
-      child: TextFormField(
-          decoration: InputDecoration(
-              filled: true,
-              fillColor: HexColor("#f2f3f5"),
-
-              // enabledBorder: UnderlineInputBorder(
-              //   borderSide: BorderSide(color: Colors.green),
-              //   borderRadius: BorderRadius.circular(25.7),
-              // ),
-              border: UnderlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide.none),
-              hintText: hints)),
-      margin: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-    ));
-  }
-}
-
-class PanelHeader extends StatelessWidget {
-  String header = "";
-  bool is_back = true;
-
-  PanelHeader({@required this.header, this.is_back, Key key}) : super(key: key);
-
-  @override
-  Widget build(Object context) {
-    return (AppBar(
-      backgroundColor: HexColor("#ffffff"),
-      title: Text(
-        header,
-        style: TextStyle(color: HexColor("#000000")),
-      ),
-      automaticallyImplyLeading: false,
-    ));
   }
 }

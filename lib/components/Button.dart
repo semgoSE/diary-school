@@ -63,3 +63,30 @@ class CommerceButton extends StatelessWidget {
     ));
   }
 }
+
+class OutlnButton extends StatelessWidget {
+  var click;
+  String text;
+
+  OutlnButton({this.text, this.click, Key key}) : super(key: key);
+
+  @override
+  Widget build(Object context) {
+    return Button(
+        button: ElevatedButton(
+      style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+            side: BorderSide(color: HexColor("#3f8ae0"), width: 1),
+            borderRadius: BorderRadius.circular(8),
+          )),
+          minimumSize:
+              MaterialStateProperty.all<Size>(Size(double.infinity, 44))),
+      onPressed: click,
+      child: Text(
+        text,
+        style: TextStyle(color: HexColor("#3f8ae0")),
+      ),
+    ));
+  }
+}
