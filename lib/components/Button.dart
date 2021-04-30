@@ -14,6 +14,7 @@ class Button extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class PrimaryButton extends StatelessWidget {
   var click;
   final String text;
@@ -22,23 +23,35 @@ class PrimaryButton extends StatelessWidget {
 
   @override
   Widget build(Object context) {
-    return Button(
+    // return Button(
+    //     button: ElevatedButton(
+    //   style: ButtonStyle(
+    //       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+    //           RoundedRectangleBorder(
+    //         borderRadius: BorderRadius.circular(8),
+    //       )),
+    //       minimumSize:
+    //           MaterialStateProperty.all<Size>(Size(double.infinity, 44)),
+    //       backgroundColor:
+    //           MaterialStateProperty.all<Color>(HexColor("#4986cc"))),
+    //   onPressed: click,
+    //   child: Text(text),
+    // ));
+    //
+    return (Button(
         button: ElevatedButton(
-      style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          )),
-          minimumSize:
-              MaterialStateProperty.all<Size>(Size(double.infinity, 44)),
-          backgroundColor:
-              MaterialStateProperty.all<Color>(HexColor("#4986cc"))),
-      onPressed: click,
+      onPressed: () {},
+      style: ElevatedButton.styleFrom(
+          minimumSize: Size(double.infinity, 44),
+          primary: HexColor("#4986cc"),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
       child: Text(text),
-    ));
+    )));
   }
 }
 
+// ignore: must_be_immutable
 class CommerceButton extends StatelessWidget {
   var click;
   String text;
@@ -47,20 +60,16 @@ class CommerceButton extends StatelessWidget {
 
   @override
   Widget build(Object context) {
-    return Button(
+    return (Button(
         button: ElevatedButton(
-      style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          )),
-          minimumSize:
-              MaterialStateProperty.all<Size>(Size(double.infinity, 44)),
-          backgroundColor:
-              MaterialStateProperty.all<Color>(HexColor("#4bb34b"))),
-      onPressed: click,
+      onPressed: () {},
+      style: ElevatedButton.styleFrom(
+          minimumSize: Size(double.infinity, 44),
+          primary: HexColor("#4bb34b"),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
       child: Text(text),
-    ));
+    )));
   }
 }
 
@@ -72,21 +81,13 @@ class OutlnButton extends StatelessWidget {
 
   @override
   Widget build(Object context) {
-    return Button(
-        button: ElevatedButton(
-      style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-            side: BorderSide(color: HexColor("#3f8ae0"), width: 1),
-            borderRadius: BorderRadius.circular(8),
-          )),
-          minimumSize:
-              MaterialStateProperty.all<Size>(Size(double.infinity, 44))),
-      onPressed: click,
-      child: Text(
-        text,
-        style: TextStyle(color: HexColor("#3f8ae0")),
-      ),
-    ));
+    return (Button(
+        button: OutlinedButton(
+          style: OutlinedButton.styleFrom(
+            side: BorderSide(),
+            shape: 
+          ),
+      child: Text(text),
+    )));
   }
 }
