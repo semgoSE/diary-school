@@ -14,12 +14,11 @@ class Button extends StatelessWidget {
   }
 }
 
-// ignore: must_be_immutable
-class PrimaryButton extends StatelessWidget {
+class ButtonPrimary extends StatelessWidget {
   var click;
   final String text;
 
-  PrimaryButton({this.text, this.click, Key key}) : super(key: key);
+  ButtonPrimary({this.text, this.click, Key key}) : super(key: key);
 
   @override
   Widget build(Object context) {
@@ -40,7 +39,7 @@ class PrimaryButton extends StatelessWidget {
     //
     return (Button(
         button: ElevatedButton(
-      onPressed: () {},
+      onPressed: click,
       style: ElevatedButton.styleFrom(
           minimumSize: Size(double.infinity, 44),
           primary: HexColor("#4986cc"),
@@ -52,17 +51,17 @@ class PrimaryButton extends StatelessWidget {
 }
 
 // ignore: must_be_immutable
-class CommerceButton extends StatelessWidget {
+class ButtonCommerce extends StatelessWidget {
   var click;
   String text;
 
-  CommerceButton({this.text, this.click, Key key}) : super(key: key);
+  ButtonCommerce({this.text, this.click, Key key}) : super(key: key);
 
   @override
   Widget build(Object context) {
     return (Button(
         button: ElevatedButton(
-      onPressed: () {},
+      onPressed: click,
       style: ElevatedButton.styleFrom(
           minimumSize: Size(double.infinity, 44),
           primary: HexColor("#4bb34b"),
@@ -73,21 +72,26 @@ class CommerceButton extends StatelessWidget {
   }
 }
 
-class OutlnButton extends StatelessWidget {
+class ButtonOutline extends StatelessWidget {
   var click;
   String text;
 
-  OutlnButton({this.text, this.click, Key key}) : super(key: key);
+  ButtonOutline({this.text, this.click, Key key}) : super(key: key);
 
   @override
   Widget build(Object context) {
     return (Button(
         button: OutlinedButton(
+      onPressed: click,
       style: OutlinedButton.styleFrom(
-        side: BorderSide(),
+          minimumSize: Size(double.infinity, 44),
+          side: BorderSide(color: HexColor("#4986cc")),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+      child: Text(
+        text,
+        style: TextStyle(color: HexColor("#4986cc")),
       ),
-      onPressed: () {},
-      child: Text(text),
     )));
   }
 }
