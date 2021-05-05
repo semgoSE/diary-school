@@ -41,13 +41,14 @@ class SignInState extends State {
                 Input(hints: "Логин"),
                 Input(hints: "Пароль"),
                 Spacer(flex: 1),
-                CommerceButton(
+                ButtonCommerce(
                   text: "Войти",
                   click: () {},
                 ),
-                PrimaryButton(
+                ButtonPrimary(
                   text: "Регситрация",
                   click: () {
+                    print("ff");
                     Navigator.pushNamed(context, "/sign_up_1");
                   },
                 ),
