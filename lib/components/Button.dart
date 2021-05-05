@@ -83,10 +83,10 @@ class OutlnButton extends StatelessWidget {
   Widget build(Object context) {
     return (Button(
         button: OutlinedButton(
-          style: OutlinedButton.styleFrom(
-            side: BorderSide(),
-            shape: 
-          ),
+      style: OutlinedButton.styleFrom(
+        side: BorderSide(),
+      ),
+      onPressed: () {},
       child: Text(text),
     )));
   }
