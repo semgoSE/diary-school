@@ -9,12 +9,12 @@ class Placeholder2 extends StatelessWidget {
   const Placeholder2({Key key, this.icon, this.description}) : super(key: key);
 
   Widget getIcon() {
-    return icon == null
+    return icon != null
         ? (Container(
             alignment: Alignment.center,
             child: Icon28(path: icon),
             margin: EdgeInsets.all(8)))
-        : null;
+        : Container();
   }
 
   @override
@@ -22,12 +22,16 @@ class Placeholder2 extends StatelessWidget {
     return (Container(
       margin: EdgeInsets.all(12),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          getIcon(),
+          // getIcon(),
           Container(
+            alignment: Alignment.center,
             child: Text(description,
-                style: TextStyle(color: HexColor("#000000"), fontSize: 15)),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: HexColor("#818c99"),
+                    fontSize: 14,
+                    textBaseline: TextBaseline.ideographic)),
           )
         ],
       ),

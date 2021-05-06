@@ -1,6 +1,6 @@
 import 'package:dairy_app/components/Button.dart';
 import 'package:dairy_app/components/Title.dart';
-import 'package:dairy_app/views/sign_up/WebViewArgs.dart';
+import 'package:dairy_app/helpers/WebViewArgs.dart';
 
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -8,6 +8,7 @@ import 'package:hexcolor/hexcolor.dart';
 class SignUp_1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return (Scaffold(
+      backgroundColor: HexColor("#ffffff"),
       appBar: AppBar(
         backgroundColor: HexColor("#ffffff"),
         elevation: 0,
@@ -47,7 +48,7 @@ class SignUp_1 extends StatelessWidget {
                 arguments: WebViewArgs(
                     "https://e-school.ryazangov.ru/auth/esia/send-authn-request",
                     "Войти через гос услуги",
-                    "https://e-school.ryazangov.ru/personal-area/"))
+                    "https://e-school.ryazangov.ru/personal-area/#diary"))
           },
         ),
         Spacer(flex: 1)

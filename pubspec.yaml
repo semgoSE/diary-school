@@ -33,6 +33,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   hexcolor: ^2.0.3
   flutter_webview_plugin: ^0.3.11
+  modal_bottom_sheet: ^2.0.0
+  flutter_login_vk: ^1.0.0
+  flutter_icons: ^1.0.0
 
 dev_dependencies:
   hive_generator: ^0.8.0
@@ -50,8 +53,8 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   assets:
-    - assets/
-    - assets/study.svg
+    - res/
+    - res/study.svg
 
   uses-material-design: true
 

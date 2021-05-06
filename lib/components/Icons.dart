@@ -7,8 +7,7 @@ class Icon28 extends StatelessWidget {
   Color color = HexColor("#000000");
   double size = 28;
 
-  Icon28({Key key, @required this.path, this.color, this.size})
-      : super(key: key);
+  Icon28({Key key, this.path, this.color, this.size}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,8 @@ class Icon28 extends StatelessWidget {
       alignment: Alignment.center,
       width: size,
       height: size,
-      child: SvgPicture.asset(path, width: size, height: size),
+      color: color,
+      child: SvgPicture.asset(path),
     ));
   }
 }

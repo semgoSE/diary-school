@@ -1,4 +1,5 @@
-import 'package:dairy_app/views/sign_up/WebViewArgs.dart';
+import 'package:dairy_app/helpers/WebViewArgs.dart';
+import 'package:dairy_app/views/sign_up/Dairy.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
@@ -13,8 +14,12 @@ class WebView extends StatelessWidget {
     final flutterWebviewPlugin = new FlutterWebviewPlugin();
 
     flutterWebviewPlugin.onUrlChanged.listen((String url) {
+      print(url + " " + args.url_end);
       if (args.url_end == url) {
-        Navigator.pushNamed(context, '/sign_up_2');
+        Navigator.pushNamed(context, "/sign_up_2",
+            arguments: Dairy.cookies =
+                (flutterWebviewPlugin.getCookies().toString()));
+        flutterWebviewPlugin.close();
       }
     });
 

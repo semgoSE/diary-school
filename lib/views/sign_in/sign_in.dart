@@ -24,6 +24,7 @@ class SignInState extends State {
         child: Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
+              elevation: 0,
               backgroundColor: HexColor("#ffffff"),
               title: Text(
                 'Регистрация',
@@ -35,7 +36,7 @@ class SignInState extends State {
               children: [
                 Expanded(
                   flex: 1,
-                  child: SvgPicture.asset('assets/study.svg',
+                  child: SvgPicture.asset('res/study.svg',
                       width: 120, height: 120),
                 ),
                 Input(hints: "Логин"),
