@@ -1,5 +1,6 @@
 import 'package:dairy_app/components/Icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class Button extends StatelessWidget {
@@ -18,8 +19,26 @@ class Button extends StatelessWidget {
 class ButtonPrimary extends StatelessWidget {
   var click;
   final String text;
+  bool disable;
 
-  ButtonPrimary({this.text, this.click, Key key}) : super(key: key);
+  ButtonPrimary({this.text = "", this.click, this.disable = false, Key key})
+      : super(key: key);
+
+  ButtonStyle getDisableButton() {
+    return (ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+        minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 44)),
+        backgroundColor: MaterialStateProperty.all<Color>(
+            HexColor("#4986cc").withOpacity(0.5))));
+  }
+
+  ButtonStyle getEnableButton() {
+    return (ElevatedButton.styleFrom(
+        minimumSize: Size(double.infinity, 44),
+        primary: HexColor("#4986cc"),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))));
+  }
 
   @override
   Widget build(Object context) {
@@ -40,12 +59,8 @@ class ButtonPrimary extends StatelessWidget {
     //
     return (Button(
         button: ElevatedButton(
-      onPressed: click,
-      style: ElevatedButton.styleFrom(
-          minimumSize: Size(double.infinity, 44),
-          primary: HexColor("#4986cc"),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+      onPressed: !disable ? click : null,
+      style: disable ? getDisableButton() : getEnableButton(),
       child: Text(text),
     )));
   }
@@ -55,19 +70,33 @@ class ButtonPrimary extends StatelessWidget {
 class ButtonCommerce extends StatelessWidget {
   var click;
   String text;
+  bool disable;
 
-  ButtonCommerce({this.text, this.click, Key key}) : super(key: key);
+  ButtonCommerce({this.text = "", this.click, this.disable = false, Key key})
+      : super(key: key);
+
+  ButtonStyle getDisableButton() {
+    return (ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+        minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 44)),
+        backgroundColor: MaterialStateProperty.all<Color>(
+            HexColor("#4bb34b").withOpacity(0.5))));
+  }
+
+  ButtonStyle getEnableButton() {
+    return (ElevatedButton.styleFrom(
+        minimumSize: Size(double.infinity, 44),
+        primary: HexColor("#4bb34b"),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))));
+  }
 
   @override
   Widget build(Object context) {
     return (Button(
         button: ElevatedButton(
-      onPressed: click,
-      style: ElevatedButton.styleFrom(
-          minimumSize: Size(double.infinity, 44),
-          primary: HexColor("#4bb34b"),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+      onPressed: !disable ? click : null,
+      style: disable ? getDisableButton() : getEnableButton(),
       child: Text(text),
     )));
   }
@@ -76,19 +105,35 @@ class ButtonCommerce extends StatelessWidget {
 class ButtonOutline extends StatelessWidget {
   var click;
   String text;
+  bool disable;
 
-  ButtonOutline({this.text, this.click, Key key}) : super(key: key);
+  ButtonOutline({this.text, this.click, this.disable = false, Key key})
+      : super(key: key);
+
+  ButtonStyle getDisableButton() {
+    return (ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+        minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 44)),
+        side: MaterialStateProperty.all<BorderSide>(
+            BorderSide(color: HexColor("#4986cc").withOpacity(0.5))),
+        backgroundColor: MaterialStateProperty.all<Color>(
+            HexColor("#ffffff").withOpacity(0.5))));
+  }
+
+  ButtonStyle getEnableButton() {
+    return (OutlinedButton.styleFrom(
+        minimumSize: Size(double.infinity, 44),
+        side: BorderSide(color: HexColor("#4986cc")),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))));
+  }
 
   @override
   Widget build(Object context) {
     return (Button(
         button: OutlinedButton(
-      onPressed: click,
-      style: OutlinedButton.styleFrom(
-          minimumSize: Size(double.infinity, 44),
-          side: BorderSide(color: HexColor("#4986cc")),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+      onPressed: disable ? null : click,
+      style: disable ? getDisableButton() : getEnableButton(),
       child: Text(
         text,
         style: TextStyle(color: HexColor("#4986cc")),
@@ -101,6 +146,7 @@ class ButtonCell extends StatelessWidget {
   var click;
   IconData icon;
   String text;
+  bool disable;
 
   Widget getIcon() {
     return icon != null
@@ -138,19 +184,33 @@ class ButtonCell extends StatelessWidget {
 class ButtonDestructive extends StatelessWidget {
   var click;
   String text;
+  bool disable;
 
-  ButtonDestructive({this.text, this.click, Key key}) : super(key: key);
+  ButtonDestructive({this.text, this.click, this.disable = false, Key key})
+      : super(key: key);
+
+  ButtonStyle getDisableButton() {
+    return (ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+        minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 44)),
+        backgroundColor: MaterialStateProperty.all<Color>(
+            HexColor("#e64646").withOpacity(0.5))));
+  }
+
+  ButtonStyle getEnableButton() {
+    return (ElevatedButton.styleFrom(
+        minimumSize: Size(double.infinity, 44),
+        primary: HexColor("#e64646"),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))));
+  }
 
   @override
   Widget build(Object context) {
     return (Button(
         button: ElevatedButton(
-      onPressed: click,
-      style: ElevatedButton.styleFrom(
-          minimumSize: Size(double.infinity, 44),
-          primary: HexColor("#e64646"),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+      onPressed: disable ? null : click,
+      style: disable ? getDisableButton() : getEnableButton(),
       child: Text(text),
     )));
   }
@@ -159,19 +219,33 @@ class ButtonDestructive extends StatelessWidget {
 class ButtonSecondary extends StatelessWidget {
   var click;
   String text;
+  bool disable;
 
-  ButtonSecondary({this.text, this.click, Key key}) : super(key: key);
+  ButtonSecondary({this.text, this.click, this.disable = false, Key key})
+      : super(key: key);
+
+  ButtonStyle getDisableButton() {
+    return (ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+        minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 44)),
+        backgroundColor: MaterialStateProperty.all<Color>(
+            Color.fromARGB(5, 0, 28, 61).withOpacity(0.5))));
+  }
+
+  ButtonStyle getEnableButton() {
+    return (ElevatedButton.styleFrom(
+        minimumSize: Size(double.infinity, 44),
+        primary: Color.fromARGB(5, 0, 28, 61),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))));
+  }
 
   @override
   Widget build(Object context) {
     return (Button(
         button: ElevatedButton(
-      onPressed: click,
-      style: ElevatedButton.styleFrom(
-          minimumSize: Size(double.infinity, 44),
-          primary: Color.fromARGB(5, 0, 28, 61),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+      onPressed: disable ? null : click,
+      style: disable ? getDisableButton() : getEnableButton(),
       child: Text(text),
     )));
   }

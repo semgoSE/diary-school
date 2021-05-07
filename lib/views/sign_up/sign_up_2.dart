@@ -45,8 +45,7 @@ class SignUp_2State extends State {
 
   @override
   Widget build(Object context) {
-    return (WillPopScope(
-        child: Scaffold(
+    return (Scaffold(
       backgroundColor: HexColor("#ffffff"),
       appBar: AppBar(
         backgroundColor: HexColor("#ffffff"),
@@ -148,6 +147,6 @@ class SignUp_2State extends State {
           )
         ],
       ),
-    )));
+    ));
   }
 }

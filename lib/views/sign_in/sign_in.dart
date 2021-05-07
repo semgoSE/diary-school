@@ -39,15 +39,16 @@ class SignInState extends State {
                   child: SvgPicture.asset('res/study.svg',
                       width: 120, height: 120),
                 ),
-                Input(hints: "Логин"),
-                Input(hints: "Пароль"),
+                Input(hints: "Логин", is_hide: false),
+                Input(hints: "Пароль", is_hide: true),
                 Spacer(flex: 1),
                 ButtonCommerce(
+                  disable: false,
                   text: "Войти",
                   click: () {},
                 ),
                 ButtonPrimary(
-                  text: "Регситрация",
+                  text: "Регистрация",
                   click: () {
                     print("ff");
                     Navigator.pushNamed(context, "/sign_up_1");
