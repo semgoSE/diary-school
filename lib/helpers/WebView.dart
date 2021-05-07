@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:webview_cookie_manager/webview_cookie_manager.dart';
 
 class WebView extends StatelessWidget {
   @override
@@ -12,14 +13,21 @@ class WebView extends StatelessWidget {
         ModalRoute.of(context).settings.arguments as WebViewArgs;
 
     final flutterWebviewPlugin = new FlutterWebviewPlugin();
+    final cookieManager = WebviewCookieManager();
 
-    flutterWebviewPlugin.onUrlChanged.listen((String url) {
+    flutterWebviewPlugin.onUrlChanged.listen((String url) async {
       print(url + " " + args.url_end);
       if (args.url_end == url) {
-        Navigator.pushNamed(context, "/sign_up_2",
-            arguments: Dairy.cookies =
-                (flutterWebviewPlugin.getCookies().toString()));
+        final gotCookies = await cookieManager.getCookies(url);
+        for (var item in gotCookies) {
+          if (item.name == "sessionid") {
+            Dairy.cookies = item.value;
+            break;
+          }
+        }
+        Navigator.pushNamed(context, "/sign_up_2");
         flutterWebviewPlugin.close();
+        flutterWebviewPlugin.dispose();
       }
     });
 

@@ -4,15 +4,9 @@ import 'package:dairy_app/views/sign_up/sign_up_1.dart';
 import 'package:dairy_app/views/sign_up/sign_up_2.dart';
 import 'package:dairy_app/views/sign_up/sign_up_3.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-
 import './views/sign_in/sign_in.dart';
 
 void main() async {
-  await Hive.initFlutter();
-  bool isAuth = false;
-
   runApp(
     MaterialApp(
       theme: ThemeData(),

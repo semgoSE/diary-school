@@ -3,6 +3,7 @@ import 'package:dairy_app/components/Button.dart';
 import 'package:dairy_app/components/Cell.dart';
 import 'package:dairy_app/components/Placeholder.dart';
 import 'package:dairy_app/components/Title.dart';
+import 'package:dairy_app/data/AccountBind.dart';
 import 'package:dairy_app/views/sign_up/Dairy.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -20,7 +21,7 @@ class SignUp_2 extends StatefulWidget {
 }
 
 class SignUp_2State extends State {
-  List<User> users = Dairy.users;
+  List<AccountBind> accounts_bind = Dairy.accounts_bind;
 
   void auth(Object context) async {
     var vk = VKLogin();
@@ -35,7 +36,7 @@ class SignUp_2State extends State {
         Dairy.addUser(user.userId, user.firstName, user.lastName, user.photo200,
             accessToken.token);
         setState(() {
-          users = Dairy.users;
+          accounts_bind = Dairy.accounts_bind;
         });
         // vk.logOut();
         Navigator.pop(context);
@@ -69,7 +70,7 @@ class SignUp_2State extends State {
                         "Для удобства входа можете привязать различные соц. сети."),
                 padding: EdgeInsets.symmetric(vertical: 16),
               ),
-              ...users
+              ...accounts_bind
                   .map((e) => Cell(
                         before: Avatar(src: e.photo_200),
                         header: e.first_name + " " + e.last_name,
@@ -94,7 +95,7 @@ class SignUp_2State extends State {
                                         click: () {
                                           Dairy.removeUser(e.id);
                                           setState(() {
-                                            users = Dairy.users;
+                                            accounts_bind = Dairy.accounts_bind;
                                           });
                                           Navigator.pop(context);
                                         },

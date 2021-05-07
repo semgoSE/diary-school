@@ -2,11 +2,15 @@ import 'package:dairy_app/components/Button.dart';
 import 'package:dairy_app/components/Input.dart';
 import 'package:dairy_app/components/Placeholder.dart';
 import 'package:dairy_app/components/Title.dart';
+import 'package:dairy_app/data/SignUpData.dart';
 import 'package:dairy_app/helpers/AuthModal.dart';
+import 'package:dairy_app/helpers/api.dart';
+import 'package:dairy_app/views/sign_up/Dairy.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class SignUp_3 extends StatefulWidget {
@@ -45,12 +49,14 @@ class SignUp_3State extends State {
     super.dispose();
   }
 
-  void reg() {
+  void reg() async {
     showBarModalBottomSheet(
         context: context,
         // isDismissible: false,
         topControl: Container(),
         builder: (context) => (AuthModal()));
+    API.sign_up(
+        SignUpData(_login, _password, Dairy.cookies, Dairy.accounts_bind));
   }
 
   @override

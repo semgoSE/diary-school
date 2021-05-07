@@ -22,6 +22,7 @@ class SignInState extends State {
   Widget build(BuildContext context) {
     return WillPopScope(
         child: Scaffold(
+            backgroundColor: HexColor("#ffffff"),
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
               elevation: 0,
