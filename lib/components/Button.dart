@@ -81,7 +81,7 @@ class ButtonCommerce extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
         minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 44)),
         backgroundColor: MaterialStateProperty.all<Color>(
-            HexColor("#4bb34b").withOpacity(0.5))));
+            HexColor("#4bb34b").withOpacity(0.8))));
   }
 
   ButtonStyle getEnableButton() {

@@ -1,3 +1,4 @@
+import 'package:dairy_app/views/main/Main.dart';
 import 'package:dairy_app/views/sign_in/sign_in.dart';
 import 'package:dairy_app/helpers/WebView.dart';
 import 'package:dairy_app/views/sign_up/sign_up_1.dart';
@@ -27,6 +28,9 @@ void main() async {
         },
         '/webview': (BuildContext context) {
           return WebView();
+        },
+        '/': (BuildContext context) {
+          return Main();
         }
       },
     ),

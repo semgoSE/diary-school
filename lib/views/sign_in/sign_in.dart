@@ -1,5 +1,8 @@
 import 'package:dairy_app/components/Button.dart';
 import 'package:dairy_app/components/Input.dart';
+import 'package:dairy_app/data/ResponseAuthData.dart';
+import 'package:dairy_app/data/SignInData.dart';
+import 'package:dairy_app/helpers/api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,11 +14,31 @@ class SignIn extends StatefulWidget {
 }
 
 class SignInState extends State {
-  String login;
-  String password;
+  final _passwordController = TextEditingController();
+  final _loginController = TextEditingController();
 
-  Color hexToColor(String code) {
-    return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
+  String _login = "";
+  String _password = "";
+
+  @override
+  void initState() {
+    _loginController.addListener(() {
+      setState(() {
+        _login = _loginController.text;
+      });
+    });
+
+    _passwordController.addListener(() {
+      setState(() {
+        _password = _passwordController.text;
+      });
+    });
+  }
+
+  void auth() async {
+    SignInData data = SignInData(
+        login: _login, password: _password, type: SignInDataType.DEFAULT);
+    bool op = await API.sign_in(data);
   }
 
   @override
@@ -40,13 +63,28 @@ class SignInState extends State {
                   child: SvgPicture.asset('res/study.svg',
                       width: 120, height: 120),
                 ),
-                Input(hints: "Логин", is_hide: false),
-                Input(hints: "Пароль", is_hide: true),
+                Input(
+                    hints: "Логин",
+                    controller: _loginController,
+                    is_hide: false,
+                    textInputAction: TextInputAction.next),
+                Input(
+                    hints: "Пароль",
+                    is_hide: true,
+                    textInputAction: TextInputAction.done,
+                    onFieldSubmitted: (e) {
+                      if (_login != "" && _password != "") {
+                        auth();
+                      }
+                    },
+                    controller: _passwordController),
                 Spacer(flex: 1),
                 ButtonCommerce(
-                  disable: false,
+                  disable: (_login == "" || _password == ""),
                   text: "Войти",
-                  click: () {},
+                  click: () {
+                    auth();
+                  },
                 ),
                 ButtonPrimary(
                   text: "Регистрация",

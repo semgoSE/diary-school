@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:dairy_app/components/Button.dart';
 import 'package:dairy_app/components/Input.dart';
 import 'package:dairy_app/components/Placeholder.dart';
 import 'package:dairy_app/components/Title.dart';
+import 'package:dairy_app/data/ResponseAuthData.dart';
 import 'package:dairy_app/data/SignUpData.dart';
 import 'package:dairy_app/helpers/AuthModal.dart';
 import 'package:dairy_app/helpers/api.dart';
@@ -9,6 +12,7 @@ import 'package:dairy_app/views/sign_up/Dairy.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -26,6 +30,7 @@ class SignUp_3State extends State {
 
   String _login = "";
   String _password = "";
+  bool isLoad = false;
 
   @override
   void initState() {
@@ -50,13 +55,42 @@ class SignUp_3State extends State {
   }
 
   void reg() async {
+    setState(() {
+      isLoad = true;
+    });
     showBarModalBottomSheet(
         context: context,
-        // isDismissible: false,
+        isDismissible: false,
+        enableDrag: false,
         topControl: Container(),
-        builder: (context) => (AuthModal()));
-    API.sign_up(
+        builder: (context) => StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) =>
+                (WillPopScope(
+                    child: AuthModal(child: Spinner(), header: "Авторизуем"),
+                    onWillPop: () => Future.value(false)))));
+
+    ResponseAuthData op = await API.sign_up(
         SignUpData(_login, _password, Dairy.cookies, Dairy.accounts_bind));
+    Navigator.pop(context);
+    var timer = new Timer(const Duration(seconds: 1), () {
+      Navigator.pop(context);
+      Navigator.pushNamedAndRemoveUntil(context, '/', (r) => false);
+    });
+
+    showBarModalBottomSheet(
+        context: context,
+        isDismissible: false,
+        enableDrag: false,
+        topControl: Container(),
+        builder: (context) => (WillPopScope(
+            child: AuthModal(
+                header: "Готово",
+                child: Icon(
+                  Ionicons.ios_checkmark_circle_outline,
+                  color: HexColor("#3f8ae0"),
+                  size: 60,
+                )),
+            onWillPop: () => Future.value(false))));
   }
 
   @override

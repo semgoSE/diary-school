@@ -4,6 +4,7 @@ import 'package:dairy_app/components/Cell.dart';
 import 'package:dairy_app/components/Placeholder.dart';
 import 'package:dairy_app/components/Title.dart';
 import 'package:dairy_app/data/AccountBind.dart';
+import 'package:dairy_app/data/AuthData.dart';
 import 'package:dairy_app/views/sign_up/Dairy.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -33,12 +34,15 @@ class SignUp_2State extends State {
         final VKAccessToken accessToken = data.accessToken;
         final d = await vk.getUserProfile();
         final VKUserProfile user = d.asValue.value;
-        Dairy.addUser(user.userId, user.firstName, user.lastName, user.photo200,
-            accessToken.token);
         setState(() {
+          Dairy.addUser(
+              user.userId,
+              user.firstName + " " + user.lastName,
+              user.photo200,
+              AuthData(token: accessToken.token, id: user.userId));
           accounts_bind = Dairy.accounts_bind;
         });
-        // vk.logOut();
+        vk.logOut();
         Navigator.pop(context);
       }
     }
@@ -72,8 +76,8 @@ class SignUp_2State extends State {
               ),
               ...accounts_bind
                   .map((e) => Cell(
-                        before: Avatar(src: e.photo_200),
-                        header: e.first_name + " " + e.last_name,
+                        before: Avatar(src: e.img),
+                        header: e.name,
                         click: () {
                           showBarModalBottomSheet(
                               context: context,
@@ -84,12 +88,11 @@ class SignUp_2State extends State {
                                       Container(
                                         padding: EdgeInsets.all(12),
                                         child: Avatar(
-                                          src: e.photo_200,
+                                          src: e.img,
                                           size: 56,
                                         ),
                                       ),
-                                      TitleLevel_1(
-                                          e.first_name + " " + e.last_name),
+                                      TitleLevel_1(e.name),
                                       ButtonDestructive(
                                         text: "Удалить",
                                         click: () {

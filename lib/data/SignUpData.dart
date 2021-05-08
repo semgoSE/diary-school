@@ -8,9 +8,9 @@ class SignUpData {
   final String login;
   final String password;
   final String cookies;
-  final List<AccountBind> bind_accounts;
+  final List<AccountBind> accounts_bind;
 
-  SignUpData(this.login, this.password, this.cookies, this.bind_accounts);
+  SignUpData(this.login, this.password, this.cookies, this.accounts_bind);
 
   Map<String, dynamic> toJson() => _$SignUpDataToJson(this);
 }
