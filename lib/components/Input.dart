@@ -5,16 +5,17 @@ class Input extends StatefulWidget {
   String hints = "";
   var controller;
   TextInputAction textInputAction;
+  FocusNode focusNode;
   var onFieldSubmitted;
   bool is_hide = false;
 
-  Input({
-    this.hints,
-    this.is_hide = false,
-    this.controller,
-    this.textInputAction,
-    this.onFieldSubmitted,
-  });
+  Input(
+      {this.hints,
+      this.is_hide = false,
+      this.controller,
+      this.textInputAction,
+      this.onFieldSubmitted,
+      this.focusNode = null});
 
   @override
   State<StatefulWidget> createState() => InputState();
@@ -26,6 +27,7 @@ class InputState extends State<Input> {
   TextInputAction textInputAction;
   var onFieldSubmitted;
   bool is_hide;
+  FocusNode focusNode;
 
   @override
   void initState() {
@@ -34,6 +36,7 @@ class InputState extends State<Input> {
     textInputAction = widget.textInputAction;
     onFieldSubmitted = widget.onFieldSubmitted;
     is_hide = widget.is_hide;
+    focusNode = widget.focusNode;
   }
 
   @override
@@ -45,6 +48,7 @@ class InputState extends State<Input> {
           obscureText: is_hide,
           enableSuggestions: !is_hide,
           autocorrect: !is_hide,
+          focusNode: focusNode,
           onFieldSubmitted: onFieldSubmitted,
           decoration: InputDecoration(
               filled: true,

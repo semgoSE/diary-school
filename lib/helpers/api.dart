@@ -7,25 +7,35 @@ import 'package:dairy_app/data/SignUpData.dart';
 import 'package:http/http.dart' as http;
 
 class API {
-  String _accessToken = "";
-  int _userId;
+  static String token = "";
+  static int user_id;
 
-  static String url = "https://20df1a810bec.ngrok.io/";
+  static String url = "https://043246edb244.ngrok.io/";
 
-  static Future<ResponseAuthData> sign_up(SignUpData data) async {
+  static Future<dynamic> sign_up(SignUpData data) async {
     var url = Uri.parse(API.url + "auth/sign_up");
     var response = await http.post(url,
         body: jsonEncode(data), headers: {'Content-Type': 'application/json'});
-    print(response.body);
-    return ResponseAuthData.fromJson(jsonDecode(response.body));
+    return jsonDecode(response.body);
   }
 
-  static Future<bool> sign_in(SignInData data) async {
+  static Future<dynamic> sign_in(SignInData data) async {
     var url = Uri.parse(API.url + "auth/sign_in");
     var response = await http.post(url,
         body: jsonEncode(data), headers: {'Content-Type': 'application/json'});
+    return jsonDecode(response.body);
+  }
+
+  static Future<dynamic> get_shedule_week(dynamic params) async {
+    var url = Uri.parse(API.url + "dairy/week_schedule");
+    var data = {
+      'params': params,
+      'auth': {'token': API.token, 'user_id': API.user_id}
+    };
+    var response = await http.post(url,
+        body: jsonEncode(data), headers: {'Content-Type': 'application/json'});
     print(response.body);
-    return false;
+    return jsonDecode(response.body);
   }
 }
 

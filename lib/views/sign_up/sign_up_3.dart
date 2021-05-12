@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:dairy_app/components/Button.dart';
 import 'package:dairy_app/components/Input.dart';
 import 'package:dairy_app/components/Placeholder.dart';
@@ -16,6 +15,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUp_3 extends StatefulWidget {
   @override
@@ -27,6 +27,7 @@ class SignUp_3State extends State {
 
   final _passwordController = TextEditingController();
   final _loginController = TextEditingController();
+  final _passwordFocus = FocusNode();
 
   String _login = "";
   String _password = "";
@@ -68,29 +69,38 @@ class SignUp_3State extends State {
                 (WillPopScope(
                     child: AuthModal(child: Spinner(), header: "Авторизуем"),
                     onWillPop: () => Future.value(false)))));
-
-    ResponseAuthData op = await API.sign_up(
+    FocusScope.of(context).unfocus();
+    var op = await API.sign_up(
         SignUpData(_login, _password, Dairy.cookies, Dairy.accounts_bind));
     Navigator.pop(context);
-    var timer = new Timer(const Duration(seconds: 1), () {
-      Navigator.pop(context);
-      Navigator.pushNamedAndRemoveUntil(context, '/', (r) => false);
-    });
+    if (op['success']) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setInt('user_id', op['data']['user_id']);
+      await prefs.setString('token', op['data']['token']);
+      var timer = new Timer(const Duration(seconds: 1), () {
+        Navigator.pop(context);
+        Navigator.pushNamedAndRemoveUntil(context, '/', (r) => false);
+      });
 
-    showBarModalBottomSheet(
-        context: context,
-        isDismissible: false,
-        enableDrag: false,
-        topControl: Container(),
-        builder: (context) => (WillPopScope(
-            child: AuthModal(
-                header: "Готово",
-                child: Icon(
-                  Ionicons.ios_checkmark_circle_outline,
-                  color: HexColor("#3f8ae0"),
-                  size: 60,
-                )),
-            onWillPop: () => Future.value(false))));
+      showBarModalBottomSheet(
+          context: context,
+          isDismissible: false,
+          enableDrag: false,
+          topControl: Container(),
+          builder: (context) => (WillPopScope(
+              child: AuthModal(
+                  header: "Готово",
+                  child: Icon(
+                    Ionicons.ios_checkmark_circle_outline,
+                    color: HexColor("#3f8ae0"),
+                    size: 60,
+                  )),
+              onWillPop: () => Future.value(false))));
+    } else {
+      final snackBar = SnackBar(
+          content: Text(op['data']), backgroundColor: HexColor("#e64646"));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 
   @override
@@ -131,6 +141,7 @@ class SignUp_3State extends State {
                       Input(
                           hints: "Введите пароль",
                           is_hide: true,
+                          focusNode: _passwordFocus,
                           textInputAction: TextInputAction.done,
                           onFieldSubmitted: (e) {
                             if (_login != "" && _password != "") {

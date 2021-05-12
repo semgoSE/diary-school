@@ -5,13 +5,14 @@ import 'package:dairy_app/views/sign_up/sign_up_1.dart';
 import 'package:dairy_app/views/sign_up/sign_up_2.dart';
 import 'package:dairy_app/views/sign_up/sign_up_3.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import './views/sign_in/sign_in.dart';
 
 void main() async {
   runApp(
     MaterialApp(
       theme: ThemeData(),
-      initialRoute: "/sign_in",
+      initialRoute: "/",
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
         '/sign_in': (BuildContext context) {
