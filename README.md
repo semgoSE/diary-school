@@ -5,12 +5,11 @@ dairy_app(v 1.0)
 # Доступ к API  
 Основной маршрут - https://dairy-school.herokuapp.com/  
 # Методы секции dairy  
-Пример данных в теле запроса
-<
-{
-  auth: {
-    user_id: 0,
-    token: ""
-  }
-}
->
+Пример данных в теле запроса  
+{  
+  auth: {  
+    user_id: 0,  
+    token: ""  
+  }  
+}  
+
