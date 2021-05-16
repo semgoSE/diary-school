@@ -7,6 +7,7 @@ import 'package:dairy_app/data/ResponseAuthData.dart';
 import 'package:dairy_app/data/SignUpData.dart';
 import 'package:dairy_app/helpers/AuthModal.dart';
 import 'package:dairy_app/helpers/api.dart';
+import 'package:dairy_app/views/main/BottomNavigation.dart';
 import 'package:dairy_app/views/sign_up/Dairy.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,7 @@ class SignUp_3State extends State {
   String _login = "";
   String _password = "";
   bool isLoad = false;
+  bool _checkbox = false;
 
   @override
   void initState() {
@@ -151,6 +153,13 @@ class SignUp_3State extends State {
                           controller: _passwordController)
                     ],
                   ))),
+          Container(
+              margin: EdgeInsets.symmetric(horizontal: 24),
+              child: Text(
+                "Нажимая, готово я соглашаюсь с политикой конфидициальности",
+                textAlign: TextAlign.center,
+                style: TextStyle(color: HexColor("#818c99"), fontSize: 12),
+              )),
           ButtonCommerce(
             text: "Готово",
             disable: (_login == "" || _password == ""),
