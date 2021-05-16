@@ -10,7 +10,7 @@ class API {
   static String token = "";
   static int user_id;
 
-  static String url = "https://043246edb244.ngrok.io/";
+  static String url = "https://dairy-school.herokuapp.com/";
 
   static Future<dynamic> sign_up(SignUpData data) async {
     var url = Uri.parse(API.url + "auth/sign_up");
@@ -34,7 +34,6 @@ class API {
     };
     var response = await http.post(url,
         body: jsonEncode(data), headers: {'Content-Type': 'application/json'});
-    print(response.body);
     return jsonDecode(response.body);
   }
 }

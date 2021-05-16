@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:dairy_app/components/Button.dart';
 import 'package:dairy_app/components/Input.dart';
@@ -61,6 +62,7 @@ class SignInState extends State {
     if (op['success']) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setInt('user_id', op['data']['user_id']);
+      log(op['data'].toString());
       await prefs.setString('token', op['data']['token']);
       var timer = new Timer(const Duration(seconds: 1), () {
         Navigator.pop(context);

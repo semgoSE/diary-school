@@ -73,7 +73,7 @@ class SignUp_3State extends State {
     var op = await API.sign_up(
         SignUpData(_login, _password, Dairy.cookies, Dairy.accounts_bind));
     Navigator.pop(context);
-    if (op['success']) {
+    if (op['success'] == true) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setInt('user_id', op['data']['user_id']);
       await prefs.setString('token', op['data']['token']);

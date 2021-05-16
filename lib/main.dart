@@ -1,16 +1,21 @@
-import 'package:dairy_app/views/main/Main.dart';
+import 'package:dairy_app/redux/gv.dart';
+import 'package:dairy_app/views/main/BottomNavigation.dart';
 import 'package:dairy_app/views/sign_in/sign_in.dart';
 import 'package:dairy_app/helpers/WebView.dart';
 import 'package:dairy_app/views/sign_up/sign_up_1.dart';
 import 'package:dairy_app/views/sign_up/sign_up_2.dart';
 import 'package:dairy_app/views/sign_up/sign_up_3.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
 import './views/sign_in/sign_in.dart';
 
 void main() async {
-  runApp(
-    MaterialApp(
+  final store = new Store<StateAppStore>(appReducers,
+      initialState: StateAppStore(appBar: null));
+  runApp(StoreProvider(
+    store: store,
+    child: MaterialApp(
       theme: ThemeData(),
       initialRoute: "/",
       debugShowCheckedModeBanner: false,
@@ -31,9 +36,9 @@ void main() async {
           return WebView();
         },
         '/': (BuildContext context) {
-          return Main();
+          return BottomNavigation(store);
         }
       },
     ),
-  );
+  ));
 }
