@@ -10,7 +10,7 @@ class API {
   static String token = "";
   static int user_id;
 
-  static String url = "https://dairy-school.herokuapp.com/";
+  static String url = "https://diary-school.herokuapp.com/v1.0/";
 
   static Future<dynamic> sign_up(SignUpData data) async {
     var url = Uri.parse(API.url + "auth/sign_up");
