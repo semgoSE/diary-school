@@ -69,11 +69,29 @@ class SignUp_3State extends State {
         builder: (context) => StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) =>
                 (WillPopScope(
-                    child: AuthModal(child: Spinner(), header: "Авторизуем"),
-                    onWillPop: () => Future.value(false)))));
+                    child: AuthModal(
+                        height: 170,
+                        child: Column(children: [
+                          Spinner(),
+                          Container(
+                            margin: EdgeInsets.all(8),
+                            child: Text(
+                                "Регистрация может занять некоторое время. Не закрывайте приложение",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: HexColor("#818c99"), fontSize: 13)),
+                          )
+                        ]),
+                        header: "Авторизуем."),
+                    onWillPop: () => Future.value(true)))));
     FocusScope.of(context).unfocus();
-    var op = await API.sign_up(
-        SignUpData(_login, _password, Dairy.cookies, Dairy.accounts_bind));
+    var data = {
+      'login': _login,
+      'password': _password,
+      'cookie': Dairy.cookies,
+      'accounts_bind': Dairy.getAccountsBind()
+    };
+    var op = await API.sign_up(data);
     Navigator.pop(context);
     if (op['success'] == true) {
       SharedPreferences prefs = await SharedPreferences.getInstance();

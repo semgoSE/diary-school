@@ -13,6 +13,18 @@ class Dairy {
         authData: authData));
   }
 
+  static List<dynamic> getAccountsBind() {
+    return accounts_bind
+        .map((e) => {
+              'type': e.authData.type,
+              'data': {
+                (e.authData.type == "VK" ? 'vk_id' : 'id'): e.authData.id,
+                'token': e.authData.token
+              }
+            })
+        .toList();
+  }
+
   static void removeUser(id) {
     accounts_bind.removeAt(accounts_bind.indexWhere((e) => e.id == id));
   }

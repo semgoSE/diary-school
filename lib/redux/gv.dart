@@ -31,6 +31,7 @@ StateAppStore appReducers(StateAppStore item, dynamic action) {
 
 StateAppStore setDiary(StateAppStore item, ActionSetDiary action) {
   item.diary = action.diary;
+  return item;
 }
 
 StateAppStore addItem(StateAppStore item, ActionSetAppBar action) {

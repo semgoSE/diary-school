@@ -55,15 +55,16 @@ class SignInState extends State {
                     child: AuthModal(child: Spinner(), header: "Авторизуем"),
                     onWillPop: () => Future.value(false)))));
 
-    SignInData data = SignInData(
-        login: _login, password: _password, type: SignInDataType.DEFAULT);
-    var op = await API.sign_in(data);
+    var data = {'type': 'DEFAULT', 'login': _login, 'password': _password};
+    print(data);
+    var op = await API.login(data);
     Navigator.pop(context);
     if (op['success']) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setInt('user_id', op['data']['user_id']);
-      log(op['data'].toString());
       await prefs.setString('token', op['data']['token']);
+      API.user_id = op['data']['user_id'];
+      API.token = op['data']['token'];
       var timer = new Timer(const Duration(seconds: 1), () {
         Navigator.pop(context);
         Navigator.pushNamedAndRemoveUntil(context, '/', (r) => false);

@@ -6,13 +6,15 @@ import 'package:hexcolor/hexcolor.dart';
 class AuthModal extends StatelessWidget {
   final Widget child;
   final String header;
+  final double height;
 
-  const AuthModal({Key key, this.child, this.header}) : super(key: key);
+  const AuthModal({Key key, this.child, this.header, this.height = 128})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return (Container(
-      height: 128,
+      height: height,
       child: Column(
         children: [
           Container(height: 48, child: TitleLevel_1(header)),

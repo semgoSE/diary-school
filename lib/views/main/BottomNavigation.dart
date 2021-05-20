@@ -55,15 +55,14 @@ class MainState extends State<BottomNavigation> {
   Widget build(BuildContext context) {
     final List<Widget> _children = [
       NewsFeed(store),
-      SheduleWeek(),
+      SheduleWeek(store),
       User(store)
     ];
 
     return (new StoreConnector<StateAppStore, StateAppStore>(
         builder: (context, state) {
           return (Scaffold(
-            backgroundColor:
-                HexColor(_currentIndex == 1 ? "#ADABA7" : "#ffffff"),
+            backgroundColor: HexColor("#ffffff"),
             appBar: state.appBar,
             body: !isLoad
                 ? _children[_currentIndex]

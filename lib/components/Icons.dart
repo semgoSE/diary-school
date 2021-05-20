@@ -20,3 +20,22 @@ class Icon28 extends StatelessWidget {
     ));
   }
 }
+
+class Icon56 extends StatelessWidget {
+  final String path;
+  Color color = HexColor("#000000");
+  double size = 56;
+
+  Icon56({Key key, this.path, this.color, this.size}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return (Container(
+      alignment: Alignment.center,
+      width: size,
+      height: size,
+      color: color,
+      child: SvgPicture.asset(path),
+    ));
+  }
+}
