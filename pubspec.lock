@@ -672,6 +672,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  vibrate:
+    dependency: "direct main"
+    description:
+      name: vibrate
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.4"
   watcher:
     dependency: transitive
     description:

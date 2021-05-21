@@ -1,3 +1,4 @@
+import 'package:dairy_app/helpers/Vibrations.dart';
 import 'package:dairy_app/redux/gv.dart';
 import 'package:dairy_app/views/main/BottomNavigation.dart';
 import 'package:dairy_app/views/sign_in/sign_in.dart';

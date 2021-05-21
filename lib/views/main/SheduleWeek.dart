@@ -6,6 +6,7 @@ import 'package:dairy_app/components/Icons.dart';
 import 'package:dairy_app/components/Placeholder.dart';
 import 'package:dairy_app/components/Title.dart';
 import 'package:dairy_app/helpers/AuthModal.dart';
+import 'package:dairy_app/helpers/Vibrations.dart';
 import 'package:dairy_app/helpers/api.dart';
 import 'package:dairy_app/redux/gv.dart';
 import 'package:flutter/cupertino.dart';
@@ -31,11 +32,11 @@ class SheduleWeekState extends State<SheduleWeek> {
   InfinityPageController controller;
   int page;
   DateTime date;
+  bool isHeader = false;
 
   @override
   void initState() {
     store = widget.store;
-    print(store.state.diary);
     date = DateTime.now();
     controller = InfinityPageController(initialPage: date.weekday - 1);
     getLessons();
@@ -51,12 +52,19 @@ class SheduleWeekState extends State<SheduleWeek> {
           .then((data) => {
                 setState(() {
                   res = data['data'];
-                  store.dispatch(ActionSetDiary(res));
+                  if (data['data'].length != 0) {
+                    isHeader = true;
+                    store.dispatch(ActionSetDiary(res));
+                    Vibrations.success();
+                  } else {
+                    Vibrations.warning();
+                  }
                 })
               })
           .catchError((e) => print(e.toString()));
     } else {
       setState(() {
+        isHeader = true;
         res = store.state.diary;
       });
     }
@@ -81,12 +89,14 @@ class SheduleWeekState extends State<SheduleWeek> {
             backgroundColor: HexColor("#4bb34b"),
             behavior: SnackBarBehavior.floating);
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        Vibrations.success();
         getLessons();
       } else {
         final snackBar = SnackBar(
             content: Text(data['data']),
             backgroundColor: HexColor("#e64646"),
             behavior: SnackBarBehavior.floating);
+        Vibrations.warning();
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     });
@@ -123,30 +133,98 @@ class SheduleWeekState extends State<SheduleWeek> {
   Widget itemList(dynamic data) {
     return Container(
       child: SlimyCard(
-        topCardHeight: 150,
-        color: Colors.white,
-        bottomCardWidget: Text("Подробная иформация"),
-        topCardWidget: Column(
-          children: [
-            Container(
-              child: Text(data['subject']['discipline'],
+        topCardHeight: 190,
+        color: Colors.orange[50],
+        bottomCardHeight: 150,
+        bottomCardWidget: Container(
+            padding: EdgeInsets.all(12),
+            child: (Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      child: Text(
+                        "Средняя оценка",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      padding: EdgeInsets.all(8),
+                    ),
+                    Expanded(child: Text("5"))
+                  ],
+                ),
+                Row(
+                  children: [
+                    Container(
+                      child: Text(
+                        "Д.з",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      padding: EdgeInsets.all(8),
+                    ),
+                    Expanded(child: Text("ничего нет"))
+                  ],
+                ),
+                Row(
+                  children: [
+                    Container(
+                      child: Text(
+                        "Комментарий",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      padding: EdgeInsets.all(8),
+                    ),
+                    Expanded(child: Text(""))
+                  ],
+                )
+              ],
+            ))),
+        topCardWidget: Container(
+          child: Column(
+            children: [
+              Text(data['index_day'].toString(),
                   style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
+                      color: HexColor("#000000"),
+                      fontSize: 17,
                       fontWeight: FontWeight.bold)),
-              margin: EdgeInsets.all(12),
-            ),
-            Container(
-                child: Text(
-              data['office'],
-              textAlign: TextAlign.center,
-              style: TextStyle(color: HexColor("#99a2ad")),
-            )),
-            Container(
+              Container(
                 child: Row(
-              children: [],
-            ))
-          ],
+                  children: [
+                    Expanded(
+                        child: Text(data['subject']['discipline'],
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold)))
+                  ],
+                ),
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 4),
+              ),
+              Container(
+                  child: Text(
+                data['time_begin'] + " - " + data['time_end'],
+                textAlign: TextAlign.center,
+                style: TextStyle(color: HexColor("#99a2ad"), fontSize: 14),
+              )),
+
+              Container(
+                child: Row(children: [
+                  Expanded(
+                      child: Container(
+                    child: Text(
+                      data['office'],
+                      style: TextStyle(fontSize: 15),
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                  ))
+                ]),
+              ),
+              // Container(height: 20)
+            ],
+          ),
+          padding: EdgeInsets.all(12),
         ),
       ),
       padding: EdgeInsets.all(12),
@@ -184,27 +262,29 @@ class SheduleWeekState extends State<SheduleWeek> {
     return StoreConnector<StateAppStore, dynamic>(converter: (store) {
       return (appBar) => store.dispatch(ActionSetAppBar(appBar));
     }, builder: (context, setAppBar) {
-      setAppBar(AppBar(
-        title: Column(children: [
-          Text(getWeekday(date.weekday),
-              style: TextStyle(color: HexColor("#000000"))),
-          Text(date.toString(),
-              style: TextStyle(color: HexColor("#99a2ad"), fontSize: 12))
-        ]),
-        backgroundColor: HexColor("#ffffff"),
-        leading: IconButton(
-            icon: SvgPicture.asset("res/chevron_left_outline_28.svg",
-                color: HexColor("#2975cc")),
-            onPressed: back),
-        actions: [
-          IconButton(
-              icon: SvgPicture.asset("res/chevron_right_outline_28.svg",
-                  color: HexColor("#2975cc")),
-              onPressed: to)
-        ],
-        centerTitle: true,
-        elevation: 1,
-      ));
+      setAppBar(isHeader
+          ? AppBar(
+              title: Column(children: [
+                Text(getWeekday(date.weekday),
+                    style: TextStyle(color: HexColor("#000000"))),
+                Text(date.toString(),
+                    style: TextStyle(color: HexColor("#99a2ad"), fontSize: 12))
+              ]),
+              backgroundColor: HexColor("#ffffff"),
+              leading: IconButton(
+                  icon: SvgPicture.asset("res/chevron_left_outline_28.svg",
+                      color: HexColor("#2975cc")),
+                  onPressed: back),
+              actions: [
+                IconButton(
+                    icon: SvgPicture.asset("res/chevron_right_outline_28.svg",
+                        color: HexColor("#2975cc")),
+                    onPressed: to)
+              ],
+              centerTitle: true,
+              elevation: 0,
+            )
+          : null);
       return (res == null
           ? Container(child: Spinner(), alignment: Alignment.center)
           : res.length == 0
@@ -217,21 +297,19 @@ class SheduleWeekState extends State<SheduleWeek> {
                         "res/search_like_outline_56.svg",
                         height: 120,
                         width: 120,
-                        color: HexColor("#99a2ad"),
+                        color: HexColor("#2787F5"),
                       ),
                     ),
                     Container(
                       padding: EdgeInsets.all(24),
-                      child: Text("Расписание не найдено. Начать поиск?",
+                      child: Text("Расписание не найдено. ?",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: HexColor("#818c99"),
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold)),
+                              fontSize: 18, fontWeight: FontWeight.bold)),
                     ),
                     Container(
                         child: ButtonPrimary(
-                      text: "Да",
+                      text: "Далее",
                       click: () {
                         parseLessons();
                       },
@@ -239,7 +317,7 @@ class SheduleWeekState extends State<SheduleWeek> {
                   ],
                 )
               : Container(
-                  color: Colors.black.withOpacity(0.7),
+                  color: Colors.white,
                   child: InfinityPageView(
                       onPageChanged: onPageChange,
                       controller: controller,
@@ -265,7 +343,7 @@ class SheduleWeekState extends State<SheduleWeek> {
                                     Container(
                                       padding: EdgeInsets.all(12),
                                       child: Text(
-                                        "Уроков нет. Можно спать)",
+                                        "Уроков нет. Можно спать спокойно)",
                                         style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold),

@@ -6,6 +6,7 @@ import 'package:dairy_app/components/Title.dart';
 import 'package:dairy_app/data/ResponseAuthData.dart';
 import 'package:dairy_app/data/SignUpData.dart';
 import 'package:dairy_app/helpers/AuthModal.dart';
+import 'package:dairy_app/helpers/Vibrations.dart';
 import 'package:dairy_app/helpers/api.dart';
 import 'package:dairy_app/views/main/BottomNavigation.dart';
 import 'package:dairy_app/views/sign_up/Dairy.dart';
@@ -98,6 +99,7 @@ class SignUp_3State extends State {
       await prefs.setInt('user_id', op['data']['user_id']);
       await prefs.setString('token', op['data']['token']);
       var timer = new Timer(const Duration(seconds: 1), () {
+        Vibrations.success();
         Navigator.pop(context);
         Navigator.pushNamedAndRemoveUntil(context, '/', (r) => false);
       });
@@ -119,6 +121,7 @@ class SignUp_3State extends State {
     } else {
       final snackBar = SnackBar(
           content: Text(op['data']), backgroundColor: HexColor("#e64646"));
+      Vibrations.warning();
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }

@@ -1,10 +1,12 @@
 import 'package:dairy_app/helpers/AuthModal.dart';
+import 'package:dairy_app/helpers/Vibrations.dart';
 import 'package:dairy_app/helpers/api.dart';
 import 'package:dairy_app/redux/gv.dart';
 import 'package:dairy_app/views/main/NewsFeed.dart';
 import 'package:dairy_app/views/main/SheduleWeek.dart';
 import 'package:dairy_app/views/main/User.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/parser.dart';
@@ -32,6 +34,7 @@ class MainState extends State<BottomNavigation> {
   }
 
   void checkLogin() async {
+    await Vibrations.canVibrate();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getInt("user_id") == null) {
       // Navigator.pop(context);
@@ -58,6 +61,11 @@ class MainState extends State<BottomNavigation> {
       SheduleWeek(store),
       User(store)
     ];
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
 
     return (new StoreConnector<StateAppStore, StateAppStore>(
         builder: (context, state) {
