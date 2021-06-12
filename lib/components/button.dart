@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
   Widget? child;
+  bool disable;
   String? mode;
   Function? click;
 
-  Button({this.mode, this.click, this.child});
+  Button({this.mode, this.click, this.child, this.disable = false});
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +15,23 @@ class Button extends StatelessWidget {
       child: InkWell(
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-          ),
+              borderRadius: BorderRadius.circular(16),
+              color: !disable
+                  ? getColorByMode()
+                  : getColorByMode().withOpacity(0.7)),
           child: child,
         ),
       ),
     ));
+  }
+
+  Color getColorByMode() {
+    switch (mode) {
+      case "primary":
+        return Colors.black;
+
+      default:
+        return Colors.white;
+    }
   }
 }
