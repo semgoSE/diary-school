@@ -1,7 +1,7 @@
 //описываем состояние
 import 'package:diary_app/redux/actions/SignUpActions.dart';
 
-class State {
+class StateStore {
   SignUp signUp = SignUp();
 }
 
@@ -10,7 +10,7 @@ class SignUp {
 }
 
 //обрабатываем события
-State appReducers(State state, dynamic action) {
+StateStore appReducers(StateStore state, dynamic action) {
   if (action is SignUpSetCookie) {
     //что-то делаем... вызаваем функцию для обработки и т.д
     return setCookie(state, action);
@@ -18,7 +18,7 @@ State appReducers(State state, dynamic action) {
   return state;
 }
 
-State setCookie(State state, SignUpSetCookie action) {
+StateStore setCookie(StateStore state, SignUpSetCookie action) {
   state.signUp.cookie = action.cookie;
   return state;
 }
