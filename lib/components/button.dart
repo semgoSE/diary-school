@@ -17,15 +17,15 @@ class Button extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               color: !disable
-                  ? getColorByMode()
-                  : getColorByMode().withOpacity(0.7)),
+                  ? getBachgroundColorByMode()
+                  : getBachgroundColorByMode().withOpacity(0.7)),
           child: child,
         ),
       ),
     ));
   }
 
-  Color getColorByMode() {
+  Color getBachgroundColorByMode() {
     switch (mode) {
       case "primary":
         return Colors.black;

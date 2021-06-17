@@ -1,11 +1,15 @@
+import 'package:diary_app/redux/redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
 import 'views/authentication/login.dart';
 import 'views/root/bottom_navigation_panel.dart';
 
 void main() async {
+  final store =
+      new Store<StateStore>(appReducers, initialState: new StateStore());
   runApp(StoreProvider(
-    store: null,
+    store: store,
     child: MaterialApp(
       theme: ThemeData(),
       initialRoute: "/",
