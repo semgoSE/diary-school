@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class SimpleCell extends StatelessWidget {
   Widget? before;
   Widget? after;
-  Widget? child;
+  Widget child;
   Widget? description;
 
   Function? onClick;
 
   SimpleCell(
-      {this.before, this.after, this.child, this.description, this.onClick});
+      {this.before, this.after, required this.child, this.description, this.onClick});
 
   @override
   Widget build(BuildContext context) {
