@@ -28,6 +28,8 @@ import ru.semgose.dairy_1.R;
 import ru.semgose.dairy_1.SignActivity;
 import ru.semgose.dairy_1.User;
 import ru.semgose.dairy_1.componets.SpinnerFragment;
+import ru.semgose.dairy_1.router.RouterSign;
+import ru.semgose.dairy_1.ui.sign.up.MenuSignUpFragment;
 import timber.log.Timber;
 
 public class SignInFragment extends Fragment {
@@ -52,11 +54,8 @@ public class SignInFragment extends Fragment {
             public void onClick(View v) {
                 //Log.d("dd", "click");
                 if(!(login.getText().toString().equals("") || password.getText().toString().equals(""))) {
-                    Log.d("dd", "click");
-                    v.setEnabled(false);
-                    sign_up_btn.setEnabled(false);
-                    fm = getChildFragmentManager();
-                    fm.beginTransaction().add(R.id.container_spinner, new SpinnerFragment(), "SPINNER").commit();
+                    Log.d("click", "click");
+                    RouterSign.add(new SpinnerFragment(), "SPINNER", false);
                 } else {
                     Snackbar.make(v, "Заполните все поля!", 3000).show();
                 }
@@ -66,7 +65,7 @@ public class SignInFragment extends Fragment {
         sign_up_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SignActivity.goSignUp();
+                RouterSign.replace(new MenuSignUpFragment(), "MENU_SIGN_UP");
             }
         });
         return view;

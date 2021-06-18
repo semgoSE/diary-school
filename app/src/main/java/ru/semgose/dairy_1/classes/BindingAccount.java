@@ -1,4 +1,4 @@
-package ru.semgose.dairy_1.statics;
+package ru.semgose.dairy_1.classes;
 
 import android.net.Uri;
 

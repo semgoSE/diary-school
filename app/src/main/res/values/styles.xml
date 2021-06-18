@@ -65,6 +65,8 @@
     </style>
 
     <style name="Button.Cell">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textAlignment">textStart</item>
         <item name="android:background">@drawable/cell_button</item>
         <item name="android:textColor">@color/accent</item>

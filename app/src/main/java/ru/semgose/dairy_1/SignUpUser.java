@@ -2,7 +2,7 @@ package ru.semgose.dairy_1;
 
 import java.util.ArrayList;
 
-import ru.semgose.dairy_1.statics.BindingAccount;
+import ru.semgose.dairy_1.classes.BindingAccount;
 
 public class SignUpUser {
     private static String cookie = "";

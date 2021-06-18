@@ -6,7 +6,7 @@
     android:layout_height="60dp">
 
     <ImageView
-        android:id="@+id/logo_list"
+        android:id="@+id/logo_list1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -16,7 +16,7 @@
         app:srcCompat="@drawable/ic_logo_vk_24" />
 
     <TextView
-        android:id="@+id/text_list"
+        android:id="@+id/text_list1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
@@ -24,12 +24,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.026"
-        app:layout_constraintStart_toEndOf="@+id/logo_list"
+        app:layout_constraintStart_toEndOf="@+id/logo_list1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.512" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"

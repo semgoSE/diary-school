@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import ru.semgose.dairy_1.R;
+import ru.semgose.dairy_1.router.RouterSign;
 
 public class BindingSignUpFragment extends Fragment {
     @Nullable
@@ -21,7 +22,7 @@ public class BindingSignUpFragment extends Fragment {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getChildFragmentManager().beginTransaction().replace(R.id.modal, new ModalSignInBindingFragment(), "MODAL_BINDING").commit();
+                RouterSign.openModal(new ModalSignInBindingFragment(), "MODAL_BINDING");
             }
         });
         return view;

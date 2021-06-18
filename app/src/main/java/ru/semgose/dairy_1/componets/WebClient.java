@@ -1,7 +1,6 @@
 package ru.semgose.dairy_1.componets;
 
 import android.annotation.TargetApi;
-import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Build;
@@ -12,10 +11,10 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import ru.semgose.dairy_1.SignActivity;
 import ru.semgose.dairy_1.SignUpUser;
+import ru.semgose.dairy_1.router.RouterSign;
 import ru.semgose.dairy_1.ui.sign.up.BindingSignUpFragment;
-import ru.semgose.dairy_1.ui.sign.up.WebViewSignUpFragment;
+
 
 public class WebClient extends WebViewClient {
 
@@ -28,7 +27,8 @@ public class WebClient extends WebViewClient {
         if(request.getUrl().toString().equals("https://e-school.ryazangov.ru/")) {
             String myCookies = CookieManager.getInstance().getCookie(request.getUrl().toString());
             SignUpUser.setCookie(myCookies);
-            SignActivity.nextSignUp(new BindingSignUpFragment(), "BINDING");
+            RouterSign.replace(new BindingSignUpFragment(), "BINDING");
+            view.destroy();
         }
         return true;
     }
@@ -41,11 +41,13 @@ public class WebClient extends WebViewClient {
     @Override
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
         super.onPageStarted(view, url, favicon);
+        RouterSign.add(new SpinnerFragment(), "SPINNER", false);
     }
 
     @Override
     public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
+        RouterSign.remove();
     }
 }
 
