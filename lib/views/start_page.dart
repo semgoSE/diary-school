@@ -10,22 +10,35 @@ class StartPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(child: Icon(Icons.ac_unit_outlined, size: 128.0,)),
+          Expanded(
+              child: Icon(
+            Icons.ac_unit_outlined,
+            size: 128.0,
+          )),
           Container(
-            padding: EdgeInsets.only(bottom: 8.0),
+            padding: EdgeInsets.symmetric(vertical: 8.0),
             child: MyButton(
-              child: Text("Вход", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+              click: () {
+                Navigator.pushNamed(context, "/login");
+              },
+              child: Text("Вход",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold)),
               mode: "primary",
               disable: false,
             ),
           ),
           Container(
-            padding: EdgeInsets.only(bottom: 8.0),
+            padding: EdgeInsets.symmetric(vertical: 8.0),
             child: MyButton(
-              child: Text("Регистрация", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+              child: Text(
+                "Регистрация",
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
               mode: "secondary",
               disable: false,
-              ),
+            ),
           ),
         ],
       ),

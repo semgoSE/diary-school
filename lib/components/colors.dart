@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class LightTheme {
-
   //Accent Color
   Color accent = Color(0xFF3f8ae0);
 
@@ -19,11 +18,14 @@ class LightTheme {
     "button_secondary_background": Color.fromRGBO(0, 28, 61, 0.05),
     "button_secondary_background_highlighted": Color.fromRGBO(0, 28, 61, 0.03),
     "button_secondary_destructive_background": Color.fromRGBO(0, 28, 61, 0.05),
-    "button_secondary_destructive_background_highlighted": Color.fromRGBO(0, 28, 61, 0.03),
+    "button_secondary_destructive_background_highlighted":
+        Color.fromRGBO(0, 28, 61, 0.03),
     "button_secondary_destructive_foreground": Color(0xFFe64646),
-    "button_secondary_destructive_foreground_highlighted": Color.fromRGBO(230, 70, 70, 0.60),
+    "button_secondary_destructive_foreground_highlighted":
+        Color.fromRGBO(230, 70, 70, 0.60),
     "button_secondary_foreground": Color(0xFF3f8ae0),
-    "button_secondary_foreground_highlighted": Color.fromRGBO(63, 138, 224, 0.60),
+    "button_secondary_foreground_highlighted":
+        Color.fromRGBO(63, 138, 224, 0.60),
     "button_tertiary_background": Color.fromRGBO(0, 0, 0, 0.00),
     "button_tertiary_foreground": Color(0xFF4986cc),
   };
@@ -37,11 +39,9 @@ class LightTheme {
     "field_text_placeholder": Color(0xFF818c99),
     "field_valid_border": Color(0xFF4bb34b),
   };
-  
-} 
+}
 
 class DarkTheme {
-
   //Accent Color
   Color accent = Color(0xFF71aaeb);
 
@@ -59,11 +59,14 @@ class DarkTheme {
     "button_secondary_background": Color(0xFF454647),
     "button_secondary_background_highlighted": Color.fromRGBO(69, 70, 71, 0.60),
     "button_secondary_destructive_background": Color(0xFF454647),
-    "button_secondary_destructive_background_highlighted": Color.fromRGBO(69, 70, 71, 0.60),
+    "button_secondary_destructive_background_highlighted":
+        Color.fromRGBO(69, 70, 71, 0.60),
     "button_secondary_destructive_foreground": Color(0xFFff5c5c),
-    "button_secondary_destructive_foreground_highlighted": Color.fromRGBO(255, 92, 92, 0.60),
+    "button_secondary_destructive_foreground_highlighted":
+        Color.fromRGBO(255, 92, 92, 0.60),
     "button_secondary_foreground": Color(0xFFe1e3e6),
-    "button_secondary_foreground_highlighted": Color.fromRGBO(225, 227, 230, 0.60),
+    "button_secondary_foreground_highlighted":
+        Color.fromRGBO(225, 227, 230, 0.60),
     "button_tertiary_background": Color.fromRGBO(0, 0, 0, 0.00),
     "button_tertiary_foreground": Color(0xFFe1e3e6),
   };
@@ -77,5 +80,4 @@ class DarkTheme {
     "field_text_placeholder": Color(0xFF76787a),
     "field_valid_border": Color(0xFF4bb34b),
   };
-
 }

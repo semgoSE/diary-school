@@ -22,7 +22,7 @@ class MyButton extends StatelessWidget {
         if (theme == "light") {
           this.colors = LightTheme().button;
           this.accentColor = LightTheme().accent;
-        } else if(theme == "dark") {
+        } else if (theme == "dark") {
           this.colors = DarkTheme().button;
           this.accentColor = DarkTheme().accent;
         }
@@ -37,7 +37,7 @@ class MyButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.0),
               onTap: () => click!(),
               child: Container(
-                padding: EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(12.0),
                 width: double.infinity,
                 child: Center(child: child),
               ),
