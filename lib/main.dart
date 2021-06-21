@@ -1,4 +1,5 @@
 import 'package:diary_app/redux/redux.dart';
+import 'package:diary_app/views/start_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
@@ -19,7 +20,7 @@ void main() async {
           return Login();
         },
         '/': (BuildContext context) {
-          return BottomNavigation();
+          return Scaffold(body: StartPage());
         },
       },
     ),

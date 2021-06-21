@@ -1,3 +1,4 @@
+import 'package:diary_app/views/start_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,11 +12,11 @@ class BottomNavigation extends StatefulWidget {
 
 class _BottomNavigationState extends State<BottomNavigation> {
   int _currentIndex = 0;
-  bool _isLoad = true;
+  bool _isLoad = false;
 
   @override
   void initState() {
-    checkLogin();
+    //checkLogin();
     super.initState();
   }
 
@@ -51,14 +52,14 @@ class _BottomNavigationState extends State<BottomNavigation> {
       DeviceOrientation.portraitDown,
     ]);
 
-    return (Scaffold(
-      backgroundColor: HexColor("#ffffff"),
+    return Scaffold(
+      //backgroundColor: HexColor("#ffffff"),
       body: !_isLoad
-          ? _children[_currentIndex]
-          : Container(
-              alignment: Alignment.center,
-              child: Container(),
-            ),
+           ? _children[_currentIndex]
+           : Container(
+               alignment: Alignment.center,
+               child: Container(),
+             ),
       bottomNavigationBar: !_isLoad
           ? BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
@@ -100,6 +101,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     label: "Профиль")
               ],
             ) : Container(),
-    ));
+    );
   }
 }

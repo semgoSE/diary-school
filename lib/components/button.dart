@@ -1,37 +1,50 @@
-import 'package:flutter/cupertino.dart';
+import 'package:diary_app/components/colors.dart';
+import 'package:diary_app/redux/redux.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
-class Button extends StatelessWidget {
+class MyButton extends StatelessWidget {
   Widget? child;
-  bool disable;
+  bool? disable;
   String? mode;
   Function? click;
 
-  Button({this.mode, this.click, this.child, this.disable = false});
+  MyButton({this.mode, this.click, this.child, this.disable});
+
+  Color? accentColor;
+  Map<String, Color>? colors;
 
   @override
   Widget build(BuildContext context) {
-    return (Container(
-      child: InkWell(
-        child: Container(
+    return new StoreConnector<StateStore, String>(
+      converter: (store) => store.state.theme,
+      builder: (context, theme) {
+        if (theme == "light") {
+          this.colors = LightTheme().button;
+          this.accentColor = LightTheme().accent;
+        } else if(theme == "dark") {
+          this.colors = DarkTheme().button;
+          this.accentColor = DarkTheme().accent;
+        }
+        return Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              color: !disable
-                  ? getBachgroundColorByMode()
-                  : getBachgroundColorByMode().withOpacity(0.7)),
-          child: child,
-        ),
-      ),
-    ));
-  }
-
-  Color getBachgroundColorByMode() {
-    switch (mode) {
-      case "primary":
-        return Colors.black;
-
-      default:
-        return Colors.white;
-    }
+            borderRadius: BorderRadius.circular(8.0),
+            color: accentColor,
+          ),
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(8.0),
+              onTap: () => click!(),
+              child: Container(
+                padding: EdgeInsets.all(8.0),
+                width: double.infinity,
+                child: Center(child: child),
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }
