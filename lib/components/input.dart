@@ -6,6 +6,7 @@ import 'colors.dart';
 
 class Input extends StatefulWidget {
   String hint;
+  TextEditingController? controller;
   TextInputAction textInputAction;
   Function? function;
   bool isPass;
@@ -21,12 +22,12 @@ class Input extends StatefulWidget {
 
   @override
   _InputState createState() => _InputState(
-        hint: hint,
-        textInputAction: textInputAction,
-        function: function,
-        isPass: isPass,
-        focusNode: focusNode,
-      );
+      hint: hint,
+      textInputAction: textInputAction,
+      function: function,
+      isPass: isPass,
+      focusNode: focusNode,
+      controller: controller);
 }
 
 class _InputState extends State<Input> {
@@ -35,17 +36,18 @@ class _InputState extends State<Input> {
   Function? function;
   bool? isPass;
   FocusNode? focusNode;
+  TextEditingController? controller;
 
   Map<String, Color>? colors;
   Color? accentColor;
 
-  _InputState({
-    this.hint,
-    this.textInputAction,
-    this.function,
-    this.isPass,
-    this.focusNode,
-  });
+  _InputState(
+      {this.hint,
+      this.textInputAction,
+      this.function,
+      this.isPass,
+      this.focusNode,
+      this.controller});
 
   @override
   Widget build(BuildContext context) {
