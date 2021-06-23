@@ -4,6 +4,12 @@ class LightTheme {
   //Accent Color
   Color accent = Color(0xFF3f8ae0);
 
+  //appBar
+  Map<String, Color> header = {
+    "header_background": Color(0xFFffffff),
+    "header_tex": Color(0xFF000000)
+  };
+
   //Button
   Map<String, Color> button = {
     "button_bot_shadow": Color(0xFFc4c8cc),
@@ -44,6 +50,12 @@ class LightTheme {
 class DarkTheme {
   //Accent Color
   Color accent = Color(0xFF71aaeb);
+
+  //appBar
+  Map<String, Color> header = {
+    "header_background": Color(0xFF19191a),
+    "header_tex": Color(0xFFe1e3e6)
+  };
 
   //Button
   Map<String, Color> button = {
