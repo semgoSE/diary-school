@@ -4,7 +4,7 @@ import 'package:diary_app/redux/actions/SignUpActions.dart';
 
 class StateStore {
   SignUp signUp = SignUp();
-  String theme = "light"; //light or dark
+  String theme = "dark"; //light or dark
 }
 
 class SignUp {

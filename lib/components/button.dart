@@ -6,10 +6,20 @@ import 'package:flutter_redux/flutter_redux.dart';
 class MyButton extends StatelessWidget {
   String? child;
   bool? disable;
+
+  //size = ["s", "m", "l"]
+  String? size;
+
+  //mode = ["commerce", "primary", "secondary"]
   String? mode;
   Function? click;
 
-  MyButton({this.mode, this.click, this.child, this.disable});
+  MyButton(
+      {this.mode = "primary",
+      this.size = "m",
+      this.click,
+      this.child,
+      this.disable});
 
   Color? accentColor;
   Map<String, Color>? colors;
@@ -29,7 +39,7 @@ class MyButton extends StatelessWidget {
         return Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.0),
-            color: accentColor,
+            color: getBackground(),
           ),
           child: Material(
             color: Colors.transparent,
@@ -37,14 +47,57 @@ class MyButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.0),
               onTap: () => click!(),
               child: Container(
-                padding: EdgeInsets.all(12.0),
+                padding: EdgeInsets.all(getSize()!),
                 width: double.infinity,
-                child: Center(child: Text(child!)),
+                child: Center(
+                    child: Text(child!,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: getForeground()))),
               ),
             ),
           ),
         );
       },
     );
+  }
+
+  double? getSize() {
+    switch (size) {
+      case "s":
+        return 12;
+      case "m":
+        return 14;
+      case "l":
+        return 16;
+    }
+  }
+
+  //цвет текста
+  Color? getForeground() {
+    switch (this.mode) {
+      case "commerce":
+        return colors!['button_commerce_foreground'];
+
+      case "primary":
+        return colors!['button_primary_foreground'];
+
+      case "secondary":
+        return colors!['button_secondary_foreground'];
+    }
+  }
+
+  //цвет фона
+  Color? getBackground() {
+    switch (this.mode) {
+      case "commerce":
+        return colors!['button_commerce_background'];
+
+      case "primary":
+        return colors!['button_primary_background'];
+
+      case "secondary":
+        return colors!['button_secondary_background'];
+    }
   }
 }

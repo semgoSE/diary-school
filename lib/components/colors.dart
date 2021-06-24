@@ -59,9 +59,9 @@ class DarkTheme extends MyTheme {
   Color accent = Color(0xFF71aaeb);
   Color background = Color(0xFF19191a);
 
-  Color textPrimary = Color(0xe1e3e6);
+  Color textPrimary = Color(0xFFe1e3e6);
 
-  Color textPlaceholder = Color(0xaaaeb3);
+  Color textPlaceholder = Color(0xFFaaaeb3);
 
   //appBar
   Map<String, Color> header = {
