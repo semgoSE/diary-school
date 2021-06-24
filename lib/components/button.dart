@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 class MyButton extends StatelessWidget {
-  Widget? child;
+  String? child;
   bool? disable;
   String? mode;
   Function? click;
@@ -39,7 +39,7 @@ class MyButton extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(12.0),
                 width: double.infinity,
-                child: Center(child: child),
+                child: Center(child: Text(child!)),
               ),
             ),
           ),

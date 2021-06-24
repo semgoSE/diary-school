@@ -12,29 +12,31 @@ void main() async {
   final store =
       new Store<StateStore>(appReducers, initialState: new StateStore());
 
-  ThemeData theme = new ThemeData();
-  var colors;
+  ThemeData themeData;
+  var theme;
 
   if (store.state.theme == "light") {
-    colors = LightTheme();
+    theme = LightTheme();
   } else {
-    colors = DarkTheme();
+    theme = DarkTheme();
   }
 
-  theme = ThemeData(
+  //получаем тему здесь
+  themeData = ThemeData(
+      textTheme:
+          TextTheme(headline6: TextStyle(color: theme.header['header_text'])),
+      backgroundColor: theme.background,
       appBarTheme: AppBarTheme(
-          color: colors.header['header_text'],
-          elevation: 1,
-          foregroundColor: colors.header['header_text'],
-          iconTheme: IconThemeData(color: colors.accent),
-          backgroundColor: colors.header["header_background"],
-          toolbarTextStyle: TextStyle(color: colors.header['header_text']),
-          titleTextStyle: TextStyle(color: colors.header['header_text'])));
+          elevation: 0,
+          iconTheme: IconThemeData(color: theme.accent),
+          backgroundColor: theme.header["header_background"]));
+
+  //получаем из темы Theme.of(context).backgroundColor,
 
   runApp(StoreProvider(
     store: store,
     child: MaterialApp(
-      theme: theme,
+      theme: themeData,
       initialRoute: "/",
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
@@ -42,7 +44,8 @@ void main() async {
           return Login();
         },
         '/': (BuildContext context) {
-          return Scaffold(body: StartPage());
+          return Scaffold(
+              body: StartPage(), backgroundColor: themeData.backgroundColor);
         },
       },
     ),

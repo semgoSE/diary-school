@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 
-class LightTheme {
+class MyTheme {}
+
+class LightTheme extends MyTheme {
   //Accent Color
   Color accent = Color(0xFF3f8ae0);
+  Color background = Color(0xFFffffff);
+
+  Color textPrimary = Color(0xFF000000);
+
+  Color textPlaceholder = Color(0xFF818c99);
 
   //appBar
   Map<String, Color> header = {
     "header_background": Color(0xFFffffff),
-    "header_tex": Color(0xFF000000)
+    "header_text": Color(0xFF000000)
   };
 
   //Button
@@ -47,14 +54,19 @@ class LightTheme {
   };
 }
 
-class DarkTheme {
+class DarkTheme extends MyTheme {
   //Accent Color
   Color accent = Color(0xFF71aaeb);
+  Color background = Color(0xFF19191a);
+
+  Color textPrimary = Color(0xe1e3e6);
+
+  Color textPlaceholder = Color(0xaaaeb3);
 
   //appBar
   Map<String, Color> header = {
     "header_background": Color(0xFF19191a),
-    "header_tex": Color(0xFFe1e3e6)
+    "header_text": Color(0xFFe1e3e6)
   };
 
   //Button

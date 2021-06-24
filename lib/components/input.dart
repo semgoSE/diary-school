@@ -40,6 +40,8 @@ class _InputState extends State<Input> {
 
   Map<String, Color>? colors;
   Color? accentColor;
+  Color? textPrimary;
+  Color? textPlaceholder;
 
   _InputState(
       {this.hint,
@@ -57,13 +59,19 @@ class _InputState extends State<Input> {
         if (theme == "light") {
           this.colors = LightTheme().field;
           this.accentColor = LightTheme().accent;
+          this.textPrimary = LightTheme().textPrimary;
+          this.textPlaceholder = LightTheme().textPlaceholder;
         } else if (theme == "dark") {
           this.colors = DarkTheme().field;
           this.accentColor = DarkTheme().accent;
+          this.textPrimary = DarkTheme().textPrimary;
+          this.textPlaceholder = DarkTheme().textPlaceholder;
         }
         return TextFormField(
-          style: TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 16, color: textPrimary),
           decoration: InputDecoration(
+              // labelText: 'FFFF',
+              hintStyle: TextStyle(fontSize: 16, color: textPlaceholder),
               hintText: hint,
               filled: true,
               fillColor: colors!['field_background'],

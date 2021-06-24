@@ -21,9 +21,7 @@ class StartPage extends StatelessWidget {
               click: () {
                 Navigator.pushNamed(context, "/login");
               },
-              child: Text("Вход",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold)),
+              child: "Вход",
               mode: "primary",
               disable: false,
             ),
@@ -31,11 +29,7 @@ class StartPage extends StatelessWidget {
           Container(
             padding: EdgeInsets.symmetric(vertical: 8.0),
             child: MyButton(
-              child: Text(
-                "Регистрация",
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
+              child: "Регистрация",
               mode: "secondary",
               disable: false,
             ),
