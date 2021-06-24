@@ -32,6 +32,9 @@ class StartPage extends StatelessWidget {
               child: "Регистрация",
               mode: "secondary",
               disable: false,
+              click: () {
+                Navigator.pushNamed(context, "/sign_up_1");
+              },
             ),
           ),
         ],

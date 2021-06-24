@@ -40,7 +40,9 @@ class _LoginState extends State<Login> {
                   child: MyButton(child: "Войти", mode: "commerce"),
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16))
             ], mainAxisAlignment: MainAxisAlignment.center))),
-            Container(child: MyPlaceholder(child: "или"), height: 60),
+            Expanded(
+                child:
+                    Container(child: MyPlaceholder(child: "или"), height: 60)),
             Expanded(
                 child: Column(children: [
               Container(
