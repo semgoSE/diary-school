@@ -28,6 +28,7 @@ void main() async {
       textTheme:
           TextTheme(headline6: TextStyle(color: theme.header['header_text'])),
       backgroundColor: theme.background,
+      accentColor: theme.accent,
       appBarTheme: AppBarTheme(
           elevation: 0,
           iconTheme: IconThemeData(color: theme.accent),

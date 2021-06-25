@@ -5,7 +5,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 
 class MyButton extends StatelessWidget {
   String? child;
-  bool? disable;
+  bool disable;
 
   //size = ["s", "m", "l"]
   String? size;
@@ -19,7 +19,7 @@ class MyButton extends StatelessWidget {
       this.size = "m",
       this.click,
       this.child,
-      this.disable});
+      this.disable = false});
 
   Color? accentColor;
   Map<String, Color>? colors;
@@ -39,13 +39,16 @@ class MyButton extends StatelessWidget {
         return Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.0),
-            color: getBackground(),
+            color:
+                disable ? getBackground()!.withOpacity(0.6) : getBackground(),
           ),
           child: Material(
             color: Colors.transparent,
             child: InkWell(
+              splashColor: disable ? Colors.transparent : null,
+              highlightColor: disable ? Colors.transparent : null,
               borderRadius: BorderRadius.circular(8.0),
-              onTap: () => click!(),
+              onTap: () => disable ? null : click!(),
               child: Container(
                 padding: EdgeInsets.all(getSize()!),
                 width: double.infinity,
