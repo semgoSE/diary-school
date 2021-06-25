@@ -56,7 +56,9 @@ class MyButton extends StatelessWidget {
                     child: Text(child!,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: getForeground()))),
+                            color: disable
+                                ? getForeground()!.withOpacity(0.6)
+                                : getForeground()))),
               ),
             ),
           ),
