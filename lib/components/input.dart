@@ -12,13 +12,13 @@ class Input extends StatefulWidget {
   bool isPass;
   FocusNode? focusNode;
 
-  Input({
-    this.hint = "",
-    this.textInputAction = TextInputAction.done,
-    this.function,
-    this.isPass = false,
-    this.focusNode,
-  });
+  Input(
+      {this.hint = "",
+      this.textInputAction = TextInputAction.done,
+      this.function,
+      this.isPass = false,
+      this.focusNode,
+      this.controller});
 
   @override
   _InputState createState() => _InputState(
