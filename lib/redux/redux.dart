@@ -1,4 +1,5 @@
 //описываем состояние
+import 'package:diary_app/redux/actions/AddLoginAndPasswordSignUp.dart';
 import 'package:diary_app/redux/actions/SetThemeAction.dart';
 import 'package:diary_app/redux/actions/SignUpActions.dart';
 
@@ -8,7 +9,9 @@ class StateStore {
 }
 
 class SignUp {
-  String? cookie;
+  String? login;
+  String? password;
+  String? session;
 }
 
 //обрабатываем события
@@ -19,12 +22,16 @@ StateStore appReducers(StateStore state, dynamic action) {
   } else if (action is SetThemeAction) {
     state.theme = action.theme;
     return state;
+  } else if (action is AddLoginAndPasswordSignUp) {
+    state.signUp.login = action.login;
+    state.signUp.password = action.password;
+    return state;
   }
   return state;
 }
 
 StateStore setCookie(StateStore state, SignUpSetCookie action) {
-  state.signUp.cookie = action.cookie;
+  state.signUp.session = action.session;
   return state;
 }
 

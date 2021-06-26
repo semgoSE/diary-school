@@ -69,6 +69,7 @@ class _InputState extends State<Input> {
         }
         return TextFormField(
           style: TextStyle(fontSize: 16, color: textPrimary),
+          controller: controller,
           decoration: InputDecoration(
               // labelText: 'FFFF',
               hintStyle: TextStyle(fontSize: 16, color: textPlaceholder),

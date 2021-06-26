@@ -1,5 +1,5 @@
 class SignUpSetCookie {
-  final String cookie;
+  final String session;
 
-  SignUpSetCookie(this.cookie);
+  SignUpSetCookie(this.session);
 }
