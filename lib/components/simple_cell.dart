@@ -18,10 +18,10 @@ class SimpleCell extends StatelessWidget {
       _isDescription = true;
     }
     return InkWell(
-      onTap: () => onClick,
+      onTap: () => onClick!(),
       child: Container(
         padding: EdgeInsets.symmetric(
-          vertical: 4.0,
+          vertical: 16.0,
         ),
         child: Row(children: [
           Container(child: before),
@@ -37,7 +37,7 @@ class SimpleCell extends StatelessWidget {
             ),
           ),
           Container(
-              padding: EdgeInsets.symmetric(horizontal: 12.0), child: after),
+              padding: EdgeInsets.symmetric(horizontal: 10.0), child: after),
         ]),
       ),
     );

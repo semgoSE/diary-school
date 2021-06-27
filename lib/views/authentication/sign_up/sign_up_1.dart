@@ -1,10 +1,14 @@
 import 'package:diary_app/components/button.dart';
 import 'package:diary_app/components/input.dart';
-import 'package:diary_app/redux/actions/AddLoginAndPasswordSignUp.dart';
+import 'package:diary_app/components/select_mimicry.dart';
+import 'package:diary_app/components/simple_cell.dart';
+import 'package:diary_app/redux/actions/AddLoginAndPasswordAndRegionSignUp.dart';
 import 'package:diary_app/redux/redux.dart';
+import 'package:diary_app/views/authentication/sign_up/server_url_argement.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class SignUp1 extends StatefulWidget {
   @override
@@ -15,8 +19,19 @@ class SignUp1State extends State<SignUp1> {
   TextEditingController _loginController = TextEditingController();
   TextEditingController _passController = TextEditingController();
 
+  List<Map<String, dynamic>> regions = [
+    {
+      "region_id": 0,
+      "name": "Рязанская область",
+      "url": "https://e-school.ryazangov.ru"
+    }
+  ];
+
   String _login = "";
   String _pass = "";
+  String _url_region = "";
+  TextEditingController _controllerRegion = TextEditingController();
+  int _region_id = -1;
 
   void initState() {
     _loginController.addListener(() {
@@ -32,17 +47,40 @@ class SignUp1State extends State<SignUp1> {
     });
   }
 
-  void next(addLoginAndPasswordSignUp) {
-    Navigator.pushNamed(context, "/sign_up_2");
-    addLoginAndPasswordSignUp(_login, _pass);
+  void openMenuChooseRegion() {
+    print("ff");
+    showBarModalBottomSheet(
+      context: context,
+      builder: (context) => 
+      Column(
+        children: [AppBar(title: Text("fff")), ...regions.map((e) => SimpleCell(child: Text(e['name'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400)), onClick: () => chooseRegion(e))).toList()], 
+        mainAxisSize: MainAxisSize.min,
+      ),
+    );
+  }
+
+  void chooseRegion(Map<String, dynamic> region) {
+    setState(() {
+      _url_region = region['url'];
+      _region_id = region['region_id'];
+      _controllerRegion.text = region['name'];
+    });
+    Navigator.pop(context);
+  }
+
+
+
+  void next(addLoginAndPasswordAndRegionSignUp) {
+    addLoginAndPasswordAndRegionSignUp(_login, _pass, _region_id);
+    Navigator.pushNamed(context, "/sign_up_2", arguments: ServerUrlArg(_url_region));
   }
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<StateStore, void Function(String login, String pass)>(
-      converter: (store) => (login, pass) => store
-          .dispatch(AddLoginAndPasswordSignUp(password: pass, login: login)),
-      builder: (BuildContext context, addLoginAndPasswordSignUp) {
+    return StoreConnector<StateStore, void Function(String login, String pass, int region_id)>(
+      converter: (store) => (login, pass, region_id) => store
+          .dispatch(AddLoginAndPasswordAndRegionSignUp(password: pass, login: login, region_id: region_id)),
+      builder: (BuildContext context, addLoginAndPasswordAndRegionSignUp) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: Theme.of(context).backgroundColor,
@@ -57,14 +95,18 @@ class SignUp1State extends State<SignUp1> {
                   padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16)),
               Container(
                   child: Input(hint: "Пароль", controller: _passController),
-                  padding: EdgeInsets.fromLTRB(16, 8, 16, 32))
+                  padding: EdgeInsets.fromLTRB(16, 8, 16, 32)),
+              Container(
+                  child: SelectMimicry(hint: "Выберите сервер", click: () => openMenuChooseRegion(), controller: _controllerRegion),
+                  padding: EdgeInsets.fromLTRB(16, 8, 16, 32)
+              )
             ], mainAxisAlignment: MainAxisAlignment.center)),
             Container(
                 child: MyButton(
                     child: "Далее",
-                    disable: (_login == "" || _pass == ""),
+                    disable: (_login == "" || _pass == "" || _region_id == -1),
                     click: () {
-                      next(addLoginAndPasswordSignUp);
+                      next(addLoginAndPasswordAndRegionSignUp);
                     }),
                 padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16))
           ]),

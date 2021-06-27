@@ -1,5 +1,5 @@
 //описываем состояние
-import 'package:diary_app/redux/actions/AddLoginAndPasswordSignUp.dart';
+import 'package:diary_app/redux/actions/AddLoginAndPasswordAndRegionSignUp.dart';
 import 'package:diary_app/redux/actions/SetThemeAction.dart';
 import 'package:diary_app/redux/actions/SignUpActions.dart';
 
@@ -11,6 +11,7 @@ class StateStore {
 class SignUp {
   String? login;
   String? password;
+  int? region_id;
   String? session;
 }
 
@@ -22,9 +23,10 @@ StateStore appReducers(StateStore state, dynamic action) {
   } else if (action is SetThemeAction) {
     state.theme = action.theme;
     return state;
-  } else if (action is AddLoginAndPasswordSignUp) {
+  } else if (action is AddLoginAndPasswordAndRegionSignUp) {
     state.signUp.login = action.login;
     state.signUp.password = action.password;
+    state.signUp.region_id = action.region_id;
     return state;
   }
   return state;
