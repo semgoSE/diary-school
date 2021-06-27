@@ -53,7 +53,7 @@ class SignUp1State extends State<SignUp1> {
       context: context,
       builder: (context) => 
       Column(
-        children: [AppBar(title: Text("fff")), ...regions.map((e) => SimpleCell(child: Text(e['name'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400)), onClick: () => chooseRegion(e))).toList()], 
+        children: [AppBar(title: Text("Выберите регион"), automaticallyImplyLeading: false, centerTitle: true ), ...regions.map((e) => SimpleCell(child: Text(e['name'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400)), onClick: () => chooseRegion(e))).toList()], 
         mainAxisSize: MainAxisSize.min,
       ),
     );
