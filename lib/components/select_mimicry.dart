@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:diary_app/components/colors.dart';
 import 'package:diary_app/redux/redux.dart';

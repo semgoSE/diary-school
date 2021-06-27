@@ -11,10 +11,14 @@ class StartPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
-              child: Icon(
-            Icons.ac_unit_outlined,
-            size: 128.0,
-          )),
+              child: Column(
+                children: [
+                  Image.asset("resource/images/logo.png"), 
+                  Container(child: Text("Добро пожаловать!", style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 24 )), margin: EdgeInsets.only(top: 32),)
+                ], 
+                mainAxisSize: MainAxisSize.min, 
+                mainAxisAlignment: MainAxisAlignment.center),
+          ),
           Container(
             padding: EdgeInsets.symmetric(vertical: 8.0),
             child: MyButton(
