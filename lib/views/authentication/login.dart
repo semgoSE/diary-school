@@ -1,4 +1,5 @@
 import 'package:diary_app/components/button.dart';
+import 'package:diary_app/components/form_item.dart';
 import 'package:diary_app/components/input.dart';
 import 'package:diary_app/components/placeholder.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,17 +23,18 @@ class _LoginState extends State<Login> {
       body: Container(
           margin: EdgeInsets.only(top: 0),
           child: ListView(children: [
-            Container(
+            FormItem(
               child: Input(
-                hint: "Логин",
+                hint: "Введите логин",
               ),
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              top: "Логин",
             ),
-            Container(
+            FormItem(
               child: Input(
-                hint: "Пароль",
+                isPass: true,
+                hint: "Введите пароль",
               ),
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              top: "Пароль",
             ),
             Container(
                 child: MyButton(child: "Войти", mode: "commerce"),

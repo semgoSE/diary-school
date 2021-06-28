@@ -10,6 +10,7 @@ class Input extends StatefulWidget {
   TextInputAction textInputAction;
   Function? function;
   bool isPass;
+  InputStatus status;
   FocusNode? focusNode;
 
   Input(
@@ -18,6 +19,7 @@ class Input extends StatefulWidget {
       this.function,
       this.isPass = false,
       this.focusNode,
+      this.status = InputStatus.def,
       this.controller});
 
   @override
@@ -27,6 +29,7 @@ class Input extends StatefulWidget {
       function: function,
       isPass: isPass,
       focusNode: focusNode,
+      status: status,
       controller: controller);
 }
 
@@ -37,6 +40,7 @@ class _InputState extends State<Input> {
   bool? isPass;
   FocusNode? focusNode;
   TextEditingController? controller;
+  InputStatus status;
 
   Map<String, Color>? colors;
   Color? accentColor;
@@ -49,7 +53,32 @@ class _InputState extends State<Input> {
       this.function,
       this.isPass,
       this.focusNode,
-      this.controller});
+      this.controller,
+      required this.status});
+
+  Color? getColorByStatus() {
+    switch (status) {
+      case InputStatus.def:
+        return colors!['field_border'];
+      case InputStatus.error:
+        return colors!['field_error_border'];
+
+      case InputStatus.valid:
+        return colors!['field_valid_border'];
+    }
+  }
+
+  Color? getBackgroundByStatus() {
+    switch (status) {
+      case InputStatus.def:
+        return colors!['field_background'];
+      case InputStatus.error:
+        return colors!['field_error_background'];
+
+      case InputStatus.valid:
+        return colors!['field_background'];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,17 +98,19 @@ class _InputState extends State<Input> {
         }
         return TextFormField(
           style: TextStyle(fontSize: 16, color: textPrimary),
+          obscureText: isPass!,
+          autocorrect: !isPass!,
           controller: controller,
           decoration: InputDecoration(
               // labelText: 'FFFF',
               hintStyle: TextStyle(fontSize: 16, color: textPlaceholder),
               hintText: hint,
               filled: true,
-              fillColor: colors!['field_background'],
+              fillColor: getBackgroundByStatus(),
               contentPadding: EdgeInsets.symmetric(horizontal: 17, vertical: 8),
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(color: (colors!['field_border'])!)),
+                  borderSide: BorderSide(color: getColorByStatus()!)),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
                 borderSide: BorderSide(color: (accentColor)!),
@@ -89,3 +120,5 @@ class _InputState extends State<Input> {
     );
   }
 }
+
+enum InputStatus { def, error, valid }
