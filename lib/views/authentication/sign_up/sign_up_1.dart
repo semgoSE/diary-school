@@ -51,9 +51,21 @@ class SignUp1State extends State<SignUp1> {
     print("ff");
     showBarModalBottomSheet(
       context: context,
-      builder: (context) => 
-      Column(
-        children: [AppBar(title: Text("Выберите регион"), automaticallyImplyLeading: false, centerTitle: true ), ...regions.map((e) => SimpleCell(child: Text(e['name'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400)), onClick: () => chooseRegion(e))).toList()], 
+      builder: (context) => Column(
+        children: [
+          AppBar(
+              title: Text("Выберите регион"),
+              automaticallyImplyLeading: false,
+              textTheme: Theme.of(context).textTheme,
+              centerTitle: true),
+          ...regions
+              .map((e) => SimpleCell(
+                  child: Text(e['name'],
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+                  onClick: () => chooseRegion(e)))
+              .toList()
+        ],
         mainAxisSize: MainAxisSize.min,
       ),
     );
@@ -68,28 +80,28 @@ class SignUp1State extends State<SignUp1> {
     Navigator.pop(context);
   }
 
-
-
   void next(addLoginAndPasswordAndRegionSignUp) {
     addLoginAndPasswordAndRegionSignUp(_login, _pass, _region_id);
-    Navigator.pushNamed(context, "/sign_up_2", arguments: ServerUrlArg(_url_region));
+    Navigator.pushNamed(context, "/sign_up_2",
+        arguments: ServerUrlArg(_url_region));
   }
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<StateStore, void Function(String login, String pass, int region_id)>(
-      converter: (store) => (login, pass, region_id) => store
-          .dispatch(AddLoginAndPasswordAndRegionSignUp(password: pass, login: login, region_id: region_id)),
+    return StoreConnector<StateStore,
+        void Function(String login, String pass, int region_id)>(
+      converter: (store) => (login, pass, region_id) => store.dispatch(
+          AddLoginAndPasswordAndRegionSignUp(
+              password: pass, login: login, region_id: region_id)),
       builder: (BuildContext context, addLoginAndPasswordAndRegionSignUp) {
         return Scaffold(
-          resizeToAvoidBottomInset: false,
           backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
               title: Text("Регистрация"),
               textTheme: Theme.of(context).textTheme),
           body: Column(children: [
             Expanded(
-                child: Column(children: [
+                child: ListView(children: [
               Container(
                   child: Input(hint: "Логин", controller: _loginController),
                   padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16)),
@@ -97,10 +109,12 @@ class SignUp1State extends State<SignUp1> {
                   child: Input(hint: "Пароль", controller: _passController),
                   padding: EdgeInsets.fromLTRB(16, 8, 16, 32)),
               Container(
-                  child: SelectMimicry(hint: "Выберите сервер", click: () => openMenuChooseRegion(), controller: _controllerRegion),
-                  padding: EdgeInsets.fromLTRB(16, 8, 16, 32)
-              )
-            ], mainAxisAlignment: MainAxisAlignment.center)),
+                  child: SelectMimicry(
+                      hint: "Выберите сервер",
+                      click: () => openMenuChooseRegion(),
+                      controller: _controllerRegion),
+                  padding: EdgeInsets.fromLTRB(16, 8, 16, 32))
+            ], physics: PageScrollPhysics())),
             Container(
                 child: MyButton(
                     child: "Далее",
