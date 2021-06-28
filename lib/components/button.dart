@@ -10,7 +10,7 @@ class MyButton extends StatelessWidget {
   //size = ["s", "m", "l"]
   String? size;
 
-  //mode = ["commerce", "primary", "secondary"]
+  //mode = ["commerce", "primary", "secondary", "outlined"]
   String? mode;
   Function? click;
 
@@ -38,6 +38,7 @@ class MyButton extends StatelessWidget {
         }
         return Container(
           decoration: BoxDecoration(
+            border: Border.all(color: getBorder()!),
             borderRadius: BorderRadius.circular(8.0),
             color:
                 disable ? getBackground()!.withOpacity(0.6) : getBackground(),
@@ -53,12 +54,17 @@ class MyButton extends StatelessWidget {
                 padding: EdgeInsets.all(getSize()!),
                 width: double.infinity,
                 child: Center(
-                    child: Text(child!,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: disable
-                                ? getForeground()!.withOpacity(0.6)
-                                : getForeground()))),
+                  child: Text(
+                    child!,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16,
+                      color: disable
+                          ? getForeground()!.withOpacity(0.6)
+                          : getForeground(),
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
@@ -89,6 +95,9 @@ class MyButton extends StatelessWidget {
 
       case "secondary":
         return colors!['button_secondary_foreground'];
+
+      case "outlined":
+        return colors!['button_outline_foreground'];
     }
   }
 
@@ -103,6 +112,26 @@ class MyButton extends StatelessWidget {
 
       case "secondary":
         return colors!['button_secondary_background'];
+
+      case "outlined":
+        return Color.fromRGBO(0, 0, 0, 0);
+    }
+  }
+
+  //цвет рамки
+  Color? getBorder() {
+    switch (this.mode) {
+      case "commerce":
+        return Color.fromRGBO(0, 0, 0, 0);
+
+      case "primary":
+        return Color.fromRGBO(0, 0, 0, 0);
+
+      case "secondary":
+        return Color.fromRGBO(0, 0, 0, 0);
+
+      case "outlined":
+        return colors!['button_outline_border'];
     }
   }
 }
