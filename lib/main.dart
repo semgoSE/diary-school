@@ -2,6 +2,7 @@ import 'package:diary_app/components/colors.dart';
 import 'package:diary_app/redux/redux.dart';
 import 'package:diary_app/views/authentication/sign_up/sign_up_1.dart';
 import 'package:diary_app/views/authentication/sign_up/sign_up_2.dart';
+import 'package:diary_app/views/authentication/sign_up/sign_up_3.dart';
 import 'package:diary_app/views/start_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -22,7 +23,6 @@ void main() async {
   } else {
     theme = DarkTheme();
   }
-
 
   //получаем тему здесь
   themeData = ThemeData(
@@ -53,6 +53,9 @@ void main() async {
         },
         '/sign_up_2': (BuildContext context) {
           return SignUp2();
+        },
+        '/sign_up_3': (BuildContext context) {
+          return SignUp3();
         },
         '/': (BuildContext context) {
           return Scaffold(
