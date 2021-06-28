@@ -11,6 +11,8 @@ class LightTheme extends MyTheme {
 
   Color textPlaceholder = Color(0xFF818c99);
 
+  Color textSecondary = Color(0xFF818c99);
+
   //appBar
   Map<String, Color> header = {
     "header_background": Color(0xFFffffff),
@@ -60,8 +62,9 @@ class DarkTheme extends MyTheme {
   Color background = Color(0xFF19191a);
 
   Color textPrimary = Color(0xFFe1e3e6);
-
   Color textPlaceholder = Color(0xFFaaaeb3);
+
+  Color textSecondary = Color(0xFF76787a);
 
   //appBar
   Map<String, Color> header = {

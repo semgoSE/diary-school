@@ -1,4 +1,5 @@
 import 'package:diary_app/components/button.dart';
+import 'package:diary_app/components/form_item.dart';
 import 'package:diary_app/components/input.dart';
 import 'package:diary_app/components/select_mimicry.dart';
 import 'package:diary_app/components/simple_cell.dart';
@@ -102,18 +103,20 @@ class SignUp1State extends State<SignUp1> {
           body: Column(children: [
             Expanded(
                 child: ListView(children: [
-              Container(
-                  child: Input(hint: "Логин", controller: _loginController),
-                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16)),
-              Container(
-                  child: Input(hint: "Пароль", controller: _passController),
-                  padding: EdgeInsets.fromLTRB(16, 8, 16, 32)),
-              Container(
-                  child: SelectMimicry(
-                      hint: "Выберите сервер",
-                      click: () => openMenuChooseRegion(),
-                      controller: _controllerRegion),
-                  padding: EdgeInsets.fromLTRB(16, 8, 16, 32))
+              FormItem(
+                  child: Input(
+                      hint: "Введите логин", controller: _loginController),
+                  top: "Логин"),
+              FormItem(
+                  top: "Пароль",
+                  child: Input(hint: "Пароль", controller: _passController)),
+              FormItem(
+                top: "Сервер",
+                child: SelectMimicry(
+                    hint: "Выберите сервер",
+                    click: () => openMenuChooseRegion(),
+                    controller: _controllerRegion),
+              )
             ], physics: PageScrollPhysics())),
             Container(
                 child: MyButton(
