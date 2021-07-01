@@ -3,6 +3,7 @@ import 'package:diary_app/components/form_item.dart';
 import 'package:diary_app/components/input.dart';
 import 'package:diary_app/components/select_mimicry.dart';
 import 'package:diary_app/components/simple_cell.dart';
+import 'package:diary_app/models/AccountBind.dart';
 import 'package:diary_app/redux/actions/AddLoginAndPasswordAndRegionSignUp.dart';
 import 'package:diary_app/redux/redux.dart';
 import 'package:diary_app/views/authentication/sign_up/server_url_argement.dart';
@@ -17,14 +18,14 @@ class SignUp3 extends StatefulWidget {
 }
 
 class SignUp3State extends State<SignUp3> {
+
+  List<AccountBind> accounts_bind = [];
+
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<StateStore,
-        void Function(String login, String pass, int region_id)>(
-      converter: (store) => (login, pass, region_id) => store.dispatch(
-          AddLoginAndPasswordAndRegionSignUp(
-              password: pass, login: login, region_id: region_id)),
-      builder: (BuildContext context, addLoginAndPasswordAndRegionSignUp) {
+    return StoreConnector<StateStore,dynamic>(
+      converter: (store) => store,
+      builder: (BuildContext context, store) {
         return Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
             appBar: AppBar(
@@ -38,15 +39,17 @@ class SignUp3State extends State<SignUp3> {
                   Expanded(
                     child: Text("Для удобства входа можете привязать различные соц.сети для доступа к аккаунту"),
                   ),
-
+                  
                   SimpleCell(
-                    child: "Добавить привязку",
-                    before: Icon(Icons.add, color: ,),
+                    child: Text("Добавить привязку"),
+                    before: Icon(Icons.add),
                   ),
-                  MyButton(
-                    child: "Пропустить",
+                  Expanded(child: ListView.builder(itemBuilder: (context, i) => SimpleCell(child: ))),
+                   Container(child: MyButton(
+                    mode: "commerce",
+                    child: "Готов",
                     click: () => {},
-                  ),
+                  ), padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16 )),
                 ],
               ),
             ));
