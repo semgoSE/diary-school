@@ -28,9 +28,28 @@ class SignUp3State extends State<SignUp3> {
         return Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
             appBar: AppBar(
-                title: Text("Регистрация"),
+                title: Text("Привязка"),
                 textTheme: Theme.of(context).textTheme),
-            body: Container());
+            body: Container(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Text("Для удобства входа можете привязать различные соц.сети для доступа к аккаунту"),
+                  ),
+
+                  SimpleCell(
+                    child: "Добавить привязку",
+                    before: Icon(Icons.add, color: ,),
+                  ),
+                  MyButton(
+                    child: "Пропустить",
+                    click: () => {},
+                  ),
+                ],
+              ),
+            ));
       },
     );
   }
