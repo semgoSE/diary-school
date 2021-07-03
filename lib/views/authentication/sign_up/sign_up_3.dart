@@ -27,9 +27,13 @@ class SignUp3State extends State<SignUp3> {
         final VKAccessToken accessToken = data.accessToken!;
         final d = await vk.getUserProfile();
         final VKUserProfile? user = d.asValue!.value;
-        setState(() {
-          accounts_bind.add(AccountBindView(name: user!.firstName + " " + user.lastName, photo: user.photo200, accountBind: AccountBind(uuid: user.userId, token: accessToken.token)));
-        });
+        if(accounts_bind.indexWhere((e) => e.accountBind!.uuid == user!.userId) == -1) {
+          setState(() {
+            accounts_bind.add(AccountBindView(name: user!.firstName + " " + user.lastName, photo: user.photo200, accountBind: AccountBind(uuid: user.userId, token: accessToken.token)));
+          });
+        } else {
+          //ToDO показываем ошибку 
+        }
         vk.logOut();
         Navigator.pop(context);
       }
@@ -74,6 +78,7 @@ class SignUp3State extends State<SignUp3> {
                   SimpleCell(
                     child: Text("Добавить привязку"),
                     before: Icon(Icons.add),
+                    onClick: showModal,
                   ),
                   Expanded(child: ListView(children: 
                     accounts_bind.map((e) => SimpleCell(child: Text(e.name!))).toList(),
