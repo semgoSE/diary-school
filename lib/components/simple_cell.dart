@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 
 class SimpleCell extends StatelessWidget {
+
   Widget? before;
   Widget? after;
-  Widget child;
+  String child;
   Widget? description;
+  double? textSize;
 
   Function? onClick;
 
-  SimpleCell(
-      {this.before, this.after, required this.child, this.description, this.onClick});
+  SimpleCell({
+    this.before,
+    this.after,
+    required this.child,
+    this.description,
+    this.onClick,
+    this.textSize = 18,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +41,14 @@ class SimpleCell extends StatelessWidget {
                   : Container(
                       padding: EdgeInsets.symmetric(horizontal: 10.0),
                       alignment: Alignment.centerLeft,
-                      child: child),
+                      child: Text(
+                        child,
+                        style: TextStyle(
+                          color: null,
+                          fontSize: textSize,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      )),
             ),
           ),
           Container(
@@ -49,7 +64,16 @@ class SimpleCell extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(alignment: Alignment.centerLeft, child: child),
+          Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                child,
+                style: TextStyle(
+                  color: null,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                ),
+              )),
           Container(
               padding: EdgeInsets.only(top: 5.0),
               alignment: Alignment.centerLeft,

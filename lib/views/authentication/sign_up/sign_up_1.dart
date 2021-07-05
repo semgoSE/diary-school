@@ -61,9 +61,7 @@ class SignUp1State extends State<SignUp1> {
               centerTitle: true),
           ...regions
               .map((e) => SimpleCell(
-                  child: Text(e['name'],
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+                  child: e['name'],
                   onClick: () => chooseRegion(e)))
               .toList()
         ],

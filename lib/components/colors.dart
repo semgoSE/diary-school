@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-
-class MyTheme {}
-
-class LightTheme extends MyTheme {
+class LightTheme {
   //Accent Color
   Color accent = Color(0xFF3f8ae0);
   Color background = Color(0xFFffffff);
@@ -54,9 +51,23 @@ class LightTheme extends MyTheme {
     "field_text_placeholder": Color(0xFF818c99),
     "field_valid_border": Color(0xFF4bb34b),
   };
+
+  //Icons
+  Map<String, Color> icons = {
+    "icon_alpha_placeholder": Color(0xFFffffff),
+    "icon_medium": Color(0xFF818c99),
+    "icon_medium_alpha": Color.fromRGBO(0, 0, 0, 0.48),
+    "icon_name": Color(0xFF74a2d6),
+    "icon_outline_medium": Color(0xFF818c99),
+    "icon_outline_secondary": Color(0xFF99a2ad),
+    "icon_secondary": Color(0xFF99a2ad),
+    "icon_secondary_alpha": Color.fromRGBO(0, 0, 0, 0.36),
+    "icon_tertiary": Color(0xFFb8c1cc),
+    "icon_tertiary_alpha": Color.fromRGBO(0, 0, 0, 0.24),
+  };
 }
 
-class DarkTheme extends MyTheme {
+class DarkTheme {
   //Accent Color
   Color accent = Color(0xFF71aaeb);
   Color background = Color(0xFF19191a);
@@ -106,5 +117,19 @@ class DarkTheme extends MyTheme {
     "field_error_border": Color(0xFFFF5c5c),
     "field_text_placeholder": Color(0xFF76787a),
     "field_valid_border": Color(0xFF4bb34b),
+  };
+
+  //Icons
+  Map<String, Color> icons = {
+    "icon_alpha_placeholder": Color(0xFFe1e3e6),
+    "icon_medium": Color(0xFF909499),
+    "icon_medium_alpha": Color.fromRGBO(255, 255, 255, 0.48),
+    "icon_name": Color(0xFFaaaeb3),
+    "icon_outline_medium": Color(0xFFaaaeb3),
+    "icon_outline_secondary": Color(0xFF909499),
+    "icon_secondary": Color(0xFF76787a),
+    "icon_secondary_alpha": Color.fromRGBO(255, 255, 255, 0.36),
+    "icon_tertiary": Color(0xFF5d5f61),
+    "icon_tertiary_alpha": Color.fromRGBO(255, 255, 255, 0.24),
   };
 }

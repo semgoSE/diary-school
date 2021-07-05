@@ -1,10 +1,13 @@
 import 'package:diary_app/components/button.dart';
+import 'package:diary_app/components/icon.dart';
+import 'package:diary_app/components/placeholder.dart';
 import 'package:diary_app/components/simple_cell.dart';
 import 'package:diary_app/models/AccountBind.dart';
 import 'package:diary_app/redux/redux.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:flutter_login_vk/flutter_login_vk.dart';
 
@@ -50,7 +53,7 @@ class SignUp3State extends State<SignUp3> {
               automaticallyImplyLeading: false,
               textTheme: Theme.of(context).textTheme,
               centerTitle: true),
-          SimpleCell(child: Text("Вконтакте"), onClick: bindVK)
+          Container(child: SimpleCell(child: "Вконтакте", onClick: bindVK), color: Theme.of(context).backgroundColor,)
         ],
       );
     });
@@ -67,28 +70,29 @@ class SignUp3State extends State<SignUp3> {
                 title: Text("Привязка"),
                 textTheme: Theme.of(context).textTheme),
             body: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: Text("Для удобства входа можете привязать различные соц.сети для доступа к аккаунту"),
+                    child: MyPlaceholder(child: "Для удобства входа можете привязать различные соц.сети для доступа к аккаунту"),
                   ),
                   
                   SimpleCell(
-                    child: Text("Добавить привязку"),
-                    before: Icon(Icons.add),
+                    child: "Добавить привязку",
+                    before: MyIcon(svgPath: "resource/icons/add_outline_28.svg", type: "svg", size: 32,),
                     onClick: showModal,
                   ),
                   Expanded(child: ListView(children: 
-                    accounts_bind.map((e) => SimpleCell(child: Text(e.name!))).toList(),
+                    accounts_bind.map((e) => SimpleCell(child: e.name!)).toList(),
                     physics: PageScrollPhysics(),
                   )),
                    Container(child: MyButton(
-                    mode: "commerce",
-                    child: "Готов",
+                    //mode: "commerce",
+                    child: "Пропустить",
                     click: () => {},
-                  ), padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16 )),
+                  ), padding: EdgeInsets.symmetric(vertical: 16)),
                 ],
               ),
             ));
