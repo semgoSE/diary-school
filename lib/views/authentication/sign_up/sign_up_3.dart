@@ -19,6 +19,7 @@ class SignUp3 extends StatefulWidget {
 class SignUp3State extends State<SignUp3> {
 
   List<AccountBindView> accounts_bind = [];
+  late SignUp _signUp;
 
   void bindVK() async {
     var vk = VKLogin();
@@ -59,11 +60,16 @@ class SignUp3State extends State<SignUp3> {
     });
   }
 
+  void sign_up() async  {
+    //отпавляем данные на сервер
+  }
+
   @override
   Widget build(BuildContext context) {
     return StoreConnector<StateStore,SignUp>(
       converter: (store) => store.state.signUp,
       builder: (BuildContext context, signUp) {
+        _signUp = signUp;
         return Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
             appBar: AppBar(
@@ -78,20 +84,19 @@ class SignUp3State extends State<SignUp3> {
                   Expanded(
                     child: MyPlaceholder(child: "Для удобства входа можете привязать различные соц.сети для доступа к аккаунту"),
                   ),
-                  
                   SimpleCell(
                     child: "Добавить привязку",
                     before: MyIcon(svgPath: "resource/icons/add_outline_28.svg", type: "svg", size: 32,),
                     onClick: showModal,
                   ),
                   Expanded(child: ListView(children: 
-                    accounts_bind.map((e) => SimpleCell(child: e.name!)).toList(),
+                    accounts_bind.map((e) => SimpleCell(child: e.name!, after: Image.network(e.photo!, width: 28, height: 28))).toList(),
                     physics: PageScrollPhysics(),
                   )),
                    Container(child: MyButton(
-                    //mode: "commerce",
-                    child: "Пропустить",
-                    click: () => {},
+                    mode: accounts_bind.length == 0 ? "primary" : "commerce",
+                    child: accounts_bind.length == 0 ? "Пропустить" : "Завершить",
+                    click: sign_up,
                   ), padding: EdgeInsets.symmetric(vertical: 16)),
                 ],
               ),

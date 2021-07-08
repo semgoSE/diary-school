@@ -21,7 +21,7 @@ class CommonApi {
     route = new Uri(path: url_server! + path);
   }
 
-  //редактируем ответ
+  //редактируем тело
   void setBody(Object obj) {
     json_body = jsonEncode(obj);
   }
