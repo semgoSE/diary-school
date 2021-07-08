@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 class CommonApi {
 
-  String? url_server; //адресс сервера
+  String url_server = "https://diary-school.herokuapp.com/"; //адресс сервера
   Uri? route;//марщрут
 
   String? json_body; //тело запроса
