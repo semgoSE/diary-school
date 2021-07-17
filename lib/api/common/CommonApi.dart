@@ -18,7 +18,7 @@ class CommonApi {
 
  //редактируем маршрут
   void setPath(String path) {
-    route = new Uri(path: url_server! + path);
+    route = new Uri(path: url_server + path);
   }
 
   //редактируем тело

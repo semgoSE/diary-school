@@ -2,9 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'account_bind.dart';
 
 @immutable
-class SignUp {
+class SignUpRequest {
 
-  const SignUp({
+  const SignUpRequest({
     required this.login,
     required this.password,
     required this.session,
@@ -16,7 +16,7 @@ class SignUp {
   final String session;
   final List<AccountBind>? accountsBind;
 
-  factory SignUp.fromJson(Map<String,dynamic> json) => SignUp(
+  factory SignUpRequest.fromJson(Map<String,dynamic> json) => SignUpRequest(
     login: json['login'] as String,
     password: json['password'] as String,
     session: json['session'] as String,
@@ -30,7 +30,7 @@ class SignUp {
     'accounts_bind': accountsBind?.map((e) => e.toJson()).toList()
   };
 
-  SignUp clone() => SignUp(
+  SignUpRequest clone() => SignUpRequest(
     login: login,
     password: password,
     session: session,
@@ -38,12 +38,12 @@ class SignUp {
   );
 
 
-  SignUp copyWith({
+  SignUpRequest copyWith({
     String? login,
     String? password,
     String? session,
     List<AccountBind>? accountsBind
-  }) => SignUp(
+  }) => SignUpRequest(
     login: login ?? this.login,
     password: password ?? this.password,
     session: session ?? this.session,
@@ -52,7 +52,7 @@ class SignUp {
 
   @override
   bool operator ==(Object other) => identical(this, other)
-    || other is SignUp && login == other.login && password == other.password && session == other.session && accountsBind == other.accountsBind;
+    || other is SignUpRequest && login == other.login && password == other.password && session == other.session && accountsBind == other.accountsBind;
 
   @override
   int get hashCode => login.hashCode ^ password.hashCode ^ session.hashCode ^ accountsBind.hashCode;

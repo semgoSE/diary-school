@@ -1,8 +1,10 @@
+import 'package:diary_app/api/common/CommonApi.dart';
 import 'package:diary_app/components/button.dart';
 import 'package:diary_app/components/icon.dart';
 import 'package:diary_app/components/placeholder.dart';
 import 'package:diary_app/components/simple_cell.dart';
-import 'package:diary_app/models/AccountBind.dart';
+import 'package:diary_app/models/account_bind.dart';
+import 'package:diary_app/models/index.dart';
 import 'package:diary_app/redux/redux.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +35,7 @@ class SignUp3State extends State<SignUp3> {
         final VKUserProfile? user = d.asValue!.value;
         if(accounts_bind.indexWhere((e) => e.accountBind!.uuid == user!.userId) == -1) {
           setState(() {
-            accounts_bind.add(AccountBindView(name: user!.firstName + " " + user.lastName, photo: user.photo200, accountBind: AccountBind(uuid: user.userId, token: accessToken.token)));
+            accounts_bind.add(AccountBindView(name: user!.firstName + " " + user.lastName, photo: user.photo200, accountBind: AccountBind(uuid: user.userId, token: accessToken.token, type: AccountBindTypeEnum.VK.toString())));
           });
         } else {
           //ToDO показываем ошибку 
@@ -61,7 +63,11 @@ class SignUp3State extends State<SignUp3> {
   }
 
   void sign_up() async  {
-    //отпавляем данные на сервер
+    CommonApi api = new CommonApi();
+    api.setPath("user/sign_up");
+    SignUpRequest data = new SignUpRequest(login: _signUp.login!, password: _signUp.password!, session: _signUp.session!, accountsBind: accounts_bind.map((e) => e.accountBind!).toList());
+    api.setBody(data.toJson());
+    var response = await api.request();
   }
 
   @override
