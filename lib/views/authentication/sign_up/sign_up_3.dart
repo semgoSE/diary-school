@@ -3,6 +3,7 @@ import 'package:diary_app/components/button.dart';
 import 'package:diary_app/components/icon.dart';
 import 'package:diary_app/components/placeholder.dart';
 import 'package:diary_app/components/simple_cell.dart';
+import 'package:diary_app/components/spinner.dart';
 import 'package:diary_app/models/account_bind.dart';
 import 'package:diary_app/models/index.dart';
 import 'package:diary_app/redux/redux.dart';
@@ -67,7 +68,22 @@ class SignUp3State extends State<SignUp3> {
     api.setPath("user/sign_up");
     SignUpRequest data = new SignUpRequest(login: _signUp.login!, password: _signUp.password!, session: _signUp.session!, accountsBind: accounts_bind.map((e) => e.accountBind!).toList());
     api.setBody(data.toJson());
+    showBarModalBottomSheet(context: context, builder: (context) {
+      return WillPopScope(
+        child: Column(children: [
+          AppBar(title: Text("Авторизация"), centerTitle: true, textTheme: Theme.of(context).textTheme),
+          Container(child: Spinner()),
+          Container(child: MyPlaceholder(child: "Это может занять некоторое время"))
+        ], mainAxisSize: MainAxisSize.min),
+        onWillPop: () => Future.value(false),
+      );
+    });
     var response = await api.request();
+    if(response['success']) {
+        ResponseSignUp res = ResponseSignUp.fromJson(response);
+    } else {
+      
+    }
   }
 
   @override

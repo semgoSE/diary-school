@@ -1,0 +1,14 @@
+{
+    "success": true,
+    "msg": {
+        "token": {
+           "token": "сам токен",
+           "version": 1,
+           "data": {
+               "user_id": 1,
+               "role": "PUPIL"
+           }
+        }
+    }
+
+}
