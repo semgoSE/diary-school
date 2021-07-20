@@ -33,7 +33,6 @@ class SignUp1State extends State<SignUp1> {
 
   String _login = "";
   FormItemStatus _loginStatus = FormItemStatus.def;
-  
   String _loginError = "";
 
   String _pass = "";
@@ -44,6 +43,8 @@ class SignUp1State extends State<SignUp1> {
   void initState() {
     _loginController.addListener(() {
       setState(() {
+        _loginStatus = FormItemStatus.def;
+        _loginError = "";
         _login = _loginController.value.text;
       });
     });
@@ -55,7 +56,7 @@ class SignUp1State extends State<SignUp1> {
     });
   }
 
-  void checkLogin(String login) async {
+  Future<bool> checkLogin(String login) async {
     CommonApi api = new CommonApi();
     api.setPath("user/check-login");
     api.setBody(RequestCheckLogin(login: login).toJson());
@@ -64,10 +65,10 @@ class SignUp1State extends State<SignUp1> {
     if(res != null) {
       if(res['success']) {
         ResponseCheckLogin response = ResponseCheckLogin.fromJson(res);
-        print(response);
+        Navigator.pop(context);
         if(response.msg == "ok") {
-          print("all ok");
-        }
+          return true;
+        } else return false;
       } else {
         ResponseCheckLogin response = ResponseCheckLogin.fromJson(res);
         Navigator.pop(context);
@@ -75,18 +76,18 @@ class SignUp1State extends State<SignUp1> {
           _loginStatus = FormItemStatus.error;  
           _loginError = response.msg;
         });
+        return false;
       }
     } else {
       // Navigator.pop(context);
       setState(() {
         _loginStatus = FormItemStatus.error;  
       });
-      
+      return false;
     }
   }
 
   void openMenuChooseRegion() {
-    print("ff");
     showBarModalBottomSheet(
       context: context,
       builder: (context) => Container(
@@ -119,12 +120,15 @@ class SignUp1State extends State<SignUp1> {
     Navigator.pop(context);
   }
 
-  void next(addLoginAndPasswordAndRegionSignUp) {
+  void next(addLoginAndPasswordAndRegionSignUp) async {
+    FocusScope.of(context).requestFocus(new FocusNode());
     showDialog(context: context, builder: (context) => WillPopScope(child: ScreenSpinner(), onWillPop: () => Future.value(true)), barrierDismissible: false);
-    checkLogin(_login);
-    // addLoginAndPasswordAndRegionSignUp(_login, _pass, _region_id);
-    // Navigator.pushNamed(context, "/sign_up_2",
-    //     arguments: ServerUrlArg(_url_region));
+    bool loginValid = await checkLogin(_login);
+    if(loginValid) {
+      addLoginAndPasswordAndRegionSignUp(_login, _pass, _region_id);
+      Navigator.pushNamed(context, "/sign_up_2",
+          arguments: ServerUrlArg(_url_region));
+    }
   }
 
   @override
@@ -144,8 +148,10 @@ class SignUp1State extends State<SignUp1> {
             Expanded(
                 child: ListView(children: [
               FormItem(
+                  status: _loginStatus,
                   bottom:_loginError ,
                   child: Input(
+                      status: _loginStatus == FormItemStatus.def ? InputStatus.def : InputStatus.error,
                       hint: "Введите логин", controller: _loginController),
                   top: "Логин"),
               FormItem(

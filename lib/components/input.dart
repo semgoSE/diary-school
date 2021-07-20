@@ -4,78 +4,51 @@ import 'package:flutter_redux/flutter_redux.dart';
 
 import 'colors.dart';
 
-class Input extends StatefulWidget {
-  String hint;
-  TextEditingController? controller;
-  TextInputAction textInputAction;
-  Function? function;
-  bool isPass;
-  String status;
-  FocusNode? focusNode;
 
-  Input(
-      {this.hint = "",
-      this.textInputAction = TextInputAction.done,
-      this.function,
-      this.isPass = false,
-      this.focusNode,
-      this.status = "def",
-      this.controller});
 
-  @override
-  _InputState createState() => _InputState(
-      hint: hint,
-      textInputAction: textInputAction,
-      function: function,
-      isPass: isPass,
-      focusNode: focusNode,
-      status: status,
-      controller: controller);
-}
-
-class _InputState extends State<Input> {
+class Input extends StatelessWidget {
   String? hint;
   TextInputAction? textInputAction;
   Function? function;
-  bool? isPass;
+  bool isPass;
   FocusNode? focusNode;
   TextEditingController? controller;
-  String status;
+  InputStatus status;
 
   Map<String, Color>? colors;
   Color? accentColor;
   Color? textPrimary;
   Color? textPlaceholder;
 
-  _InputState(
+  Input(
       {this.hint,
-      this.textInputAction,
+      this.textInputAction = TextInputAction.done,
       this.function,
-      this.isPass,
+      this.isPass = false,
       this.focusNode,
       this.controller,
-      required this.status});
+      this.status = InputStatus.def});
 
   Color? getColorByStatus() {
     switch (status) {
-      case "def":
+      case InputStatus.def:
         return colors!['field_border'];
-      case "error":
+      case InputStatus.error:
         return colors!['field_error_border'];
 
-      case "valid":
+      case InputStatus.valid:
         return colors!['field_valid_border'];
     }
   }
 
   Color? getBackgroundByStatus() {
     switch (status) {
-      case "def":
+      case InputStatus.def:
         return colors!['field_background'];
-      case "error":
+      case InputStatus.error:
         return colors!['field_error_background'];
 
-      case "valid":
+      case InputStatus.valid:
         return colors!['field_background'];
     }
   }
@@ -99,9 +72,9 @@ class _InputState extends State<Input> {
         print("ff " + status.toString());
         return TextFormField(
           style: TextStyle(fontSize: 16, color: textPrimary),
-          obscureText: isPass!,
-          autocorrect: !isPass!,
-          controller: controller,
+          obscureText: isPass,
+          autocorrect: !isPass,
+          controller: controller!,
           textInputAction: textInputAction,
           decoration: InputDecoration(
               // labelText: 'FFFF',
@@ -123,4 +96,4 @@ class _InputState extends State<Input> {
   }
 }
 
-// enum InputStatus { def, error, valid }
+enum InputStatus { def, error, valid }
