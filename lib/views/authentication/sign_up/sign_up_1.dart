@@ -1,8 +1,11 @@
+import 'package:diary_app/api/common/CommonApi.dart';
 import 'package:diary_app/components/button.dart';
 import 'package:diary_app/components/form_item.dart';
 import 'package:diary_app/components/input.dart';
+import 'package:diary_app/components/screen_spinner.dart';
 import 'package:diary_app/components/select_mimicry.dart';
 import 'package:diary_app/components/simple_cell.dart';
+import 'package:diary_app/models/index.dart';
 import 'package:diary_app/redux/actions/AddLoginAndPasswordAndRegionSignUp.dart';
 import 'package:diary_app/redux/redux.dart';
 import 'package:diary_app/views/authentication/sign_up/server_url_argement.dart';
@@ -29,6 +32,10 @@ class SignUp1State extends State<SignUp1> {
   ];
 
   String _login = "";
+  FormItemStatus _loginStatus = FormItemStatus.def;
+  
+  String _loginError = "";
+
   String _pass = "";
   String _url_region = "";
   TextEditingController _controllerRegion = TextEditingController();
@@ -48,24 +55,57 @@ class SignUp1State extends State<SignUp1> {
     });
   }
 
+  void checkLogin(String login) async {
+    CommonApi api = new CommonApi();
+    api.setPath("user/check-login");
+    api.setBody(RequestCheckLogin(login: login).toJson());
+    var res = await api.request();
+    print(res);
+    if(res != null) {
+      if(res['success']) {
+        ResponseCheckLogin response = ResponseCheckLogin.fromJson(res);
+        print(response);
+        if(response.msg == "ok") {
+          print("all ok");
+        }
+      } else {
+        ResponseCheckLogin response = ResponseCheckLogin.fromJson(res);
+        Navigator.pop(context);
+        setState(() {
+          _loginStatus = FormItemStatus.error;  
+          _loginError = response.msg;
+        });
+      }
+    } else {
+      // Navigator.pop(context);
+      setState(() {
+        _loginStatus = FormItemStatus.error;  
+      });
+      
+    }
+  }
+
   void openMenuChooseRegion() {
     print("ff");
     showBarModalBottomSheet(
       context: context,
-      builder: (context) => Column(
-        children: [
-          AppBar(
-              title: Text("Выберите регион"),
-              automaticallyImplyLeading: false,
-              textTheme: Theme.of(context).textTheme,
-              centerTitle: true),
-          ...regions
-              .map((e) => SimpleCell(
-                  child: e['name'],
-                  onClick: () => chooseRegion(e)))
-              .toList()
-        ],
-        mainAxisSize: MainAxisSize.min,
+      builder: (context) => Container(
+        color: Theme.of(context).backgroundColor,
+        child: Column(
+          children: [
+            AppBar(
+                title: Text("Выберите регион"),
+                automaticallyImplyLeading: false,
+                textTheme: Theme.of(context).textTheme,
+                centerTitle: true),
+            ...regions
+                .map((e) => SimpleCell(
+                    child: e['name'],
+                    onClick: () => chooseRegion(e)))
+                .toList()
+          ],
+          mainAxisSize: MainAxisSize.min,
+        ),
       ),
     );
   }
@@ -80,9 +120,11 @@ class SignUp1State extends State<SignUp1> {
   }
 
   void next(addLoginAndPasswordAndRegionSignUp) {
-    addLoginAndPasswordAndRegionSignUp(_login, _pass, _region_id);
-    Navigator.pushNamed(context, "/sign_up_2",
-        arguments: ServerUrlArg(_url_region));
+    showDialog(context: context, builder: (context) => WillPopScope(child: ScreenSpinner(), onWillPop: () => Future.value(true)), barrierDismissible: false);
+    checkLogin(_login);
+    // addLoginAndPasswordAndRegionSignUp(_login, _pass, _region_id);
+    // Navigator.pushNamed(context, "/sign_up_2",
+    //     arguments: ServerUrlArg(_url_region));
   }
 
   @override
@@ -102,6 +144,7 @@ class SignUp1State extends State<SignUp1> {
             Expanded(
                 child: ListView(children: [
               FormItem(
+                  bottom:_loginError ,
                   child: Input(
                       hint: "Введите логин", controller: _loginController),
                   top: "Логин"),

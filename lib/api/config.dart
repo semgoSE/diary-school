@@ -1,1 +1,1 @@
-const String URL = ""; //адрес сервера
+const String URL = 'diary-school.herokuapp.com'; //адрес сервера

@@ -2,8 +2,10 @@ import 'package:diary_app/components/button.dart';
 import 'package:diary_app/components/form_item.dart';
 import 'package:diary_app/components/input.dart';
 import 'package:diary_app/components/placeholder.dart';
+import 'package:diary_app/components/spinner.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -11,6 +13,25 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
+
+  void login() async {
+    showBarModalBottomSheet(context: context, builder: (context) {
+      return WillPopScope(
+        child: Container(
+          color: Theme.of(context).backgroundColor,
+          child: Column(children: [
+            AppBar(title: Text("Авторизация"), centerTitle: true, textTheme: Theme.of(context).textTheme, automaticallyImplyLeading: false),
+            Container(child: Spinner()),
+            Container(child: MyPlaceholder(child: "Это может занять некоторое время"), height: 44)
+          ], mainAxisSize: MainAxisSize.min),
+        ),
+        onWillPop: () => Future.value(false),
+      );
+    }, topControl: Container(), enableDrag: false);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +47,7 @@ class _LoginState extends State<Login> {
             FormItem(
               child: Input(
                 hint: "Введите логин",
+                textInputAction: TextInputAction.next,
               ),
               top: "Логин",
             ),
@@ -37,11 +59,12 @@ class _LoginState extends State<Login> {
               top: "Пароль",
             ),
             Container(
-                child: MyButton(child: "Войти", mode: "commerce"),
+                child: MyButton(child: "Войти", mode: "commerce", click: login),
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16)),
             Container(child: MyPlaceholder(child: "или"), height: 90),
             Container(
                 child: MyButton(
+                  disable: true,
                   child: "Войти с Google",
                   mode: "outlined",
                 ),

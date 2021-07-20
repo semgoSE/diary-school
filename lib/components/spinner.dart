@@ -36,8 +36,10 @@ class SpinnerState extends State<Spinner> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return (RotationTransition(
         child: Container(
-            child: MyIcon(type: "svg", svgPath: "resource/icons/spnner.svg"),
-            height: 66),
+            height: size,
+            width: size,
+            child: MyIcon(type: "svg", svgPath: "resource/icons/spinner.svg", size: size),
+      ),
         turns: Tween(begin: 0.0, end: 1.0).animate(controller!)));
   }
 }

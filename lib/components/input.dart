@@ -10,7 +10,7 @@ class Input extends StatefulWidget {
   TextInputAction textInputAction;
   Function? function;
   bool isPass;
-  InputStatus status;
+  String status;
   FocusNode? focusNode;
 
   Input(
@@ -19,7 +19,7 @@ class Input extends StatefulWidget {
       this.function,
       this.isPass = false,
       this.focusNode,
-      this.status = InputStatus.def,
+      this.status = "def",
       this.controller});
 
   @override
@@ -40,7 +40,7 @@ class _InputState extends State<Input> {
   bool? isPass;
   FocusNode? focusNode;
   TextEditingController? controller;
-  InputStatus status;
+  String status;
 
   Map<String, Color>? colors;
   Color? accentColor;
@@ -58,24 +58,24 @@ class _InputState extends State<Input> {
 
   Color? getColorByStatus() {
     switch (status) {
-      case InputStatus.def:
+      case "def":
         return colors!['field_border'];
-      case InputStatus.error:
+      case "error":
         return colors!['field_error_border'];
 
-      case InputStatus.valid:
+      case "valid":
         return colors!['field_valid_border'];
     }
   }
 
   Color? getBackgroundByStatus() {
     switch (status) {
-      case InputStatus.def:
+      case "def":
         return colors!['field_background'];
-      case InputStatus.error:
+      case "error":
         return colors!['field_error_background'];
 
-      case InputStatus.valid:
+      case "valid":
         return colors!['field_background'];
     }
   }
@@ -96,11 +96,13 @@ class _InputState extends State<Input> {
           this.textPrimary = DarkTheme().textPrimary;
           this.textPlaceholder = DarkTheme().textPlaceholder;
         }
+        print("ff " + status.toString());
         return TextFormField(
           style: TextStyle(fontSize: 16, color: textPrimary),
           obscureText: isPass!,
           autocorrect: !isPass!,
           controller: controller,
+          textInputAction: textInputAction,
           decoration: InputDecoration(
               // labelText: 'FFFF',
               hintStyle: TextStyle(fontSize: 16, color: textPlaceholder),
@@ -121,4 +123,4 @@ class _InputState extends State<Input> {
   }
 }
 
-enum InputStatus { def, error, valid }
+// enum InputStatus { def, error, valid }
