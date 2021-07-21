@@ -11,6 +11,7 @@ import 'package:diary_app/redux/redux.dart';
 import 'package:diary_app/views/authentication/sign_up/server_url_argement.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -20,6 +21,10 @@ class SignUp1 extends StatefulWidget {
 }
 
 class SignUp1State extends State<SignUp1> {
+
+
+  bool needCheck = false; //флаг нужно ли проверять порля на наличие ошибок
+
   TextEditingController _loginController = TextEditingController();
   TextEditingController _passController = TextEditingController();
 
@@ -123,12 +128,22 @@ class SignUp1State extends State<SignUp1> {
   void next(addLoginAndPasswordAndRegionSignUp) async {
     FocusScope.of(context).requestFocus(new FocusNode());
     showDialog(context: context, builder: (context) => WillPopScope(child: ScreenSpinner(), onWillPop: () => Future.value(true)), barrierDismissible: false);
-    bool loginValid = await checkLogin(_login);
-    if(loginValid) {
-      addLoginAndPasswordAndRegionSignUp(_login, _pass, _region_id);
-      Navigator.pushNamed(context, "/sign_up_2",
-          arguments: ServerUrlArg(_url_region));
+    if(_login.length >= 6) { //проверяем логин согласно требованиям
+      bool loginValid = await checkLogin(_login);
+      if(loginValid) {
+        addLoginAndPasswordAndRegionSignUp(_login, _pass, _region_id);
+        Navigator.pushNamed(context, "/sign_up_2",
+            arguments: ServerUrlArg(_url_region));
+      }
+    } else {
+      Navigator.pop(context);
+      setState(() {
+        _loginStatus = FormItemStatus.error;
+        _loginError = "Лоигин слишком короткий";        
+      });
     }
+     // логин занят?
+    
   }
 
   @override
@@ -152,6 +167,12 @@ class SignUp1State extends State<SignUp1> {
                   bottom:_loginError ,
                   child: Input(
                       status: _loginStatus == FormItemStatus.def ? InputStatus.def : InputStatus.error,
+                      keyboardType: TextInputType.text,
+                      inputFormatters: [ 
+                        LengthLimitingTextInputFormatter(18),
+                        FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9_]')),
+                      ],
+                      textInputAction: TextInputAction.next,
                       hint: "Введите логин", controller: _loginController),
                   top: "Логин"),
               FormItem(

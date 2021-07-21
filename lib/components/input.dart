@@ -1,5 +1,6 @@
 import 'package:diary_app/redux/redux.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import 'colors.dart';
@@ -14,11 +15,14 @@ class Input extends StatelessWidget {
   FocusNode? focusNode;
   TextEditingController? controller;
   InputStatus status;
+  TextInputType? keyboardType;
+  List<TextInputFormatter>? inputFormatters;
 
   Map<String, Color>? colors;
   Color? accentColor;
   Color? textPrimary;
   Color? textPlaceholder;
+
 
   Input(
       {this.hint,
@@ -27,6 +31,8 @@ class Input extends StatelessWidget {
       this.isPass = false,
       this.focusNode,
       this.controller,
+      this.keyboardType,
+      this.inputFormatters,
       this.status = InputStatus.def});
 
   Color? getColorByStatus() {
@@ -71,6 +77,8 @@ class Input extends StatelessWidget {
         }
         print("ff " + status.toString());
         return TextFormField(
+          keyboardType: keyboardType,
+          inputFormatters: inputFormatters,
           style: TextStyle(fontSize: 16, color: textPrimary),
           obscureText: isPass,
           autocorrect: !isPass,
