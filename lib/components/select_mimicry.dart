@@ -1,5 +1,6 @@
 
 import 'package:diary_app/components/colors.dart';
+import 'package:diary_app/components/icon.dart';
 import 'package:diary_app/redux/redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -50,6 +51,8 @@ class SelectMimicry extends StatelessWidget {
               hintStyle: TextStyle(fontSize: 16, color: textPlaceholder),
               hintText: hint,
               filled: true,
+              // suffixIcon: Text("fdd"),
+              suffixIcon: MyIcon(type: IconType.svg, svgPath: "resource/icons/dropdown_16.svg", colorMode: ColorMode.placeholder, size: 14), //TODO доделать эту херню
               fillColor: colors!['field_background'],
               contentPadding: EdgeInsets.symmetric(horizontal: 17, vertical: 8),
               enabledBorder: OutlineInputBorder(

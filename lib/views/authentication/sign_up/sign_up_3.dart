@@ -68,21 +68,26 @@ class SignUp3State extends State<SignUp3> {
     api.setPath("user/sign_up");
     SignUpRequest data = new SignUpRequest(login: _signUp.login!, password: _signUp.password!, session: _signUp.session!, accountsBind: accounts_bind.map((e) => e.accountBind!).toList());
     api.setBody(data.toJson());
-    showBarModalBottomSheet(context: context, builder: (context) {
+    showBarModalBottomSheet(context: context, topControl: Container(), builder: (context) {
       return WillPopScope(
-        child: Column(children: [
-          AppBar(title: Text("Авторизация"), centerTitle: true, textTheme: Theme.of(context).textTheme),
-          Container(child: Spinner()),
-          Container(child: MyPlaceholder(child: "Это может занять некоторое время"))
-        ], mainAxisSize: MainAxisSize.min),
+        child: Container(
+          color: Theme.of(context).backgroundColor,
+          child: Column(children: [
+            AppBar(title: Text("Авторизация"), centerTitle: true, textTheme: Theme.of(context).textTheme, automaticallyImplyLeading: false),
+            Container(child: Spinner()),
+            Container(child: MyPlaceholder(child: "Это может занять некоторое время"), height: 44)
+          ], mainAxisSize: MainAxisSize.min),
+        ),
         onWillPop: () => Future.value(false),
       );
     });
     var response = await api.request();
+    print(response);
     if(response['success']) {
         ResponseSignUp res = ResponseSignUp.fromJson(response);
+        //TODO еще какая то херня
     } else {
-      
+      //TODO ошибка
     }
   }
 
@@ -108,7 +113,7 @@ class SignUp3State extends State<SignUp3> {
                   ),
                   SimpleCell(
                     child: "Добавить привязку",
-                    before: MyIcon(svgPath: "resource/icons/add_outline_28.svg", type: "svg", size: 32,),
+                    before: MyIcon(svgPath: "resource/icons/add_outline_28.svg", type: IconType.svg, size: 32,),
                     onClick: showModal,
                   ),
                   Expanded(child: ListView(children: 

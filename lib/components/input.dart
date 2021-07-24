@@ -75,7 +75,6 @@ class Input extends StatelessWidget {
           this.textPrimary = DarkTheme().textPrimary;
           this.textPlaceholder = DarkTheme().textPlaceholder;
         }
-        print("ff " + status.toString());
         return TextFormField(
           keyboardType: keyboardType,
           inputFormatters: inputFormatters,

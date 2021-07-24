@@ -49,126 +49,97 @@ class Msg {
 
   const Msg({
     required this.token,
-  });
-
-  final Token token;
-
-  factory Msg.fromJson(Map<String,dynamic> json) => Msg(
-    token: Token.fromJson(json['token'] as Map<String, dynamic>)
-  );
-  
-  Map<String, dynamic> toJson() => {
-    'token': token.toJson()
-  };
-
-  Msg clone() => Msg(
-    token: token.clone()
-  );
-
-
-  Msg copyWith({
-    Token? token
-  }) => Msg(
-    token: token ?? this.token,
-  );
-
-  @override
-  bool operator ==(Object other) => identical(this, other)
-    || other is Msg && token == other.token;
-
-  @override
-  int get hashCode => token.hashCode;
-}
-
-@immutable
-class Token {
-
-  const Token({
-    required this.token,
-    required this.version,
-    required this.data,
+    required this.user,
   });
 
   final String token;
-  final int version;
-  final Data data;
+  final User user;
 
-  factory Token.fromJson(Map<String,dynamic> json) => Token(
+  factory Msg.fromJson(Map<String,dynamic> json) => Msg(
     token: json['token'] as String,
-    version: json['version'] as int,
-    data: Data.fromJson(json['data'] as Map<String, dynamic>)
+    user: User.fromJson(json['user'] as Map<String, dynamic>)
   );
   
   Map<String, dynamic> toJson() => {
     'token': token,
-    'version': version,
-    'data': data.toJson()
+    'user': user.toJson()
   };
 
-  Token clone() => Token(
+  Msg clone() => Msg(
     token: token,
-    version: version,
-    data: data.clone()
+    user: user.clone()
   );
 
 
-  Token copyWith({
+  Msg copyWith({
     String? token,
-    int? version,
-    Data? data
-  }) => Token(
+    User? user
+  }) => Msg(
     token: token ?? this.token,
-    version: version ?? this.version,
-    data: data ?? this.data,
+    user: user ?? this.user,
   );
 
   @override
   bool operator ==(Object other) => identical(this, other)
-    || other is Token && token == other.token && version == other.version && data == other.data;
+    || other is Msg && token == other.token && user == other.user;
 
   @override
-  int get hashCode => token.hashCode ^ version.hashCode ^ data.hashCode;
+  int get hashCode => token.hashCode ^ user.hashCode;
 }
 
 @immutable
-class Data {
+class User {
 
-  const Data({
+  const User({
+    required this.login,
     required this.userId,
+    required this.classId,
     required this.role,
   });
 
+  final String login;
   final int userId;
+  final int classId;
   final String role;
 
-  factory Data.fromJson(Map<String,dynamic> json) => Data(
+  factory User.fromJson(Map<String,dynamic> json) => User(
+    login: json['login'] as String,
     userId: json['user_id'] as int,
+    classId: json['class_id'] as int,
     role: json['role'] as String
   );
   
   Map<String, dynamic> toJson() => {
+    'login': login,
     'user_id': userId,
+    'class_id': classId,
     'role': role
   };
 
-  Data clone() => Data(
+  User clone() => User(
+    login: login,
     userId: userId,
+    classId: classId,
     role: role
   );
 
 
-  Data copyWith({
+  User copyWith({
+    String? login,
     int? userId,
+    int? classId,
     String? role
-  }) => Data(
+  }) => User(
+    login: login ?? this.login,
     userId: userId ?? this.userId,
+    classId: classId ?? this.classId,
     role: role ?? this.role,
   );
 
   @override
   bool operator ==(Object other) => identical(this, other)
-    || other is Data && userId == other.userId && role == other.role;
+    || other is User && login == other.login && userId == other.userId && classId == other.classId && role == other.role;
 
   @override
-  int get hashCode => userId.hashCode ^ role.hashCode;
+  int get hashCode => login.hashCode ^ userId.hashCode ^ classId.hashCode ^ role.hashCode;
 }

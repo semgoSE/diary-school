@@ -1,14 +1,12 @@
 {
     "success": true,
     "msg": {
-        "token": {
-           "token": "сам токен",
-           "version": 1,
-           "data": {
-               "user_id": 1,
-               "role": "PUPIL"
-           }
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJyb2xlIjoiUFVQSUwiLCJpYXQiOjE2MjcxNjMzNDV9.vajLK7nn8wfKOYk6sUTnn_xqoHVApyTAceT7F3ADoHc",
+        "user": {
+            "login": "g1g",
+            "user_id": 6,
+            "class_id": 1,
+            "role": "PUPIL"
         }
     }
-
 }

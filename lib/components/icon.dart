@@ -8,16 +8,16 @@ class MyIcon extends StatelessWidget {
   IconData? iconData;
   String? svgPath;
   double? size;
-  String? colorMode;
+  ColorMode colorMode;
 
-  String? type; // "icon" / "svg"
+  IconType type; // "icon" / "svg"
 
   MyIcon(
       {this.iconData,
       this.svgPath,
       this.size = 28,
-      this.colorMode = "accent",
-      this.type = "icon"});
+      this.colorMode = ColorMode.accent,
+      this.type = IconType.icon});
 
   Color? accentColor;
   Map<String, Color>? colors;
@@ -41,17 +41,17 @@ class MyIcon extends StatelessWidget {
 
   Color? getIconColor() {
     switch (colorMode) {
-      case "accent":
+      case ColorMode.accent:
         return accentColor;
-        break;
-      case "name":
+      case ColorMode.name:
         return colors!["icon_name"];
-        break;
+      case ColorMode.placeholder:
+        return colors!["icon_secondary"];
     }
   }
 
   dynamic setIcon() {
-    if (this.type == "icon") {
+    if (this.type == IconType.icon) {
       return Icon(
         iconData,
         color: getIconColor(),
@@ -67,3 +67,7 @@ class MyIcon extends StatelessWidget {
     }
   }
 }
+
+
+enum IconType { svg, icon }
+enum ColorMode { accent, name, placeholder }

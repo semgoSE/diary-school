@@ -1,6 +1,7 @@
 import 'package:diary_app/api/common/CommonApi.dart';
 import 'package:diary_app/components/button.dart';
 import 'package:diary_app/components/form_item.dart';
+import 'package:diary_app/components/icon.dart';
 import 'package:diary_app/components/input.dart';
 import 'package:diary_app/components/screen_spinner.dart';
 import 'package:diary_app/components/select_mimicry.dart';
@@ -142,8 +143,7 @@ class SignUp1State extends State<SignUp1> {
         _loginError = "Лоигин слишком короткий";        
       });
     }
-     // логин занят?
-    
+
   }
 
   @override
@@ -177,11 +177,17 @@ class SignUp1State extends State<SignUp1> {
                   top: "Логин"),
               FormItem(
                   top: "Пароль",
-                  child: Input(hint: "Пароль", controller: _passController)),
+                  child: Input(
+                      keyboardType: TextInputType.text,
+                      inputFormatters: [ 
+                        LengthLimitingTextInputFormatter(18),
+                        FilteringTextInputFormatter.deny(RegExp('[а-яА-я]')),
+                    ],
+                    hint: "Пароль", controller: _passController)), //TODO валидация пароля
               FormItem(
-                top: "Сервер",
+                top: "Регион",
                 child: SelectMimicry(
-                    hint: "Выберите сервер",
+                    hint: "Выберите регион",
                     click: () => openMenuChooseRegion(),
                     controller: _controllerRegion),
               )
