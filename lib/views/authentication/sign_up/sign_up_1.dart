@@ -181,9 +181,9 @@ class SignUp1State extends State<SignUp1> {
                       keyboardType: TextInputType.text,
                       inputFormatters: [ 
                         LengthLimitingTextInputFormatter(18),
-                        FilteringTextInputFormatter.deny(RegExp('[а-яА-я]')),
+                        FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9_@#]')),
                     ],
-                    hint: "Пароль", controller: _passController)), //TODO валидация пароля
+                    hint: "Пароль", controller: _passController)),
               FormItem(
                 top: "Регион",
                 child: SelectMimicry(

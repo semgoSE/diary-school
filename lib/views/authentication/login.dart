@@ -5,6 +5,7 @@ import 'package:diary_app/components/placeholder.dart';
 import 'package:diary_app/components/spinner.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class Login extends StatefulWidget {
@@ -13,6 +14,27 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
+  TextEditingController _loginController = TextEditingController();
+  TextEditingController _passController = TextEditingController();
+
+  String _login = "";
+  String _pass = "";
+
+
+  void initState() {
+    _loginController.addListener(() {
+      setState(() {
+        _login = _loginController.value.text;
+      });
+    });
+
+    _passController.addListener(() {
+      setState(() {
+        _pass = _passController.value.text;
+      });
+    });
+  }
 
 
   void login() async {
@@ -47,7 +69,12 @@ class _LoginState extends State<Login> {
             FormItem(
               child: Input(
                 hint: "Введите логин",
+                controller: _loginController,
                 textInputAction: TextInputAction.next,
+                inputFormatters: [ 
+                        LengthLimitingTextInputFormatter(18),
+                        FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9_]')),
+                ],
               ),
               top: "Логин",
             ),
@@ -55,11 +82,17 @@ class _LoginState extends State<Login> {
               child: Input(
                 isPass: true,
                 hint: "Введите пароль",
+                controller: _passController,
+                keyboardType: TextInputType.text,
+                inputFormatters: [ 
+                  LengthLimitingTextInputFormatter(18),
+                  FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9_@#]')),
+                ],
               ),
               top: "Пароль",
             ),
             Container(
-                child: MyButton(child: "Войти", mode: "commerce", click: login),
+                child: MyButton(child: "Войти", mode: "commerce", click: login, disable: _login.length < 6,),
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16)),
             Container(child: MyPlaceholder(child: "или"), height: 90),
             Container(
