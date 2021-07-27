@@ -1,17 +1,23 @@
 import 'package:diary_app/components/colors.dart';
+import 'package:diary_app/models/user.dart';
 import 'package:diary_app/redux/redux.dart';
 import 'package:diary_app/views/authentication/sign_up/sign_up_1.dart';
 import 'package:diary_app/views/authentication/sign_up/sign_up_2.dart';
 import 'package:diary_app/views/authentication/sign_up/sign_up_3.dart';
+import 'package:diary_app/views/root/bottom_navigation_panel.dart';
 import 'package:diary_app/views/start_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:redux/redux.dart';
 import 'views/authentication/login.dart';
-import 'views/root/bottom_navigation_panel.dart';
 
 void main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(UserAdapter());
+  await Hive.openBox<dynamic>("auth_data");
+
   final store =
       new Store<StateStore>(appReducers, initialState: new StateStore());
 
@@ -38,6 +44,8 @@ void main() async {
 
   //получаем из темы Theme.of(context).backgroundColor,
 
+  Box box = Hive.box("auth_data");
+
   runApp(StoreProvider(
     store: store,
     child: MaterialApp(
@@ -58,8 +66,10 @@ void main() async {
           return SignUp3();
         },
         '/': (BuildContext context) {
-          return Scaffold(
-              body: StartPage(), backgroundColor: themeData.backgroundColor);
+          return box.get("login", defaultValue: false) ? BottomNavigation() : Scaffold(
+            body: StartPage(),
+            backgroundColor: themeData.backgroundColor,
+          );
         },
       },
     ),

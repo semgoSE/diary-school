@@ -1,4 +1,3 @@
-
 import 'package:diary_app/components/colors.dart';
 import 'package:diary_app/components/icon.dart';
 import 'package:diary_app/redux/redux.dart';
@@ -7,7 +6,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 
 class SelectMimicry extends StatelessWidget {
   String hint;
-  TextEditingController ?controller;
+  TextEditingController? controller;
   Function? click;
   FocusNode? focusNode;
 
@@ -16,15 +15,10 @@ class SelectMimicry extends StatelessWidget {
   Color? textPrimary;
   Color? textPlaceholder;
 
-  SelectMimicry(
-      {this.hint = "",
-      this.controller,
-      this.click,
-      this.focusNode});
+  SelectMimicry({this.hint = "", this.controller, this.click, this.focusNode});
 
   @override
   Widget build(BuildContext context) {
-  
     return new StoreConnector<StateStore, String>(
       converter: (store) => store.state.theme,
       builder: (context, theme) {
@@ -52,7 +46,16 @@ class SelectMimicry extends StatelessWidget {
               hintText: hint,
               filled: true,
               // suffixIcon: Text("fdd"),
-              suffixIcon: MyIcon(type: IconType.svg, svgPath: "resource/icons/dropdown_16.svg", colorMode: ColorMode.placeholder, size: 14), //TODO доделать эту херню
+              suffixIconConstraints: BoxConstraints(maxHeight: 32, maxWidth: 32),
+              suffixIcon: Container(
+                margin: EdgeInsets.only(right: 8.0),
+                child: MyIcon(
+                  type: IconType.svg,
+                  svgPath: "resource/icons/dropdown_16.svg",
+                  colorMode: ColorMode.placeholder,
+                  //size: 14,
+                ),
+              ), //TODO доделать эту херню
               fillColor: colors!['field_background'],
               contentPadding: EdgeInsets.symmetric(horizontal: 17, vertical: 8),
               enabledBorder: OutlineInputBorder(

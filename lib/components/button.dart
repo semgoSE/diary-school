@@ -38,10 +38,13 @@ class MyButton extends StatelessWidget {
         }
         return Container(
           decoration: BoxDecoration(
-            border: Border.all(color: getBorder()!),
+            border: Border.all(
+              color: disable ? getBorder(context)!.withOpacity(0.6) : getBorder(context)!,
+            ),
             borderRadius: BorderRadius.circular(8.0),
-            color:
-                disable ? getBackground()!.withOpacity(0.6) : getBackground(),
+            color: disable
+                ? getBackground(context)!.withOpacity(0.6)
+                : getBackground(context),
           ),
           child: Material(
             color: Colors.transparent,
@@ -102,7 +105,7 @@ class MyButton extends StatelessWidget {
   }
 
   //цвет фона
-  Color? getBackground() {
+  Color? getBackground(BuildContext context) {
     switch (this.mode) {
       case "commerce":
         return colors!['button_commerce_background'];
@@ -114,21 +117,21 @@ class MyButton extends StatelessWidget {
         return colors!['button_secondary_background'];
 
       case "outlined":
-        return Color.fromRGBO(0, 0, 0, 0);
+        return Theme.of(context).backgroundColor;
     }
   }
 
   //цвет рамки
-  Color? getBorder() {
+  Color? getBorder(BuildContext context) {
     switch (this.mode) {
       case "commerce":
-        return Color.fromRGBO(0, 0, 0, 0);
+        return Theme.of(context).backgroundColor;
 
       case "primary":
-        return Color.fromRGBO(0, 0, 0, 0);
+        return Theme.of(context).backgroundColor;
 
       case "secondary":
-        return Color.fromRGBO(0, 0, 0, 0);
+        return Theme.of(context).backgroundColor;
 
       case "outlined":
         return colors!['button_outline_border'];

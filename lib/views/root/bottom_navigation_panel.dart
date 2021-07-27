@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class BottomNavigation extends StatefulWidget {
   @override
@@ -11,26 +10,6 @@ class BottomNavigation extends StatefulWidget {
 
 class _BottomNavigationState extends State<BottomNavigation> {
   int _currentIndex = 0;
-  bool _isLoad = false;
-
-  @override
-  void initState() {
-    //checkLogin();
-    super.initState();
-  }
-
-  void checkLogin() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getInt("user_id") == null) {
-      // Navigator.pop(context);
-      Navigator.pushNamedAndRemoveUntil(context, '/sign_in', (r) => false);
-    } else {
-      //TODO API
-      setState(() {
-        _isLoad = false;
-      });
-    }
-  }
 
   void onTap(int index) {
     setState(() {
@@ -53,14 +32,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
     return Scaffold(
       //backgroundColor: HexColor("#ffffff"),
-      body: !_isLoad
-           ? _children[_currentIndex]
-           : Container(
-               alignment: Alignment.center,
-               child: Container(),
-             ),
-      bottomNavigationBar: !_isLoad
-          ? BottomNavigationBar(
+      body: _children[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
               selectedFontSize: 12,
               backgroundColor: HexColor("#ffffff"),
@@ -99,7 +72,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     ),
                     label: "Профиль")
               ],
-            ) : Container(),
+            ),
     );
   }
 }
