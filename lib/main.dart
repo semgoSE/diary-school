@@ -1,4 +1,5 @@
 import 'package:diary_app/components/colors.dart';
+import 'package:diary_app/models/auth_data.dart';
 import 'package:diary_app/models/user.dart';
 import 'package:diary_app/redux/redux.dart';
 import 'package:diary_app/views/authentication/sign_up/sign_up_1.dart';
@@ -16,6 +17,7 @@ import 'views/authentication/login.dart';
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserAdapter());
+  Hive.registerAdapter(AuthDataAdapter());
   await Hive.openBox<dynamic>("auth_data");
 
   final store =
