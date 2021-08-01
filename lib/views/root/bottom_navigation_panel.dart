@@ -31,48 +31,52 @@ class _BottomNavigationState extends State<BottomNavigation> {
     ]);
 
     return Scaffold(
-      //backgroundColor: HexColor("#ffffff"),
-      body: _children[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              selectedFontSize: 12,
-              backgroundColor: HexColor("#ffffff"),
-              currentIndex: _currentIndex,
-              selectedItemColor: HexColor("#2975cc"),
-              onTap: onTap,
-              items: [
-                BottomNavigationBarItem(
-                    activeIcon: SvgPicture.asset(
-                      "res/newsfeed_outline_28.svg",
-                      color: HexColor("#2975cc"),
-                    ),
-                    icon: SvgPicture.asset(
-                      "res/newsfeed_outline_28.svg",
-                      color: HexColor("#99a2ad"),
-                    ),
-                    label: "Сводка"),
-                BottomNavigationBarItem(
-                    activeIcon: SvgPicture.asset(
-                      "res/book_outline_28.svg",
-                      color: HexColor("#2975cc"),
-                    ),
-                    icon: SvgPicture.asset(
-                      "res/book_outline_28.svg",
-                      color: HexColor("#99a2ad"),
-                    ),
-                    label: "Расписание"),
-                BottomNavigationBarItem(
-                    activeIcon: SvgPicture.asset(
-                      "res/user_outline_28.svg",
-                      color: HexColor("#2975cc"),
-                    ),
-                    icon: SvgPicture.asset(
-                      "res/user_outline_28.svg",
-                      color: HexColor("#99a2ad"),
-                    ),
-                    label: "Профиль")
-              ],
-            ),
+      backgroundColor: Theme.of(context).backgroundColor,
+      appBar: AppBar(
+        title: Text("Сводка"),
+        textTheme: Theme.of(context).textTheme),
+      body: Container(),
+      // body: _children[_currentIndex],
+      // bottomNavigationBar: BottomNavigationBar(
+      //         type: BottomNavigationBarType.fixed,
+      //         selectedFontSize: 12,
+      //         backgroundColor: HexColor("#ffffff"),
+      //         currentIndex: _currentIndex,
+      //         selectedItemColor: HexColor("#2975cc"),
+      //         onTap: onTap,
+      //         items: [
+      //           BottomNavigationBarItem(
+      //               activeIcon: SvgPicture.asset(
+      //                 "res/newsfeed_outline_28.svg",
+      //                 color: HexColor("#2975cc"),
+      //               ),
+      //               icon: SvgPicture.asset(
+      //                 "res/newsfeed_outline_28.svg",
+      //                 color: HexColor("#99a2ad"),
+      //               ),
+      //               label: "Сводка"),
+      //           BottomNavigationBarItem(
+      //               activeIcon: SvgPicture.asset(
+      //                 "res/book_outline_28.svg",
+      //                 color: HexColor("#2975cc"),
+      //               ),
+      //               icon: SvgPicture.asset(
+      //                 "res/book_outline_28.svg",
+      //                 color: HexColor("#99a2ad"),
+      //               ),
+      //               label: "Расписание"),
+      //           BottomNavigationBarItem(
+      //               activeIcon: SvgPicture.asset(
+      //                 "res/user_outline_28.svg",
+      //                 color: HexColor("#2975cc"),
+      //               ),
+      //               icon: SvgPicture.asset(
+      //                 "res/user_outline_28.svg",
+      //                 color: HexColor("#99a2ad"),
+      //               ),
+      //               label: "Профиль")
+      //         ],
+      //       ),
     );
   }
 }

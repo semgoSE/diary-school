@@ -1,8 +1,10 @@
 import 'package:diary_app/components/colors.dart';
 import 'package:diary_app/components/icon.dart';
-import 'package:diary_app/redux/redux.dart';
+import 'package:diary_app/mobX/config_app.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+
+final config = Config();
 
 class SelectMimicry extends StatelessWidget {
   String hint;
@@ -19,15 +21,14 @@ class SelectMimicry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<StateStore, String>(
-      converter: (store) => store.state.theme,
-      builder: (context, theme) {
-        if (theme == "light") {
+    return new Observer(
+      builder: (_) {
+        if (config.theme == ThemeConfig.light) {
           this.colors = LightTheme().field;
           this.accentColor = LightTheme().accent;
           this.textPrimary = LightTheme().textPrimary;
           this.textPlaceholder = LightTheme().textPlaceholder;
-        } else if (theme == "dark") {
+        } else if (config.theme == ThemeConfig.dark) {
           this.colors = DarkTheme().field;
           this.accentColor = DarkTheme().accent;
           this.textPrimary = DarkTheme().textPrimary;
@@ -55,7 +56,7 @@ class SelectMimicry extends StatelessWidget {
                   colorMode: ColorMode.placeholder,
                   //size: 14,
                 ),
-              ), //TODO доделать эту херню
+              ),
               fillColor: colors!['field_background'],
               contentPadding: EdgeInsets.symmetric(horizontal: 17, vertical: 8),
               enabledBorder: OutlineInputBorder(

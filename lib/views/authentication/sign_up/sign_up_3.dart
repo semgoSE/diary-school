@@ -4,15 +4,19 @@ import 'package:diary_app/components/icon.dart';
 import 'package:diary_app/components/placeholder.dart';
 import 'package:diary_app/components/simple_cell.dart';
 import 'package:diary_app/components/spinner.dart';
+import 'package:diary_app/mobX/config_app.dart';
+import 'package:diary_app/mobX/sign_up.dart';
 import 'package:diary_app/models/account_bind.dart';
 import 'package:diary_app/models/index.dart';
-import 'package:diary_app/redux/redux.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:flutter_login_vk/flutter_login_vk.dart';
+import 'package:provider/provider.dart';
+
+final SignUp signUp = SignUp();
 
 class SignUp3 extends StatefulWidget {
   @override
@@ -22,7 +26,6 @@ class SignUp3 extends StatefulWidget {
 class SignUp3State extends State<SignUp3> {
 
   List<AccountBindView> accounts_bind = [];
-  late SignUp _signUp;
 
   void bindVK() async {
     var vk = VKLogin();
@@ -66,7 +69,9 @@ class SignUp3State extends State<SignUp3> {
   void sign_up() async  {
     CommonApi api = new CommonApi();
     api.setPath("user/sign_up");
-    SignUpRequest data = new SignUpRequest(login: _signUp.login!, password: _signUp.password!, session: _signUp.session!, accountsBind: accounts_bind.map((e) => e.accountBind!).toList());
+    SignUp signUp = Provider.of<SignUp>(context, listen: false);
+    print(signUp);
+    SignUpRequest data = new SignUpRequest(login: signUp.login, password: signUp.password, session: signUp.session, accountsBind: accounts_bind.map((e) => e.accountBind!).toList());
     api.setBody(data.toJson());
     showBarModalBottomSheet(context: context, topControl: Container(), builder: (context) {
       return WillPopScope(
@@ -78,14 +83,18 @@ class SignUp3State extends State<SignUp3> {
             Container(child: MyPlaceholder(child: "Это может занять некоторое время"), height: 44)
           ], mainAxisSize: MainAxisSize.min),
         ),
-        onWillPop: () => Future.value(false),
+        onWillPop: () => Future.value(true),
       );
     });
     var response = await api.request();
     print(response);
     if(response['success']) {
         ResponseSignUp res = ResponseSignUp.fromJson(response);
-        //TODO еще какая то херня
+        Box<AuthData> box = Hive.box<AuthData>("auth");
+        box.put("auth", res.msg);
+        Provider.of<Config>(context, listen: false).setLogin(true);
+        Navigator.pop(context);
+        Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
     } else {
       //TODO ошибка
     }
@@ -93,10 +102,6 @@ class SignUp3State extends State<SignUp3> {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<StateStore,SignUp>(
-      converter: (store) => store.state.signUp,
-      builder: (BuildContext context, signUp) {
-        _signUp = signUp;
         return Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
             appBar: AppBar(
@@ -128,8 +133,6 @@ class SignUp3State extends State<SignUp3> {
                 ],
               ),
             ));
-      },
-    );
   }
 }
 

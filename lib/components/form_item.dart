@@ -1,7 +1,9 @@
 import 'package:diary_app/components/colors.dart';
-import 'package:diary_app/redux/redux.dart';
+import 'package:diary_app/components/input.dart';
+import 'package:diary_app/mobX/config_app.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+
 
 class FormItem extends StatelessWidget {
   String? top;
@@ -32,9 +34,9 @@ class FormItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (StoreConnector<StateStore, String>(
-        builder: (context, theme) {
-          if (theme == "light") {
+    return (Observer(
+        builder: (_) {
+          if (config.theme == ThemeConfig.light) {
             this.colors = LightTheme();
           } else {
             this.colors = DarkTheme();
@@ -62,7 +64,7 @@ class FormItem extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max),
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12));
         },
-        converter: (store) => store.state.theme));
+        ));
   }
 }
 

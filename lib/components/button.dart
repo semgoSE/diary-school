@@ -1,7 +1,9 @@
 import 'package:diary_app/components/colors.dart';
-import 'package:diary_app/redux/redux.dart';
+import 'package:diary_app/mobX/config_app.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+
+final config = Config();
 
 class MyButton extends StatelessWidget {
   String? child;
@@ -26,13 +28,12 @@ class MyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<StateStore, String>(
-      converter: (store) => store.state.theme,
-      builder: (context, theme) {
-        if (theme == "light") {
+    return new Observer(
+      builder: (_) {
+        if (config.theme == ThemeConfig.light) {
           this.colors = LightTheme().button;
           this.accentColor = LightTheme().accent;
-        } else if (theme == "dark") {
+        } else if (config.theme == ThemeConfig.dark) {
           this.colors = DarkTheme().button;
           this.accentColor = DarkTheme().accent;
         }

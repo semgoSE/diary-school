@@ -1,8 +1,10 @@
-import 'package:diary_app/redux/redux.dart';
+import 'package:diary_app/mobX/config_app.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'colors.dart';
+
+final config = Config();
 
 class MyIcon extends StatelessWidget {
   IconData? iconData;
@@ -24,13 +26,12 @@ class MyIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<StateStore, String>(
-      converter: (store) => store.state.theme,
-      builder: (context, theme) {
-        if (theme == "light") {
+    return new Observer(
+      builder: (_) {
+        if (config.theme == ThemeConfig.light) {
           this.colors = LightTheme().icons;
           this.accentColor = LightTheme().accent;
-        } else if (theme == "dark") {
+        } else if (config.theme == ThemeConfig.dark) {
           this.colors = DarkTheme().icons;
           this.accentColor = DarkTheme().accent;
         }

@@ -1,9 +1,9 @@
 import 'package:diary_app/components/colors.dart';
+import 'package:diary_app/mobX/config_app.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
-import 'package:redux/redux.dart';
-import 'package:diary_app/redux/redux.dart';
+final config = Config();
 
 class MyPlaceholder extends StatelessWidget {
 
@@ -21,9 +21,9 @@ class MyPlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector(
-        builder: (BuildContext context, theme) {
-          if (theme == "light")
+    return Observer(
+        builder: (_) {
+          if (config.theme == ThemeConfig.light)
             textPlaceholder = LightTheme().textPlaceholder;
           else
             textPlaceholder = DarkTheme().textPlaceholder;
@@ -36,8 +36,7 @@ class MyPlaceholder extends StatelessWidget {
               ),
             ),
           ], mainAxisAlignment: MainAxisAlignment.center);
-        },
-        converter: (Store<StateStore> store) => store.state.theme);
+        });
   }
 
   TextAlign? getAlign() {

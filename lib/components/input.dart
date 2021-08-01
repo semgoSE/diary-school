@@ -1,11 +1,13 @@
-import 'package:diary_app/redux/redux.dart';
+
+import 'package:diary_app/mobX/config_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+
 
 import 'colors.dart';
 
-
+final config = Config();
 
 class Input extends StatelessWidget {
   String? hint;
@@ -61,15 +63,14 @@ class Input extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<StateStore, String>(
-      converter: (store) => store.state.theme,
-      builder: (context, theme) {
-        if (theme == "light") {
+    return new Observer(
+      builder: (_) {
+        if (config.theme == ThemeConfig.light) {
           this.colors = LightTheme().field;
           this.accentColor = LightTheme().accent;
           this.textPrimary = LightTheme().textPrimary;
           this.textPlaceholder = LightTheme().textPlaceholder;
-        } else if (theme == "dark") {
+        } else if (config.theme == ThemeConfig.dark) {
           this.colors = DarkTheme().field;
           this.accentColor = DarkTheme().accent;
           this.textPrimary = DarkTheme().textPrimary;

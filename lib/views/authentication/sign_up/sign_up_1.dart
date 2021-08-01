@@ -6,15 +6,17 @@ import 'package:diary_app/components/input.dart';
 import 'package:diary_app/components/screen_spinner.dart';
 import 'package:diary_app/components/select_mimicry.dart';
 import 'package:diary_app/components/simple_cell.dart';
+import 'package:diary_app/mobX/sign_up.dart';
 import 'package:diary_app/models/index.dart';
-import 'package:diary_app/redux/actions/AddLoginAndPasswordAndRegionSignUp.dart';
-import 'package:diary_app/redux/redux.dart';
+
 import 'package:diary_app/views/authentication/sign_up/server_url_argement.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:provider/provider.dart';
+
+
 
 class SignUp1 extends StatefulWidget {
   @override
@@ -126,13 +128,13 @@ class SignUp1State extends State<SignUp1> {
     Navigator.pop(context);
   }
 
-  void next(addLoginAndPasswordAndRegionSignUp) async {
+  void next() async {
     FocusScope.of(context).requestFocus(new FocusNode());
     showDialog(context: context, builder: (context) => WillPopScope(child: ScreenSpinner(), onWillPop: () => Future.value(true)), barrierDismissible: false);
     if(_login.length >= 6) { //проверяем логин согласно требованиям
       bool loginValid = await checkLogin(_login);
       if(loginValid) {
-        addLoginAndPasswordAndRegionSignUp(_login, _pass, _region_id);
+        Provider.of<SignUp>(context, listen: false).setSignUp1(_login, _pass, regions[_region_id]['url']);
         Navigator.pushNamed(context, "/sign_up_2",
             arguments: ServerUrlArg(_url_region));
       }
@@ -148,12 +150,6 @@ class SignUp1State extends State<SignUp1> {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<StateStore,
-        void Function(String login, String pass, int region_id)>(
-      converter: (store) => (login, pass, region_id) => store.dispatch(
-          AddLoginAndPasswordAndRegionSignUp(
-              password: pass, login: login, region_id: region_id)),
-      builder: (BuildContext context, addLoginAndPasswordAndRegionSignUp) {
         return Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
@@ -197,12 +193,10 @@ class SignUp1State extends State<SignUp1> {
                     child: "Далее",
                     disable: (_login == "" || _pass == "" || _region_id == -1),
                     click: () {
-                      next(addLoginAndPasswordAndRegionSignUp);
+                      next();
                     }),
                 padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16))
           ]),
         );
-      },
-    );
   }
 }

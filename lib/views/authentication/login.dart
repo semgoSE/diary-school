@@ -64,7 +64,7 @@ class _LoginState extends State<Login> {
       topControl: Container(),
       enableDrag: false,
     );
-    Box box = Hive.box("auth_data");
+    Box<AuthData> box = Hive.box<AuthData>("auth_data");
     CommonApi api = CommonApi();
     api.setPath("user/login");
     api.setBody(RequestLogin(type: "DEFAULT", login: _login, password: _pass).toJson());
@@ -72,9 +72,7 @@ class _LoginState extends State<Login> {
     if (f["success"]) {
       ResponseLogin response = ResponseLogin.fromJson(f);
       if(response.msg.length == 1) {
-        box.put("token", response.msg[0].token);
-        box.put("user", response.msg[0].user);
-        box.put("login", true);
+        box.put("auth", response.msg[0]);
         Navigator.pop(context);
         Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
       }
