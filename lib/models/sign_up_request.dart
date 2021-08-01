@@ -1,7 +1,12 @@
+import 'package:hive/hive.dart';
 import 'package:flutter/foundation.dart';
-import 'account_bind.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
+part 'sign_up_request.g.dart';
 
 @immutable
+@HiveType(typeId: 8)
 class SignUpRequest {
 
   const SignUpRequest({
@@ -11,9 +16,13 @@ class SignUpRequest {
     this.accountsBind,
   });
 
+  @HiveField(0)
   final String login;
+  @HiveField(1)
   final String password;
+  @HiveField(2)
   final String session;
+  @HiveField(3)
   final List<AccountBind>? accountsBind;
 
   factory SignUpRequest.fromJson(Map<String,dynamic> json) => SignUpRequest(
@@ -42,12 +51,12 @@ class SignUpRequest {
     String? login,
     String? password,
     String? session,
-    List<AccountBind>? accountsBind
+    Optional<List<AccountBind>?>? accountsBind
   }) => SignUpRequest(
     login: login ?? this.login,
     password: password ?? this.password,
     session: session ?? this.session,
-    accountsBind: accountsBind ?? this.accountsBind,
+    accountsBind: checkOptional(accountsBind, this.accountsBind),
   );
 
   @override

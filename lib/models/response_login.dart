@@ -1,7 +1,12 @@
+import 'package:hive/hive.dart';
 import 'package:flutter/foundation.dart';
-import 'auth_data.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
+part 'response_login.g.dart';
 
 @immutable
+@HiveType(typeId: 6)
 class ResponseLogin {
 
   const ResponseLogin({
@@ -9,7 +14,9 @@ class ResponseLogin {
     required this.msg,
   });
 
+  @HiveField(0)
   final bool success;
+  @HiveField(1)
   final List<AuthData> msg;
 
   factory ResponseLogin.fromJson(Map<String,dynamic> json) => ResponseLogin(

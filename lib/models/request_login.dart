@@ -1,7 +1,12 @@
+import 'package:hive/hive.dart';
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
 
+part 'request_login.g.dart';
 
 @immutable
+@HiveType(typeId: 4)
 class RequestLogin {
 
   const RequestLogin({
@@ -11,8 +16,11 @@ class RequestLogin {
   });
 
   RequestLoginTypeEnum get requestLoginTypeEnum => _requestLoginTypeEnumValues.map[type]!;
+  @HiveField(0)
   final String type;
+  @HiveField(1)
   final String login;
+  @HiveField(2)
   final String password;
 
   factory RequestLogin.fromJson(Map<String,dynamic> json) => RequestLogin(

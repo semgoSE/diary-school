@@ -1,7 +1,12 @@
+import 'package:hive/hive.dart';
 import 'package:flutter/foundation.dart';
-import 'user.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
+part 'auth_data.g.dart';
 
 @immutable
+@HiveType(typeId: 2)
 class AuthData {
 
   const AuthData({
@@ -9,7 +14,9 @@ class AuthData {
     required this.user,
   });
 
+  @HiveField(0)
   final String token;
+  @HiveField(1)
   final User user;
 
   factory AuthData.fromJson(Map<String,dynamic> json) => AuthData(

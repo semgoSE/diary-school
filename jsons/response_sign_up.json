@@ -1,7 +1,4 @@
 {
     "success": true,
-    "msg": {
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJyb2xlIjoiUFVQSUwiLCJpYXQiOjE2MjcxNjMzNDV9.vajLK7nn8wfKOYk6sUTnn_xqoHVApyTAceT7F3ADoHc",
-        "user": "$user"
-    }
+    "msg": "$auth_data"
 }

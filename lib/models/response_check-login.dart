@@ -1,7 +1,12 @@
+import 'package:hive/hive.dart';
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
 
+part 'response_check-login.g.dart';
 
 @immutable
+@HiveType(typeId: 5)
 class ResponseCheckLogin {
 
   const ResponseCheckLogin({
@@ -9,7 +14,9 @@ class ResponseCheckLogin {
     required this.msg,
   });
 
+  @HiveField(0)
   final bool success;
+  @HiveField(1)
   final String msg;
 
   factory ResponseCheckLogin.fromJson(Map<String,dynamic> json) => ResponseCheckLogin(

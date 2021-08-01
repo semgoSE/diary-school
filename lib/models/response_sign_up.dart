@@ -1,7 +1,12 @@
+import 'package:hive/hive.dart';
 import 'package:flutter/foundation.dart';
-import 'user.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
+part 'response_sign_up.g.dart';
 
 @immutable
+@HiveType(typeId: 7)
 class ResponseSignUp {
 
   const ResponseSignUp({
@@ -9,12 +14,14 @@ class ResponseSignUp {
     required this.msg,
   });
 
+  @HiveField(0)
   final bool success;
-  final Msg msg;
+  @HiveField(1)
+  final AuthData msg;
 
   factory ResponseSignUp.fromJson(Map<String,dynamic> json) => ResponseSignUp(
     success: json['success'] as bool,
-    msg: Msg.fromJson(json['msg'] as Map<String, dynamic>)
+    msg: AuthData.fromJson(json['msg'] as Map<String, dynamic>)
   );
   
   Map<String, dynamic> toJson() => {
@@ -30,7 +37,7 @@ class ResponseSignUp {
 
   ResponseSignUp copyWith({
     bool? success,
-    Msg? msg
+    AuthData? msg
   }) => ResponseSignUp(
     success: success ?? this.success,
     msg: msg ?? this.msg,
@@ -42,47 +49,4 @@ class ResponseSignUp {
 
   @override
   int get hashCode => success.hashCode ^ msg.hashCode;
-}
-
-@immutable
-class Msg {
-
-  const Msg({
-    required this.token,
-    required this.user,
-  });
-
-  final String token;
-  final User user;
-
-  factory Msg.fromJson(Map<String,dynamic> json) => Msg(
-    token: json['token'] as String,
-    user: User.fromJson(json['user'] as Map<String, dynamic>)
-  );
-  
-  Map<String, dynamic> toJson() => {
-    'token': token,
-    'user': user.toJson()
-  };
-
-  Msg clone() => Msg(
-    token: token,
-    user: user.clone()
-  );
-
-
-  Msg copyWith({
-    String? token,
-    User? user
-  }) => Msg(
-    token: token ?? this.token,
-    user: user ?? this.user,
-  );
-
-  @override
-  bool operator ==(Object other) => identical(this, other)
-    || other is Msg && token == other.token && user == other.user;
-
-  @override
-  int get hashCode => token.hashCode ^ user.hashCode;
 }

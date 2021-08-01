@@ -73,7 +73,7 @@ class _LoginState extends State<Login> {
       ResponseLogin response = ResponseLogin.fromJson(f);
       if(response.msg.length == 1) {
         box.put("token", response.msg[0].token);
-        box.put("user_data", response.msg[0].user);
+        box.put("user", response.msg[0].user);
         box.put("login", true);
         Navigator.pop(context);
         Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);

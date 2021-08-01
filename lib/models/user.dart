@@ -1,10 +1,12 @@
-import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
+import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
 part 'user.g.dart';
 
-
 @immutable
-@HiveType(typeId : 1)
+@HiveType(typeId: 9)
 class User {
 
   const User({
