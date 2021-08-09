@@ -3,6 +3,7 @@ import 'package:diary_app/components/input.dart';
 import 'package:diary_app/mobX/config_app.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 
 
 class FormItem extends StatelessWidget {
@@ -36,6 +37,7 @@ class FormItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return (Observer(
         builder: (_) {
+          Config config = Provider.of<Config>(context, listen: false);
           if (config.theme == ThemeConfig.light) {
             this.colors = LightTheme();
           } else {

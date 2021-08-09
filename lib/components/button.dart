@@ -2,8 +2,8 @@ import 'package:diary_app/components/colors.dart';
 import 'package:diary_app/mobX/config_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 
-final config = Config();
 
 class MyButton extends StatelessWidget {
   String? child;
@@ -30,6 +30,7 @@ class MyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Observer(
       builder: (_) {
+        Config config = Provider.of<Config>(context, listen: false);
         if (config.theme == ThemeConfig.light) {
           this.colors = LightTheme().button;
           this.accentColor = LightTheme().accent;

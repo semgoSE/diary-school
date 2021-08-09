@@ -28,7 +28,7 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.5.0"
+    version: "2.6.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -336,8 +336,8 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "3dc58a67e7bef72b29b51cd2a31feec35677831c"
-      url: "git://github.com/semgoSE/json_to_model.git"
+      resolved-ref: "42fc8701bfa849f03c362cc6591d133d37b9eeb6"
+      url: "git://github.com/semgoSE/json_to_model_with_hive.git"
     source: git
     version: "3.0.0-beta.3"
   logging:
@@ -575,7 +575,7 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.0"
+    version: "1.8.1"
   stack_trace:
     dependency: transitive
     description:
@@ -624,7 +624,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.19"
+    version: "0.3.0"
   timing:
     dependency: transitive
     description:

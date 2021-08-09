@@ -2,8 +2,8 @@ import 'package:diary_app/components/colors.dart';
 import 'package:diary_app/mobX/config_app.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 
-final config = Config();
 
 class MyPlaceholder extends StatelessWidget {
 
@@ -23,6 +23,7 @@ class MyPlaceholder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
         builder: (_) {
+          Config config = Provider.of<Config>(context, listen: false);
           if (config.theme == ThemeConfig.light)
             textPlaceholder = LightTheme().textPlaceholder;
           else

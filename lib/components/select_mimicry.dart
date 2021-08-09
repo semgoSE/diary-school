@@ -3,8 +3,7 @@ import 'package:diary_app/components/icon.dart';
 import 'package:diary_app/mobX/config_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-
-final config = Config();
+import 'package:provider/provider.dart';
 
 class SelectMimicry extends StatelessWidget {
   String hint;
@@ -23,6 +22,7 @@ class SelectMimicry extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Observer(
       builder: (_) {
+        Config config = Provider.of<Config>(context, listen: false);
         if (config.theme == ThemeConfig.light) {
           this.colors = LightTheme().field;
           this.accentColor = LightTheme().accent;

@@ -47,7 +47,7 @@ dependencies:
 dev_dependencies:
   json_to_model: 
     git:
-      url: git://github.com/semgoSE/json_to_model.git
+      url: git://github.com/semgoSE/json_to_model_with_hive.git
       ref: main
   mobx_codegen: ^2.0.0
   flutter_test:
