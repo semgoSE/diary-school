@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:infinity_page_view/infinity_page_view.dart';
 
 class SheduleWeek extends StatefulWidget {
   @override
@@ -8,7 +9,14 @@ class SheduleWeek extends StatefulWidget {
 class SheduleWeekState extends State {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      child: InfinityPageView(
+        itemBuilder: ((BuildContext context, int i) {
+          return Container();
+        }),
+        itemCount: 7,
+      ),
+    );
   }
   
 }

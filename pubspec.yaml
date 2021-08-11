@@ -43,6 +43,7 @@ dependencies:
   quiver: ^3.0.1
   clock: ^1.1.0
   provider: ^5.0.0
+  infinity_page_view: ^1.0.0
 
 dev_dependencies:
   json_to_model: 
