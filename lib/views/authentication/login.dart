@@ -64,7 +64,7 @@ class _LoginState extends State<Login> {
       topControl: Container(),
       enableDrag: false,
     );
-    Box<AuthData> box = Hive.box<AuthData>("auth_data");
+    Box<AuthData> box = Hive.box<AuthData>("auth");
     CommonApi api = CommonApi();
     api.setPath("user/login");
     api.setBody(RequestLogin(type: "DEFAULT", login: _login, password: _pass).toJson());

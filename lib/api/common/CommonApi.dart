@@ -1,15 +1,11 @@
-
-
 import 'dart:convert';
 
 import 'package:diary_app/api/config.dart';
 import 'package:http/http.dart' as http;
 
-
 class CommonApi {
-
   String url_server = URL; //адресс сервера
-  Uri? route;//марщрут
+  Uri? route; //маршрут
 
   String? json_body; //тело запроса
 
@@ -17,8 +13,7 @@ class CommonApi {
     this.url_server = URL;
   }
 
-
- //редактируем маршрут
+  //редактируем маршрут
   void setPath(String path) {
     route = Uri.https(URL, path);
   }
@@ -27,8 +22,6 @@ class CommonApi {
   void setBody(Object obj) {
     json_body = jsonEncode(obj);
   }
-
-
 
   //отправляем запрос
   Future<dynamic> request() async {
@@ -39,5 +32,4 @@ class CommonApi {
       return null;
     }
   }
-
 }
