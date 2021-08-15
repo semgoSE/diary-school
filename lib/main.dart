@@ -40,6 +40,7 @@ void main() async {
   themeData = ThemeData(
       textTheme:
           TextTheme(headline6: TextStyle(color: theme.header['header_text'])),
+      fontFamily: "Inter",
       backgroundColor: theme.background,
       accentColor: theme.accent,
       primaryColor: theme.textPrimary,

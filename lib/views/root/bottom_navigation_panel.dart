@@ -20,11 +20,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _children = [
-      Container(),
-      SheduleWeek(),
-      Container()
-    ];
+    final List<Widget> _children = [Container(), SheduleWeek(), Container()];
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -33,50 +29,58 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar: AppBar(
-        title: Text("Сводка"),
-        textTheme: Theme.of(context).textTheme),
+      appBar:
+          AppBar(title: Text("Сводка"), textTheme: Theme.of(context).textTheme),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              selectedFontSize: 12,
-              backgroundColor: HexColor("#ffffff"),
-              currentIndex: _currentIndex,
-              selectedItemColor: HexColor("#2975cc"),
-              onTap: onTap,
-              items: [
-                BottomNavigationBarItem(
-                    activeIcon: SvgPicture.asset(
-                      "resource/icons/newsfeed_outline_28.svg",
-                      color: HexColor("#2975cc"),
-                    ),
-                    icon: SvgPicture.asset(
-                      "resource/icons/newsfeed_outline_28.svg",
-                      color: HexColor("#99a2ad"),
-                    ),
-                    label: "Сводка"),
-                BottomNavigationBarItem(
-                    activeIcon: SvgPicture.asset(
-                      "resource/icons/calendar_outline_28.svg.svg",
-                      color: HexColor("#2975cc"),
-                    ),
-                    icon: SvgPicture.asset(
-                      "resource/icons/calendar_outline_28.svg.svg",
-                      color: HexColor("#99a2ad"),
-                    ),
-                    label: "Расписание"),
-                BottomNavigationBarItem(
-                    activeIcon: SvgPicture.asset(
-                      "resource/icons/user_outline_28.svg",
-                      color: HexColor("#2975cc"),
-                    ),
-                    icon: SvgPicture.asset(
-                      "resource/icons/user_outline_28.svg",
-                      color: HexColor("#99a2ad"),
-                    ),
-                    label: "Профиль")
-              ],
+        type: BottomNavigationBarType.fixed,
+        selectedFontSize: 12,
+        backgroundColor: HexColor("#ffffff"),
+        currentIndex: _currentIndex,
+        selectedItemColor: HexColor("#2975cc"),
+        onTap: onTap,
+        selectedLabelStyle: TextStyle(
+          fontWeight: FontWeight.w500,
+          fontSize: 12,
+        ),
+        unselectedLabelStyle: TextStyle(
+          fontWeight: FontWeight.w500,
+          fontSize: 12,
+        ),
+        items: [
+          BottomNavigationBarItem(
+            activeIcon: SvgPicture.asset(
+              "resource/icons/newsfeed_outline_28.svg",
+              color: HexColor("#2975cc"),
             ),
+            icon: SvgPicture.asset(
+              "resource/icons/newsfeed_outline_28.svg",
+              color: HexColor("#99a2ad"),
+            ),
+            label: "Сводка",
+          ),
+          BottomNavigationBarItem(
+              activeIcon: SvgPicture.asset(
+                "resource/icons/calendar_outline_28.svg",
+                color: HexColor("#2975cc"),
+              ),
+              icon: SvgPicture.asset(
+                "resource/icons/calendar_outline_28.svg",
+                color: HexColor("#99a2ad"),
+              ),
+              label: "Расписание"),
+          BottomNavigationBarItem(
+              activeIcon: SvgPicture.asset(
+                "resource/icons/user_outline_28.svg",
+                color: HexColor("#2975cc"),
+              ),
+              icon: SvgPicture.asset(
+                "resource/icons/user_outline_28.svg",
+                color: HexColor("#99a2ad"),
+              ),
+              label: "Профиль")
+        ],
+      ),
     );
   }
 }

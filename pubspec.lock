@@ -310,6 +310,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
+  infinite_view_pager:
+    dependency: "direct main"
+    description:
+      name: infinite_view_pager
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   infinity_page_view:
     dependency: "direct main"
     description:

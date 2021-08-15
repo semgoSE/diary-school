@@ -7,7 +7,10 @@
         {
             "name": "diary-school",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": [
+                "--no-sound-null-safety"
+            ],
         },
         {
             "name": "diary-school (profile mode)",
