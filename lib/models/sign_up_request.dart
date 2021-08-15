@@ -3,10 +3,10 @@ import 'package:flutter/foundation.dart';
 import 'package:quiver/core.dart';
 import 'index.dart';
 
-
+part 'sign_up_request.g.dart';
 
 @immutable
-
+@HiveType(typeId: 10)
 class SignUpRequest {
 
   const SignUpRequest({
@@ -16,9 +16,13 @@ class SignUpRequest {
     this.accountsBind,
   });
 
+  @HiveField(0)
   final String login;
+  @HiveField(1)
   final String password;
+  @HiveField(2)
   final String session;
+  @HiveField(3)
   final List<AccountBind>? accountsBind;
 
   factory SignUpRequest.fromJson(Map<String,dynamic> json) => SignUpRequest(

@@ -3,10 +3,10 @@ import 'package:flutter/foundation.dart';
 import 'package:quiver/core.dart';
 import 'index.dart';
 
-
+part 'response_sign_up.g.dart';
 
 @immutable
-
+@HiveType(typeId: 9)
 class ResponseSignUp {
 
   const ResponseSignUp({
@@ -14,7 +14,9 @@ class ResponseSignUp {
     required this.msg,
   });
 
+  @HiveField(0)
   final bool success;
+  @HiveField(1)
   final AuthData msg;
 
   factory ResponseSignUp.fromJson(Map<String,dynamic> json) => ResponseSignUp(

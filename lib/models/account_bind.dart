@@ -3,10 +3,10 @@ import 'package:flutter/foundation.dart';
 import 'package:quiver/core.dart';
 import 'index.dart';
 
-
+part 'account_bind.g.dart';
 
 @immutable
-
+@HiveType(typeId: 1)
 class AccountBind {
 
   const AccountBind({
@@ -16,8 +16,11 @@ class AccountBind {
   });
 
   AccountBindTypeEnum get accountBindTypeEnum => _accountBindTypeEnumValues.map[type]!;
+  @HiveField(0)
   final String type;
+  @HiveField(1)
   final int uuid;
+  @HiveField(2)
   final String token;
 
   factory AccountBind.fromJson(Map<String,dynamic> json) => AccountBind(

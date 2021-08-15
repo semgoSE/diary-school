@@ -342,8 +342,8 @@ packages:
     dependency: "direct dev"
     description:
       path: "."
-      ref: main
-      resolved-ref: "42fc8701bfa849f03c362cc6591d133d37b9eeb6"
+      ref: test
+      resolved-ref: dfce1bedbe6d28f890f50fed13853cf043738ce2
       url: "git://github.com/semgoSE/json_to_model_with_hive.git"
     source: git
     version: "3.0.0-beta.3"

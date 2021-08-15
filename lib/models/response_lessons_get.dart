@@ -3,13 +3,13 @@ import 'package:flutter/foundation.dart';
 import 'package:quiver/core.dart';
 import 'index.dart';
 
-part 'response_login.g.dart';
+part 'response_lessons_get.g.dart';
 
 @immutable
-@HiveType(typeId: 8)
-class ResponseLogin {
+@HiveType(typeId: 7)
+class ResponseLessonsGet {
 
-  const ResponseLogin({
+  const ResponseLessonsGet({
     required this.success,
     required this.msg,
   });
@@ -17,11 +17,11 @@ class ResponseLogin {
   @HiveField(0)
   final bool success;
   @HiveField(1)
-  final List<AuthData> msg;
+  final List<Timetable> msg;
 
-  factory ResponseLogin.fromJson(Map<String,dynamic> json) => ResponseLogin(
+  factory ResponseLessonsGet.fromJson(Map<String,dynamic> json) => ResponseLessonsGet(
     success: json['success'] as bool,
-    msg: (json['msg'] as List? ?? []).map((e) => AuthData.fromJson(e as Map<String, dynamic>)).toList()
+    msg: (json['msg'] as List? ?? []).map((e) => Timetable.fromJson(e as Map<String, dynamic>)).toList()
   );
   
   Map<String, dynamic> toJson() => {
@@ -29,23 +29,23 @@ class ResponseLogin {
     'msg': msg.map((e) => e.toJson()).toList()
   };
 
-  ResponseLogin clone() => ResponseLogin(
+  ResponseLessonsGet clone() => ResponseLessonsGet(
     success: success,
     msg: msg.map((e) => e.clone()).toList()
   );
 
 
-  ResponseLogin copyWith({
+  ResponseLessonsGet copyWith({
     bool? success,
-    List<AuthData>? msg
-  }) => ResponseLogin(
+    List<Timetable>? msg
+  }) => ResponseLessonsGet(
     success: success ?? this.success,
     msg: msg ?? this.msg,
   );
 
   @override
   bool operator ==(Object other) => identical(this, other)
-    || other is ResponseLogin && success == other.success && msg == other.msg;
+    || other is ResponseLessonsGet && success == other.success && msg == other.msg;
 
   @override
   int get hashCode => success.hashCode ^ msg.hashCode;

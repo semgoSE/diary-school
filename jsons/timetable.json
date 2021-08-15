@@ -1,0 +1,5 @@
+#hive
+{
+    "week_of_day": 1,
+    "lessons": "$[]lesson"
+}

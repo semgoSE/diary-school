@@ -1,41 +1,35 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user.dart';
+part of 'response_check-login.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class UserAdapter extends TypeAdapter<User> {
+class ResponseCheckLoginAdapter extends TypeAdapter<ResponseCheckLogin> {
   @override
-  final int typeId = 12;
+  final int typeId = 6;
 
   @override
-  User read(BinaryReader reader) {
+  ResponseCheckLogin read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return User(
-      login: fields[0] as String,
-      userId: fields[1] as int,
-      classId: fields[2] as int,
-      role: fields[3] as String,
+    return ResponseCheckLogin(
+      success: fields[0] as bool,
+      msg: fields[1] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, User obj) {
+  void write(BinaryWriter writer, ResponseCheckLogin obj) {
     writer
-      ..writeByte(4)
-      ..writeByte(0)
-      ..write(obj.login)
-      ..writeByte(1)
-      ..write(obj.userId)
       ..writeByte(2)
-      ..write(obj.classId)
-      ..writeByte(3)
-      ..write(obj.role);
+      ..writeByte(0)
+      ..write(obj.success)
+      ..writeByte(1)
+      ..write(obj.msg);
   }
 
   @override
@@ -44,7 +38,7 @@ class UserAdapter extends TypeAdapter<User> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is UserAdapter &&
+      other is ResponseCheckLoginAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
