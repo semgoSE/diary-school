@@ -1,4 +1,3 @@
-import 'dart:js';
 
 import 'package:diary_app/components/card.dart';
 import 'package:diary_app/mobX/shedule_week.dart';
@@ -27,9 +26,9 @@ class SheduleWeekState extends State {
       child: InfinityPageView(
         controller: infinityPageController,
         onPageChanged: (i) {
-          SheduleWeek date = Provider.of<SheduleWeek>(context);
+          SheduleWeek date = Provider.of<SheduleWeek>(context, listen: false);
           int count = date.date.weekday - i;
-          Provider.of<SheduleWeek>(context).updateDate(new DateTime.now().add(Duration(days: count)));
+          Provider.of<SheduleWeek>(context, listen: false).updateDate(new DateTime.now().add(Duration(days: count)));
         },
         itemBuilder: ((BuildContext context, int i) {
           return Container(

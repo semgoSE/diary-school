@@ -90,8 +90,8 @@ class SignUp3State extends State<SignUp3> {
     print(response);
     if(response['success']) {
         ResponseSignUp res = ResponseSignUp.fromJson(response);
-        Box<AuthData> box = Hive.box<AuthData>("auth");
-        box.put("auth", res.msg);
+        Box<AuthData> box = Hive.box<AuthData>("auth_data");
+        box.put("auth_data", res.msg);
         Provider.of<Config>(context, listen: false).setLogin(true);
         Navigator.pop(context);
         Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);

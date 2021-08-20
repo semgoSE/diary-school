@@ -24,7 +24,7 @@ void main() async {
   Hive.registerAdapter(AuthDataAdapter());
   Hive.registerAdapter(TimetableAdapter());
   await Hive.openBox<Timetable>("lessons");
-  await Hive.openBox<AuthData>("auth");
+  await Hive.openBox<AuthData>("auth_data");
 
   ThemeData themeData;
   var theme;
@@ -52,9 +52,9 @@ void main() async {
 
   //получаем из темы Theme.of(context).backgroundColor,
 
-  Box<AuthData> box = Hive.box<AuthData>("auth");
+  Box<AuthData> box = Hive.box<AuthData>("auth_data");
   AuthData init = AuthData(token: "", user: User(classId: 0, login: "", role: "test", userId: 0));
-  AuthData? auth = box.get("auth", defaultValue: init);
+  AuthData? auth = box.get("auth_data", defaultValue: init);
   config.setLogin(auth!.token != "");
 
   runApp(MultiProvider(

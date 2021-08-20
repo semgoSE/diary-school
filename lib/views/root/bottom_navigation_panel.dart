@@ -20,7 +20,12 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _children = [Container(), SheduleWeekView(), Container()];
+    final List<Widget> _childrens = [Container(), SheduleWeekView(), Container()];
+    final List<PreferredSizeWidget> _headers = [
+      AppBar(textTheme: Theme.of(context).textTheme, title: Text("Сводка")),
+      AppBar(textTheme: Theme.of(context).textTheme, title: Text("Расписание"), centerTitle: true),
+      AppBar(textTheme: Theme.of(context).textTheme, title: Text("Профиль"),)
+    ];
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -29,9 +34,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar:
-          AppBar(title: Text("Сводка"), textTheme: Theme.of(context).textTheme),
-      body: _children[_currentIndex],
+      appBar: _headers[_currentIndex],
+      body: _childrens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         selectedFontSize: 12,
