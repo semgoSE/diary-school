@@ -20,7 +20,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _children = [Container(), SheduleWeek(), Container()];
+    final List<Widget> _children = [Container(), SheduleWeekView(), Container()];
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,

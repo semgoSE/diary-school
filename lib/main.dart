@@ -1,5 +1,6 @@
 import 'package:diary_app/components/colors.dart';
 import 'package:diary_app/mobX/config_app.dart';
+import 'package:diary_app/mobX/shedule_week.dart';
 import 'package:diary_app/mobX/sign_up.dart';
 import 'package:diary_app/models/auth_data.dart';
 import 'package:diary_app/models/lesson.dart';
@@ -59,7 +60,8 @@ void main() async {
   runApp(MultiProvider(
     providers: [
       Provider<Config>(create: (_) => config),
-      Provider<SignUp>(create: (_) => SignUp())
+      Provider<SignUp>(create: (_) => SignUp()),
+      Provider<SheduleWeek>(create: (_) => SheduleWeek())
     ],
     child: MaterialApp(
       theme: themeData,
