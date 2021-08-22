@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Card extends StatelessWidget {
-  Card();
+
+  final String header;
+  Card({ required this.header });
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class Card extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           Text(
-            "Пн",
+            header,
             style: TextStyle(
               color: Color(0xFF383838),
               fontSize: 18,
