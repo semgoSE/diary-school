@@ -8,6 +8,7 @@ export 'response_lessons_get.dart';
 export 'response_login.dart';
 export 'response_sign_up.dart';
 export 'sign_up_request.dart';
+export 'subject.dart';
 export 'timetable.dart';
 export 'user.dart';
 import 'package:quiver/core.dart';

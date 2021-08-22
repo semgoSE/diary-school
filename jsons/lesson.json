@@ -1,12 +1,13 @@
 #hive
 {
-    "lesson_id": 3,
+    "lesson_id": 1,
     "class_id": 1,
     "week_of_day": 1,
-    "index": 3,
+    "index": 1,
     "office": "Кабинет №327, Кабинет истории",
-    "time_begin": "09:40",
-    "time_end": "09:40",
-    "subject_id": 3,
-    "teacher_id?": 1
+    "time_begin": "08:00",
+    "time_end": "08:00",
+    "subject_id": 1,
+    "teacher_id?": 1,
+    "subject": "$subject"
 }

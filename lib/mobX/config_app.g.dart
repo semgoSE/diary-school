@@ -39,6 +39,36 @@ mixin _$Config on _Config, Store {
     });
   }
 
+  final _$payloadTokenAtom = Atom(name: '_Config.payloadToken');
+
+  @override
+  PayloadToken get payloadToken {
+    _$payloadTokenAtom.reportRead();
+    return super.payloadToken;
+  }
+
+  @override
+  set payloadToken(PayloadToken value) {
+    _$payloadTokenAtom.reportWrite(value, super.payloadToken, () {
+      super.payloadToken = value;
+    });
+  }
+
+  final _$tokenAtom = Atom(name: '_Config.token');
+
+  @override
+  String get token {
+    _$tokenAtom.reportRead();
+    return super.token;
+  }
+
+  @override
+  set token(String value) {
+    _$tokenAtom.reportWrite(value, super.token, () {
+      super.token = value;
+    });
+  }
+
   final _$_ConfigActionController = ActionController(name: '_Config');
 
   @override
@@ -64,10 +94,23 @@ mixin _$Config on _Config, Store {
   }
 
   @override
+  void addAuthData(String token, PayloadToken payloadToken) {
+    final _$actionInfo =
+        _$_ConfigActionController.startAction(name: '_Config.addAuthData');
+    try {
+      return super.addAuthData(token, payloadToken);
+    } finally {
+      _$_ConfigActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 theme: ${theme},
-login: ${login}
+login: ${login},
+payloadToken: ${payloadToken},
+token: ${token}
     ''';
   }
 }

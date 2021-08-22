@@ -1,4 +1,6 @@
+import 'package:diary_app/api/user/UserApi.dart';
 import 'package:diary_app/components/card.dart';
+import 'package:diary_app/mobX/config_app.dart';
 import 'package:diary_app/mobX/shedule_week.dart';
 import 'package:diary_app/models/index.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,7 +21,19 @@ class SheduleWeekState extends State {
 
   void initState() {
     super.initState();
-    print("ok");
+    
+  }
+
+
+  void getTimetables() {
+    Config config = Provider.of<Config>(context);
+    UserApi api = new UserApi(config.token, config.payloadToken);
+    api.setPath("lessons/get");
+    var response = api.request();
+
+    api.setPath("lessons/search-lessons");
+    api.setBody({"date": "2021-03-02"});
+    var resp = api.request();
   }
 
   @override

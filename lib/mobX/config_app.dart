@@ -1,3 +1,4 @@
+import 'package:diary_app/api/user/UserApi.dart';
 import 'package:mobx/mobx.dart';
 
 // Include generated file
@@ -14,6 +15,12 @@ abstract class _Config with Store {
   @observable
   bool login = false;
 
+  @observable 
+  late PayloadToken payloadToken;
+
+  @observable
+  late String token;
+
   @action
   void setTheme(ThemeConfig theme) {
     this.theme = theme;
@@ -22,6 +29,12 @@ abstract class _Config with Store {
   @action 
   void setLogin(bool _login) {
     login = _login;
+  }
+    
+  @action
+  void addAuthData(String token, PayloadToken payloadToken) {
+    this.payloadToken = payloadToken;
+    this.token = token;
   }
 }
 

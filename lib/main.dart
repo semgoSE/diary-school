@@ -2,10 +2,9 @@ import 'package:diary_app/components/colors.dart';
 import 'package:diary_app/mobX/config_app.dart';
 import 'package:diary_app/mobX/shedule_week.dart';
 import 'package:diary_app/mobX/sign_up.dart';
-import 'package:diary_app/models/auth_data.dart';
-import 'package:diary_app/models/lesson.dart';
-import 'package:diary_app/models/timetable.dart';
-import 'package:diary_app/models/user.dart';
+import 'package:diary_app/models/index.dart';
+
+
 import 'package:diary_app/views/authentication/sign_up/sign_up_1.dart';
 import 'package:diary_app/views/authentication/sign_up/sign_up_2.dart';
 import 'package:diary_app/views/authentication/sign_up/sign_up_3.dart';

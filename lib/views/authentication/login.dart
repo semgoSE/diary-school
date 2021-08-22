@@ -4,6 +4,7 @@ import 'package:diary_app/components/form_item.dart';
 import 'package:diary_app/components/input.dart';
 import 'package:diary_app/components/placeholder.dart';
 import 'package:diary_app/components/spinner.dart';
+import 'package:diary_app/mobX/config_app.dart';
 import 'package:diary_app/models/index.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -73,6 +75,7 @@ class _LoginState extends State<Login> {
       ResponseLogin response = ResponseLogin.fromJson(f);
       if(response.msg.length == 1) {
         box.put("auth_data", response.msg[0]);
+        Provider.of<Config>(context, listen: false).setLogin(true);
         Navigator.pop(context);
         Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
       }

@@ -1,35 +1,35 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'timetable.dart';
+part of 'subject.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class TimetableAdapter extends TypeAdapter<Timetable> {
+class SubjectAdapter extends TypeAdapter<Subject> {
   @override
-  final int typeId = 12;
+  final int typeId = 11;
 
   @override
-  Timetable read(BinaryReader reader) {
+  Subject read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Timetable(
-      weekOfDay: fields[0] as int,
-      lessons: (fields[1] as List).cast<Lesson>(),
+    return Subject(
+      subjectId: fields[0] as int,
+      discipline: fields[1] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Timetable obj) {
+  void write(BinaryWriter writer, Subject obj) {
     writer
       ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.weekOfDay)
+      ..write(obj.subjectId)
       ..writeByte(1)
-      ..write(obj.lessons);
+      ..write(obj.discipline);
   }
 
   @override
@@ -38,7 +38,7 @@ class TimetableAdapter extends TypeAdapter<Timetable> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TimetableAdapter &&
+      other is SubjectAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

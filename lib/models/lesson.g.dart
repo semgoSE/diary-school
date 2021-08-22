@@ -26,13 +26,14 @@ class LessonAdapter extends TypeAdapter<Lesson> {
       timeEnd: fields[6] as String,
       subjectId: fields[7] as int,
       teacherId: fields[8] as int?,
+      subject: fields[9] as Subject,
     );
   }
 
   @override
   void write(BinaryWriter writer, Lesson obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.lessonId)
       ..writeByte(1)
@@ -50,7 +51,9 @@ class LessonAdapter extends TypeAdapter<Lesson> {
       ..writeByte(7)
       ..write(obj.subjectId)
       ..writeByte(8)
-      ..write(obj.teacherId);
+      ..write(obj.teacherId)
+      ..writeByte(9)
+      ..write(obj.subject);
   }
 
   @override
