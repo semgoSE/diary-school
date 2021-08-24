@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class Card extends StatelessWidget {
+class SheduleCard extends StatelessWidget {
 
   final String header;
-  Card({ required this.header });
+  SheduleCard({ required this.header });
 
   @override
   Widget build(BuildContext context) {
