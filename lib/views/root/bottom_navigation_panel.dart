@@ -1,8 +1,12 @@
+import 'package:diary_app/mobX/shedule_week.dart';
 import 'package:diary_app/views/root/SheduleWeek/SheduleWeek.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class BottomNavigation extends StatefulWidget {
   @override
@@ -20,71 +24,88 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _childrens = [Container(), SheduleWeekView(), Container()];
-    final List<PreferredSizeWidget> _headers = [
-      AppBar(textTheme: Theme.of(context).textTheme, title: Text("Сводка")),
-      AppBar(textTheme: Theme.of(context).textTheme, title: Text("Расписание"), centerTitle: true),
-      AppBar(textTheme: Theme.of(context).textTheme, title: Text("Профиль"),)
-    ];
+    return Observer(builder: (context) {
 
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
+      SheduleWeek sheduleWeek =
+            Provider.of<SheduleWeek>(context, listen: false);
+      
+      final List<Widget> _childrens = [
+        Container(),
+        SheduleWeekView(),
+        Container()
+      ];
 
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      appBar: _headers[_currentIndex],
-      body: _childrens[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedFontSize: 12,
-        backgroundColor: HexColor("#ffffff"),
-        currentIndex: _currentIndex,
-        selectedItemColor: HexColor("#2975cc"),
-        onTap: onTap,
-        selectedLabelStyle: TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: 12,
-        ),
-        unselectedLabelStyle: TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: 12,
-        ),
-        items: [
-          BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset(
-              "resource/icons/newsfeed_outline_28.svg",
-              color: HexColor("#2975cc"),
-            ),
-            icon: SvgPicture.asset(
-              "resource/icons/newsfeed_outline_28.svg",
-              color: HexColor("#99a2ad"),
-            ),
-            label: "Сводка",
+      final List<PreferredSizeWidget> _headers = [
+        AppBar(textTheme: Theme.of(context).textTheme, title: Text("Сводка")),
+        AppBar(
+            textTheme: Theme.of(context).textTheme,
+            title: Text(DateFormat("d MMMM", "ru_RU").format(sheduleWeek.date)),
+            centerTitle: true),
+        AppBar(
+          textTheme: Theme.of(context).textTheme,
+          title: Text("Профиль"),
+        )
+      ];
+
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
+
+      return Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
+        appBar: _headers[_currentIndex],
+        body: _childrens[_currentIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          selectedFontSize: 12,
+          backgroundColor: HexColor("#ffffff"),
+          currentIndex: _currentIndex,
+          selectedItemColor: HexColor("#2975cc"),
+          onTap: onTap,
+          selectedLabelStyle: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 12,
           ),
-          BottomNavigationBarItem(
+          unselectedLabelStyle: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 12,
+          ),
+          items: [
+            BottomNavigationBarItem(
               activeIcon: SvgPicture.asset(
-                "resource/icons/calendar_outline_28.svg",
+                "resource/icons/newsfeed_outline_28.svg",
                 color: HexColor("#2975cc"),
               ),
               icon: SvgPicture.asset(
-                "resource/icons/calendar_outline_28.svg",
+                "resource/icons/newsfeed_outline_28.svg",
                 color: HexColor("#99a2ad"),
               ),
-              label: "Расписание"),
-          BottomNavigationBarItem(
-              activeIcon: SvgPicture.asset(
-                "resource/icons/user_outline_28.svg",
-                color: HexColor("#2975cc"),
-              ),
-              icon: SvgPicture.asset(
-                "resource/icons/user_outline_28.svg",
-                color: HexColor("#99a2ad"),
-              ),
-              label: "Профиль")
-        ],
-      ),
-    );
+              label: "Сводка",
+            ),
+            BottomNavigationBarItem(
+                activeIcon: SvgPicture.asset(
+                  "resource/icons/calendar_outline_28.svg",
+                  color: HexColor("#2975cc"),
+                ),
+                icon: SvgPicture.asset(
+                  "resource/icons/calendar_outline_28.svg",
+                  color: HexColor("#99a2ad"),
+                ),
+                label: "Расписание"),
+            BottomNavigationBarItem(
+                activeIcon: SvgPicture.asset(
+                  "resource/icons/user_outline_28.svg",
+                  color: HexColor("#2975cc"),
+                ),
+                icon: SvgPicture.asset(
+                  "resource/icons/user_outline_28.svg",
+                  color: HexColor("#99a2ad"),
+                ),
+                label: "Профиль")
+          ],
+        ),
+      );
+    });
   }
 }

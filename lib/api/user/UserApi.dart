@@ -18,7 +18,10 @@ class UserApi {
     this.url_server = URL;
     this.body.addAll({
       "token": token,
-      "payload": payload
+      "payload": {
+        "user_id": payload.user_id,
+        "role": payload.role
+      }
     });
   }
 
@@ -36,18 +39,30 @@ class UserApi {
   //отправляем запрос
   Future<dynamic> request() async {
     try {
-      var response = await http.post(route!, body: body);
+      var response = await http.post(route!, body: jsonEncode(body), headers: {
+        "Content-Type": "application/json"
+      });
       return jsonDecode(response.body);
     } catch (e) {
-      return null;
+      return "Жопа";
     }
+    
+    // try {
+    //   var response = await http.post(route!, body: body);
+    //   print(response);
+    //   return null;
+    //   // return jsonDecode(response.body);
+    // } catch (e) {
+    //   // print(e);
+    //   return null;
+    // }
   }
 
 }
 
 class PayloadToken {
   final int user_id;
-  final UserRoleEnum role;
+  final String role;
 
   PayloadToken({ required this.user_id, required this.role });
 }

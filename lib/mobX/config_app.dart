@@ -16,10 +16,10 @@ abstract class _Config with Store {
   bool login = false;
 
   @observable 
-  late PayloadToken payloadToken;
+  PayloadToken payloadToken = new PayloadToken(user_id: 0, role: "");
 
   @observable
-  late String token;
+  String token = "";
 
   @action
   void setTheme(ThemeConfig theme) {

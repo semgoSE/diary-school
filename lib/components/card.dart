@@ -1,9 +1,13 @@
+import 'package:diary_app/components/simple_cell.dart';
+import 'package:diary_app/models/index.dart';
 import 'package:flutter/material.dart';
 
 class SheduleCard extends StatelessWidget {
-
   final String header;
-  SheduleCard({ required this.header });
+
+  final Timetable timetable;
+
+  SheduleCard({required this.header, required this.timetable});
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +39,24 @@ class SheduleCard extends StatelessWidget {
               fontSize: 18,
               fontWeight: FontWeight.w500,
             ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              physics: PageScrollPhysics(),
+              itemBuilder: buildLesson,
+              itemCount: timetable.lessons.length,
+            ),
           )
         ],
       ),
     );
+  }
+
+  Widget buildLesson(context, i) {
+            return Container(
+              child: SimpleCell(
+                child: timetable.lessons[i].subject.discipline,
+              ),
+            );
   }
 }

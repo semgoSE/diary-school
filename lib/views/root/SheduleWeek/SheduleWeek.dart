@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:diary_app/api/user/UserApi.dart';
 import 'package:diary_app/components/card.dart';
 import 'package:diary_app/components/weekday_switch.dart';
@@ -20,45 +22,56 @@ class SheduleWeekView extends StatefulWidget {
 class SheduleWeekState extends State {
   List<Timetable> timetables = [];
 
+  bool isController = false;
+
   void initState() {
     super.initState();
   }
 
   int activeWeekDay = 0;
-  void getTimetables() {
+
+  void getTimetables() async {
+    //TODO сейвить раписание в hive
     Config config = Provider.of<Config>(context);
     UserApi api = new UserApi(config.token, config.payloadToken);
     api.setPath("lessons/get");
-    var response = api.request();
-
-    api.setPath("lessons/search-lessons");
-    api.setBody({"date": "2021-03-02"});
-    var resp = api.request();
-  }
+    var response = await api.request();
+    // print(response);
+    if(response['success']!) {
+      timetables = ResponseLessonsGet.fromJson(response).msg;
+      if(timetables.length == 0) {
+        api.setPath("lessons/search-lessons");
+        api.setBody({"date": "2021-03-02"}); //TODO обрати внимание
+        var resp = await api.request();
+        if(resp['success']!) {
+          timetables = ResponseLessonsGet.fromJson(resp).msg;
+        }
+      }
+    }
+  }  
 
   @override
   Widget build(BuildContext context) {
-    InfinityPageController infinityPageController = InfinityPageController(
-        initialPage:
-            Provider.of<SheduleWeek>(context, listen: false).date.weekday - 1);
+
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+
+    getTimetables();
+
+
     return Observer(
       builder: (_) {
         SheduleWeek sheduleWeek =
             Provider.of<SheduleWeek>(context, listen: false);
 
+        InfinityPageController infinityPageController = InfinityPageController(initialPage: sheduleWeek.date.weekday-1);
+
         changeDay(int day) {
-          DateTime temp = sheduleWeek.date;
-          print(temp.weekday);
-          print(day);
-          if ((day + 1) > temp.weekday) {
-            temp.add(Duration(days: day+1-temp.weekday));
-          } else {
-            temp.add(Duration(days: temp.weekday-day-1));
-          }
-          print(temp.weekday);
-          sheduleWeek.updateDate(temp);
+          DateTime date = sheduleWeek.date;
+          date = date.add(Duration(days: day+1 - date.weekday));
+          // sheduleWeek.updateDate(date);
+          isController = true;
+          infinityPageController.jumpToPage(date.weekday-1);
         }
 
         return Container(
@@ -81,17 +94,28 @@ class SheduleWeekState extends State {
                 child: InfinityPageView(
                   controller: infinityPageController,
                   onPageChanged: (i) {
-                    print("sdfgds");
-                    // print((i-1).toString() + " " + sheduleWeek.date.weekday.toString());
-                    // int count = (sheduleWeek.date.weekday) - (i);
-                    // print(count.toString());
+
+                    DateTime date = sheduleWeek.date;
+                    if(sheduleWeek.date.weekday+i != 7) {
+                      date = date.add(Duration(days: i - (sheduleWeek.date.weekday-1)));
+                    } else {
+                      if(!isController) {
+                        if(sheduleWeek.date.weekday-1 > i) date = date.add(Duration(days: 1));
+                        else date = date.add(Duration(days: -1));
+                      } else {
+                        isController = false;
+                        date = date.add(Duration(days: i - (sheduleWeek.date.weekday-1)));
+                      }
+                    }
+                
                     sheduleWeek
-                        .updateDate(sheduleWeek.date.add(Duration(days: 1)));
+                        .updateDate(date);
                   },
                   itemBuilder: ((BuildContext context, int i) {
                     return Container(
                       child: SheduleCard(
-                          header: sheduleWeek.date.weekday.toString()),
+                        timetable: timetables[i],
+                        header: (i+1).toString()),
                     );
                   }),
                   itemCount: 7,

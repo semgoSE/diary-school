@@ -1,9 +1,9 @@
+import 'package:diary_app/api/user/UserApi.dart';
 import 'package:diary_app/components/colors.dart';
 import 'package:diary_app/mobX/config_app.dart';
 import 'package:diary_app/mobX/shedule_week.dart';
 import 'package:diary_app/mobX/sign_up.dart';
 import 'package:diary_app/models/index.dart';
-
 
 import 'package:diary_app/views/authentication/sign_up/sign_up_1.dart';
 import 'package:diary_app/views/authentication/sign_up/sign_up_2.dart';
@@ -16,6 +16,8 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'views/authentication/login.dart';
 import 'package:provider/provider.dart';
+
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -52,41 +54,49 @@ void main() async {
   //получаем из темы Theme.of(context).backgroundColor,
 
   Box<AuthData> box = Hive.box<AuthData>("auth_data");
-  AuthData init = AuthData(token: "", user: User(classId: 0, login: "", role: "test", userId: 0));
+  AuthData init = AuthData(
+      token: "", user: User(classId: 0, login: "", role: "test", userId: 0));
   AuthData? auth = box.get("auth_data", defaultValue: init);
   config.setLogin(auth!.token != "");
+  config.addAuthData(auth.token, PayloadToken(user_id: auth.user.userId, role: auth.user.role));
 
-  runApp(MultiProvider(
-    providers: [
-      Provider<Config>(create: (_) => config),
-      Provider<SignUp>(create: (_) => SignUp()),
-      Provider<SheduleWeek>(create: (_) => SheduleWeek())
-    ],
-    child: MaterialApp(
-      theme: themeData,
-      initialRoute: "/",
-      debugShowCheckedModeBanner: false,
-      routes: <String, WidgetBuilder>{
-        '/login': (BuildContext context) {
-          return Login();
-        },
-        '/sign_up_1': (BuildContext context) {
-          return SignUp1();
-        },
-        '/sign_up_2': (BuildContext context) {
-          return SignUp2();
-        },
-        '/sign_up_3': (BuildContext context) {
-          return SignUp3();
-        },
-        '/': (BuildContext context) {
-          return Observer(builder: (_) => config.login ? BottomNavigation() : Scaffold(
-            body: StartPage(),
-            backgroundColor: themeData.backgroundColor,
-          ));
-        },
-      },
-    ),
-    ),
-  );
+  initializeDateFormatting("ru_RU", "").then((value) {
+    runApp(
+      MultiProvider(
+        providers: [
+          Provider<Config>(create: (_) => config),
+          Provider<SignUp>(create: (_) => SignUp()),
+          Provider<SheduleWeek>(create: (_) => SheduleWeek())
+        ],
+        child: MaterialApp(
+          theme: themeData,
+          initialRoute: "/",
+          debugShowCheckedModeBanner: false,
+          routes: <String, WidgetBuilder>{
+            '/login': (BuildContext context) {
+              return Login();
+            },
+            '/sign_up_1': (BuildContext context) {
+              return SignUp1();
+            },
+            '/sign_up_2': (BuildContext context) {
+              return SignUp2();
+            },
+            '/sign_up_3': (BuildContext context) {
+              return SignUp3();
+            },
+            '/': (BuildContext context) {
+              return Observer(
+                  builder: (_) => config.login
+                      ? BottomNavigation()
+                      : Scaffold(
+                          body: StartPage(),
+                          backgroundColor: themeData.backgroundColor,
+                        ));
+            },
+          },
+        ),
+      ),
+    );
+  });
 }
