@@ -24,7 +24,6 @@ class SignUp3 extends StatefulWidget {
 }
 
 class SignUp3State extends State<SignUp3> {
-
   List<AccountBindView> accounts_bind = [];
 
   void bindVK() async {
@@ -37,12 +36,20 @@ class SignUp3State extends State<SignUp3> {
         final VKAccessToken accessToken = data.accessToken!;
         final d = await vk.getUserProfile();
         final VKUserProfile? user = d.asValue!.value;
-        if(accounts_bind.indexWhere((e) => e.accountBind!.uuid == user!.userId) == -1) {
+        if (accounts_bind
+                .indexWhere((e) => e.accountBind!.uuid == user!.userId) ==
+            -1) {
           setState(() {
-            accounts_bind.add(AccountBindView(name: user!.firstName + " " + user.lastName, photo: user.photo200, accountBind: AccountBind(uuid: user.userId, token: accessToken.token, type: AccountBindTypeEnum.VK.toString())));
+            accounts_bind.add(AccountBindView(
+                name: user!.firstName + " " + user.lastName,
+                photo: user.photo200,
+                accountBind: AccountBind(
+                    uuid: user.userId,
+                    token: accessToken.token,
+                    type: AccountBindTypeEnum.VK.toString())));
           });
         } else {
-          //ToDO показываем ошибку 
+          //ToDO показываем ошибку
         }
         vk.logOut();
         Navigator.pop(context);
@@ -51,50 +58,78 @@ class SignUp3State extends State<SignUp3> {
   }
 
   void showModal() {
-    showBarModalBottomSheet(context: context, builder: (context) {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          AppBar(
-              title: Text("Выберите"),
-              automaticallyImplyLeading: false,
-              textTheme: Theme.of(context).textTheme,
-              centerTitle: true),
-          Container(child: SimpleCell(child: "Вконтакте", onClick: bindVK), color: Theme.of(context).backgroundColor,)
-        ],
-      );
-    });
+    showBarModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              AppBar(
+                  title: Text("Выберите"),
+                  automaticallyImplyLeading: false,
+                  textTheme: Theme.of(context).textTheme,
+                  centerTitle: true),
+              Container(
+                child: SimpleCell(
+                    child: Text(
+                      "Вконтакте",
+                      style: TextStyle(
+                        color: null,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    onClick: bindVK),
+                color: Theme.of(context).backgroundColor,
+              )
+            ],
+          );
+        });
   }
 
-  void sign_up() async  {
+  void sign_up() async {
     CommonApi api = new CommonApi();
     api.setPath("user/sign_up");
     SignUp signUp = Provider.of<SignUp>(context, listen: false);
     print(signUp);
-    SignUpRequest data = new SignUpRequest(login: signUp.login, password: signUp.password, session: signUp.session, accountsBind: accounts_bind.map((e) => e.accountBind!).toList());
+    SignUpRequest data = new SignUpRequest(
+        login: signUp.login,
+        password: signUp.password,
+        session: signUp.session,
+        accountsBind: accounts_bind.map((e) => e.accountBind!).toList());
     api.setBody(data.toJson());
-    showBarModalBottomSheet(context: context, topControl: Container(), builder: (context) {
-      return WillPopScope(
-        child: Container(
-          color: Theme.of(context).backgroundColor,
-          child: Column(children: [
-            AppBar(title: Text("Авторизация"), centerTitle: true, textTheme: Theme.of(context).textTheme, automaticallyImplyLeading: false),
-            Container(child: Spinner()),
-            Container(child: MyPlaceholder(child: "Это может занять некоторое время"), height: 44)
-          ], mainAxisSize: MainAxisSize.min),
-        ),
-        onWillPop: () => Future.value(true),
-      );
-    });
+    showBarModalBottomSheet(
+        context: context,
+        topControl: Container(),
+        builder: (context) {
+          return WillPopScope(
+            child: Container(
+              color: Theme.of(context).backgroundColor,
+              child: Column(children: [
+                AppBar(
+                    title: Text("Авторизация"),
+                    centerTitle: true,
+                    textTheme: Theme.of(context).textTheme,
+                    automaticallyImplyLeading: false),
+                Container(child: Spinner()),
+                Container(
+                    child: MyPlaceholder(
+                        child: "Это может занять некоторое время"),
+                    height: 44)
+              ], mainAxisSize: MainAxisSize.min),
+            ),
+            onWillPop: () => Future.value(true),
+          );
+        });
     var response = await api.request();
     print(response);
-    if(response['success']) {
-        ResponseSignUp res = ResponseSignUp.fromJson(response);
-        Box<AuthData> box = Hive.box<AuthData>("auth_data");
-        box.put("auth_data", res.msg);
-        Provider.of<Config>(context, listen: false).setLogin(true);
-        Navigator.pop(context);
-        Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
+    if (response['success']) {
+      ResponseSignUp res = ResponseSignUp.fromJson(response);
+      Box<AuthData> box = Hive.box<AuthData>("auth_data");
+      box.put("auth_data", res.msg);
+      Provider.of<Config>(context, listen: false).setLogin(true);
+      Navigator.pop(context);
+      Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
     } else {
       //TODO ошибка
     }
@@ -102,44 +137,70 @@ class SignUp3State extends State<SignUp3> {
 
   @override
   Widget build(BuildContext context) {
-        return Scaffold(
-            backgroundColor: Theme.of(context).backgroundColor,
-            appBar: AppBar(
-                title: Text("Привязка"),
-                textTheme: Theme.of(context).textTheme),
-            body: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: MyPlaceholder(child: "Для удобства входа можете привязать различные соц.сети для доступа к аккаунту"),
-                  ),
-                  SimpleCell(
-                    child: "Добавить привязку",
-                    before: MyIcon(svgPath: "resource/icons/add_outline_28.svg", type: IconType.svg, size: 32,),
-                    onClick: showModal,
-                  ),
-                  Expanded(child: ListView(children: 
-                    accounts_bind.map((e) => SimpleCell(child: e.name!, after: Image.network(e.photo!, width: 28, height: 28))).toList(),
-                    physics: PageScrollPhysics(),
-                  )),
-                   Container(child: MyButton(
-                    mode: accounts_bind.length == 0 ? "primary" : "commerce",
-                    child: accounts_bind.length == 0 ? "Пропустить" : "Завершить",
-                    click: sign_up,
-                  ), padding: EdgeInsets.symmetric(vertical: 16)),
-                ],
+    return Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
+        appBar: AppBar(
+            title: Text("Привязка"), textTheme: Theme.of(context).textTheme),
+        body: Container(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: MyPlaceholder(
+                    child:
+                        "Для удобства входа можете привязать различные соц.сети для доступа к аккаунту"),
               ),
-            ));
+              SimpleCell(
+                child: Text(
+                  "Добавить привязку",
+                  style: TextStyle(
+                    color: null,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                before: MyIcon(
+                  svgPath: "resource/icons/add_outline_28.svg",
+                  type: IconType.svg,
+                  size: 32,
+                ),
+                onClick: showModal,
+              ),
+              Expanded(
+                  child: ListView(
+                children: accounts_bind
+                    .map((e) => SimpleCell(
+                        child: Text(
+                          e.name!,
+                          style: TextStyle(
+                            color: null,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        after: Image.network(e.photo!, width: 28, height: 28)))
+                    .toList(),
+                physics: PageScrollPhysics(),
+              )),
+              Container(
+                  child: MyButton(
+                    mode: accounts_bind.length == 0 ? "primary" : "commerce",
+                    child:
+                        accounts_bind.length == 0 ? "Пропустить" : "Завершить",
+                    click: sign_up,
+                  ),
+                  padding: EdgeInsets.symmetric(vertical: 16)),
+            ],
+          ),
+        ));
   }
 }
-
 
 class AccountBindView {
   String? name;
   String? photo;
   AccountBind? accountBind;
-  AccountBindView({ this.name, this.photo, this.accountBind});
+  AccountBindView({this.name, this.photo, this.accountBind});
 }

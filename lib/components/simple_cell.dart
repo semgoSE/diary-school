@@ -4,7 +4,7 @@ class SimpleCell extends StatelessWidget {
 
   Widget? before;
   Widget? after;
-  String child;
+  Widget child;
   Widget? description;
   double? textSize;
 
@@ -41,14 +41,7 @@ class SimpleCell extends StatelessWidget {
                   : Container(
                       padding: EdgeInsets.symmetric(horizontal: 10.0),
                       alignment: Alignment.centerLeft,
-                      child: Text(
-                        child,
-                        style: TextStyle(
-                          color: null,
-                          fontSize: textSize,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      )),
+                      child: child),
             ),
           ),
           Container(
@@ -66,14 +59,7 @@ class SimpleCell extends StatelessWidget {
         children: [
           Container(
               alignment: Alignment.centerLeft,
-              child: Text(
-                child,
-                style: TextStyle(
-                  color: null,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                ),
-              )),
+              child: child),
           Container(
               padding: EdgeInsets.only(top: 5.0),
               alignment: Alignment.centerLeft,

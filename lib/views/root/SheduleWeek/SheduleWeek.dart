@@ -1,7 +1,8 @@
 import 'dart:developer';
 
 import 'package:diary_app/api/user/UserApi.dart';
-import 'package:diary_app/components/card.dart';
+import 'package:diary_app/views/root/SheduleWeek/SheduleCard.dart';
+import 'package:diary_app/components/spinner.dart';
 import 'package:diary_app/components/weekday_switch.dart';
 import 'package:diary_app/mobX/config_app.dart';
 import 'package:diary_app/mobX/shedule_week.dart';
@@ -38,7 +39,10 @@ class SheduleWeekState extends State {
     var response = await api.request();
     // print(response);
     if(response['success']!) {
-      timetables = ResponseLessonsGet.fromJson(response).msg;
+      setState(() {
+        timetables = ResponseLessonsGet.fromJson(response).msg;
+      });
+      
       if(timetables.length == 0) {
         api.setPath("lessons/search-lessons");
         api.setBody({"date": "2021-03-02"}); //TODO обрати внимание
@@ -76,7 +80,7 @@ class SheduleWeekState extends State {
 
         return Container(
           color: Color(0xFFEBEDF0),
-          child: Column(
+          child: timetables.length == 0 ? Spinner() : Column(
             children: [
               Container(
                 padding: EdgeInsets.symmetric(vertical: height * 0.02),
