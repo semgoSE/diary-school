@@ -32,7 +32,7 @@ class SheduleWeekState extends State {
   int activeWeekDay = 0;
 
   void getTimetables() async {
-    //TODO сейвить раписание в hive
+    //TODO: сейвить раписание в hive
     Config config = Provider.of<Config>(context);
     UserApi api = new UserApi(config.token, config.payloadToken);
     api.setPath("lessons/get");
@@ -45,7 +45,7 @@ class SheduleWeekState extends State {
       
       if(timetables.length == 0) {
         api.setPath("lessons/search-lessons");
-        api.setBody({"date": "2021-03-02"}); //TODO обрати внимание
+        api.setBody({"date": "2021-03-02"}); //TODO: обрати внимание
         var resp = await api.request();
         if(resp['success']!) {
           timetables = ResponseLessonsGet.fromJson(resp).msg;

@@ -80,6 +80,7 @@ class SheduleCard extends StatelessWidget {
                 fontWeight: FontWeight.w400,
                 fontSize: 17,
               ),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           Container(height: 1, color: Color(0xFFDEDEDE))
