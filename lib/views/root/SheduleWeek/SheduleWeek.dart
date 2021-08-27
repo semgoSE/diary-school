@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:diary_app/api/user/UserApi.dart';
+import 'package:diary_app/components/screen_spinner.dart';
 import 'package:diary_app/views/root/SheduleWeek/SheduleCard.dart';
 import 'package:diary_app/components/spinner.dart';
 import 'package:diary_app/components/weekday_switch.dart';
@@ -35,10 +36,14 @@ class SheduleWeekState extends State {
     //TODO: сейвить раписание в hive
     Config config = Provider.of<Config>(context);
     UserApi api = new UserApi(config.token, config.payloadToken);
+    
     api.setPath("lessons/get");
+     
+    showDialog(context: context, builder: (context) => WillPopScope(child: ScreenSpinner(), onWillPop: () => Future.value(true)), barrierDismissible: false);
     var response = await api.request();
     // print(response);
     if(response['success']!) {
+      Navigator.pop(context); 
       setState(() {
         timetables = ResponseLessonsGet.fromJson(response).msg;
       });
@@ -47,6 +52,7 @@ class SheduleWeekState extends State {
         api.setPath("lessons/search-lessons");
         api.setBody({"date": "2021-03-02"}); //TODO: обрати внимание
         var resp = await api.request();
+        Navigator.pop(context);
         if(resp['success']!) {
           timetables = ResponseLessonsGet.fromJson(resp).msg;
         }
