@@ -74,7 +74,7 @@ class _LoginState extends State<Login> {
     if (f["success"]) {
       ResponseLogin response = ResponseLogin.fromJson(f);
       if(response.msg.length == 1) {
-        box.put("auth_data", response.msg[0]);
+        box.put("value", response.msg[0]);
         Provider.of<Config>(context, listen: false).setLogin(true);
         Navigator.pop(context);
         Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);

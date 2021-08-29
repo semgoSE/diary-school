@@ -39,7 +39,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
         AppBar(textTheme: Theme.of(context).textTheme, title: Text("Сводка")),
         AppBar(
             textTheme: Theme.of(context).textTheme,
-            title: Text(DateFormat("d MMMM", "ru_RU").format(sheduleWeek.date)),
+            title: Text(DateFormat("d MMMM y", "ru_RU").format(sheduleWeek.date)),
             centerTitle: true),
         AppBar(
           textTheme: Theme.of(context).textTheme,

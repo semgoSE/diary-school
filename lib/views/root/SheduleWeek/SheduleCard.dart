@@ -1,5 +1,6 @@
 import 'package:diary_app/components/simple_cell.dart';
 import 'package:diary_app/models/index.dart';
+import 'package:diary_app/views/root/SheduleWeek/SheduleSimpleCell.dart';
 import 'package:flutter/material.dart';
 
 class SheduleCard extends StatelessWidget {
@@ -57,7 +58,7 @@ class SheduleCard extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SimpleCell(
+          SheduleSimpleCell(
             before: Container(
               child: Row(
                 children: [

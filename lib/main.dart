@@ -17,15 +17,22 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'views/authentication/login.dart';
 import 'package:provider/provider.dart';
 
+import 'package:google_fonts/google_fonts.dart';
+
 import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserAdapter());
   Hive.registerAdapter(AuthDataAdapter());
+  Hive.registerAdapter(LessonAdapter());
   Hive.registerAdapter(TimetableAdapter());
+  Hive.registerAdapter(SubjectAdapter());
+
+
   await Hive.openBox<Timetable>("lessons");
   await Hive.openBox<AuthData>("auth_data");
+  await Hive.openBox<Timetable>("shedule_week");
 
   ThemeData themeData;
   var theme;
@@ -41,7 +48,7 @@ void main() async {
   //получаем тему здесь
   themeData = ThemeData(
       textTheme:
-          TextTheme(headline6: TextStyle(color: theme.header['header_text'])),
+          TextTheme(headline6: GoogleFonts.manrope(color: theme.header['header_text'], fontWeight: FontWeight.bold)),
       fontFamily: "Inter",
       backgroundColor: theme.background,
       accentColor: theme.accent,
@@ -56,7 +63,7 @@ void main() async {
   Box<AuthData> box = Hive.box<AuthData>("auth_data");
   AuthData init = AuthData(
       token: "", user: User(classId: 0, login: "", role: "test", userId: 0));
-  AuthData? auth = box.get("auth_data", defaultValue: init);
+  AuthData? auth = box.get("value", defaultValue: init);
   config.setLogin(auth!.token != "");
   config.addAuthData(auth.token, PayloadToken(user_id: auth.user.userId, role: auth.user.role));
 
