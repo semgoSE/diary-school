@@ -65,10 +65,10 @@ class Input extends StatelessWidget {
     return new Observer(
       builder: (_) {
         Config config = Provider.of<Config>(context, listen: false);
-          this.colors = config.customTheme;
-          this.accentColor = LightTheme().accent;
-          this.textPrimary = LightTheme().text_primary;
-          this.textPlaceholder = LightTheme().text_placeholder;
+        this.colors = config.customTheme;
+        this.accentColor = config.customTheme.accent;
+        this.textPrimary = config.customTheme.text_primary;
+        this.textPlaceholder = config.customTheme.text_placeholder;
         return TextFormField(
           keyboardType: keyboardType,
           inputFormatters: inputFormatters,
