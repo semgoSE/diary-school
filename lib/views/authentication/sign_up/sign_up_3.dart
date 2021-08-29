@@ -60,6 +60,7 @@ class SignUp3State extends State<SignUp3> {
   void showModal() {
     showBarModalBottomSheet(
         context: context,
+        topControl: Container(),
         builder: (context) {
           return Column(
             mainAxisSize: MainAxisSize.min,

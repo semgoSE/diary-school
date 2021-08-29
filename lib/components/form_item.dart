@@ -13,7 +13,7 @@ class FormItem extends StatelessWidget {
 
   FormItemStatus status;
 
-  var colors;
+  late CustomTheme colors;
 
   FormItem(
       {this.top = "",
@@ -24,12 +24,12 @@ class FormItem extends StatelessWidget {
   Color? getColorByStatus() {
     switch (status) {
       case FormItemStatus.def:
-        return colors.textSecondary;
+        return colors.text_secondary;
       case FormItemStatus.error:
-        return colors.field['field_error_border'];
+        return colors.field_error_border;
 
       case FormItemStatus.valid:
-        return colors.field['field_valid_border'];
+        return colors.field_valid_border;
     }
   }
 
@@ -38,11 +38,7 @@ class FormItem extends StatelessWidget {
     return (Observer(
         builder: (_) {
           Config config = Provider.of<Config>(context, listen: false);
-          if (config.theme == ThemeConfig.light) {
-            this.colors = LightTheme();
-          } else {
-            this.colors = DarkTheme();
-          }
+          this.colors = config.customTheme;
           return Container(
               child: Column(
                   children: [
@@ -50,7 +46,7 @@ class FormItem extends StatelessWidget {
                         ? Container(
                             child: Text(top!,
                                 style: TextStyle(
-                                    color: colors.textSecondary, fontSize: 14)),
+                                    color: colors.text_secondary, fontSize: 14)),
                             padding: EdgeInsets.only(bottom: 8, left: 2))
                         : Container(),
                     Container(child: child),

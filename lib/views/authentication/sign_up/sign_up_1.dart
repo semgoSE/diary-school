@@ -98,6 +98,7 @@ class SignUp1State extends State<SignUp1> {
   void openMenuChooseRegion() {
     showBarModalBottomSheet(
       context: context,
+      topControl: Container(),
       builder: (context) => Container(
         color: Theme.of(context).backgroundColor,
         child: Column(
@@ -109,7 +110,7 @@ class SignUp1State extends State<SignUp1> {
                 centerTitle: true),
             ...regions
                 .map((e) => SimpleCell(
-                    child: Text(e['name']),
+                    child: Text(e['name'], style: TextStyle(fontSize: 17),),
                     onClick: () => chooseRegion(e)))
                 .toList()
           ],
@@ -175,6 +176,10 @@ class SignUp1State extends State<SignUp1> {
                   top: "Пароль",
                   child: Input(
                       keyboardType: TextInputType.text,
+                      textInputAction: TextInputAction.next,
+                      onSubmit: (String pass) {
+                        openMenuChooseRegion();
+                      },
                       inputFormatters: [ 
                         LengthLimitingTextInputFormatter(18),
                         FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9_@#]')),
@@ -184,12 +189,12 @@ class SignUp1State extends State<SignUp1> {
                 top: "Регион",
                 child: SelectMimicry(
                     hint: "Выберите регион",
-                    click: () => openMenuChooseRegion(),
+                    click: openMenuChooseRegion,
                     controller: _controllerRegion),
               )
             ], physics: PageScrollPhysics())),
             Container(
-                child: MyButton(
+                child: CustomButton(
                     child: "Далее",
                     disable: (_login == "" || _pass == "" || _region_id == -1),
                     click: () {

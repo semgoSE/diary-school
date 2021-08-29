@@ -112,10 +112,10 @@ class DarkTheme extends CustomTheme {
   Color accent = Color(0xFF71aaeb);
   Color background = Color(0xFF19191a);
 
-  Color textPrimary = Color(0xFFe1e3e6);
-  Color textPlaceholder = Color(0xFFaaaeb3);
+  Color text_primary = Color(0xFFe1e3e6);
+  Color text_placeholder = Color(0xFFaaaeb3);
 
-  Color textSecondary = Color(0xFF76787a);
+  Color text_secondary = Color(0xFF76787a);
 
   //appBar
   Color header_background = Color(0xFF19191a);

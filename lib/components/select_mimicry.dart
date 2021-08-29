@@ -54,7 +54,7 @@ class SelectMimicry extends StatelessWidget {
               contentPadding: EdgeInsets.symmetric(horizontal: 17, vertical: 8),
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(color: (colors!.field_border)!)),
+                  borderSide: BorderSide(color: colors?.field_border ?? Colors.black)),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
                 borderSide: BorderSide(color: (accentColor)!),

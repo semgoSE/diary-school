@@ -29,103 +29,119 @@ class SheduleWeekState extends State {
 
   void initState() {
     super.initState();
-    
+
     Future.delayed(Duration.zero, () {
       getTimetables();
     });
-    
   }
 
   int activeWeekDay = 0;
 
   void getTimetables() async {
-    Config config = Provider.of<Config>(context);
-    Box<Timetable>  boxTimetables = Hive.box<Timetable>("shedule_week");
+    Config config = Provider.of<Config>(context, listen: false);
+    Box<Timetable> boxTimetables = Hive.box<Timetable>("shedule_week");
     List<Timetable> hiveTimetables = [];
 
-    for(int i = 0; i < 7; i++) {
+    for (int i = 0; i < 7; i++) {
       var timetable = boxTimetables.get(i);
-      if(timetable != null) 
+      if (timetable != null)
         // setState(() {
-          hiveTimetables.add(timetable);
-        // }); 
+        hiveTimetables.add(timetable);
+      // });
       // else hiveTimetables.add(Timetable(weekOfDay: i+1, lessons: []));
     }
 
-    if(timetables.length == 0) {
-      Config config = Provider.of<Config>(context, listen: false);
+    if (timetables.length == 0) {
       UserApi api = new UserApi(config.token, config.payloadToken);
-      
+
       api.setPath("lessons/get");
-      
+
       // showDialog(context: context, builder: (context) => WillPopScope(child: ScreenSpinner(), onWillPop: () => Future.value(true)), barrierDismissible: false);
       var response = await api.request();
-      if(response['success']!) {
+      if (response['success']!) {
         timetables = ResponseLessonsGet.fromJson(response).msg;
-        var timetables_clean = timetables.where((element) => element.lessons.length != 0);
-        if(timetables_clean.length == 0) {
+        var timetables_clean =
+            timetables.where((element) => element.lessons.length != 0);
+        if (timetables_clean.length == 0) {
           api.setPath("lessons/search-lessons");
           api.setBody({"date": "2021-09-08"}); //TODO: обрати внимание
           var resp = await api.request();
           print(resp);
           // Navigator.pop(context);
-          if(resp['success']!) {
+          if (resp['success']!) {
             timetables = ResponseLessonsGet.fromJson(resp).msg;
-            timetables.toList().asMap().forEach((i, t) async { 
+            timetables.toList().asMap().forEach((i, t) async {
               await boxTimetables.put(i, t);
             });
           } else {
             final snackBar = SnackBar(
-              content: Text(resp['msg']),
-              backgroundColor: config.customTheme.modal_card_background,
+              content: Text(
+                resp['msg']
+              ),
+              duration: const Duration(seconds: 7),
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
         }
-        // Navigator.pop(context); 
+        // Navigator.pop(context);
         setState(() {
           timetables = ResponseLessonsGet.fromJson(response).msg;
         });
 
-        timetables.toList().asMap().forEach((i, t) async { 
+        timetables.toList().asMap().forEach((i, t) async {
           await boxTimetables.put(i, t);
         });
-        
       }
     } else {
       print("Расписание в hive");
-      this.timetables = hiveTimetables;      
+      this.timetables = hiveTimetables;
       // setState(() {
-      //   this.timetables = hiveTimetables;        
+      //   this.timetables = hiveTimetables;
       // });
     }
-  }  
+  }
 
   @override
   Widget build(BuildContext context) {
-
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
     return Observer(
       builder: (_) {
-
         SheduleWeek sheduleWeek =
             Provider.of<SheduleWeek>(context, listen: false);
 
-        InfinityPageController infinityPageController = InfinityPageController(initialPage: sheduleWeek.date.weekday-1);
+        InfinityPageController infinityPageController =
+            InfinityPageController(initialPage: sheduleWeek.date.weekday - 1);
 
         changeDay(int day) {
           DateTime date = sheduleWeek.date;
-          date = date.add(Duration(days: day+1 - date.weekday));
+          date = date.add(Duration(days: day + 1 - date.weekday));
           // sheduleWeek.updateDate(date);
           isController = true;
-          infinityPageController.jumpToPage(date.weekday-1);
+          infinityPageController.jumpToPage(date.weekday - 1);
         }
 
         return Container(
           color: Color(0xFFEBEDF0),
-          child: timetables.length == 0 ? Spinner() : Column(
+          child: buildBody(
+              height, width, sheduleWeek, changeDay, infinityPageController),
+        );
+      },
+    );
+  }
+
+  Widget buildBody(double height, double width, SheduleWeek sheduleWeek,
+      changeDay(int day), InfinityPageController infinityPageController) {
+    return timetables.length == 0
+        ? Container(
+            color: Theme.of(context).backgroundColor,
+            alignment: Alignment.center,
+            child: Spinner(
+              size: 66,
+            ),
+          )
+        : Column(
             children: [
               Container(
                 padding: EdgeInsets.symmetric(vertical: height * 0.02),
@@ -143,28 +159,29 @@ class SheduleWeekState extends State {
                 child: InfinityPageView(
                   controller: infinityPageController,
                   onPageChanged: (i) {
-
                     DateTime date = sheduleWeek.date;
-                    if(sheduleWeek.date.weekday+i != 7) {
-                      date = date.add(Duration(days: i - (sheduleWeek.date.weekday-1)));
+                    if (sheduleWeek.date.weekday + i != 7) {
+                      date = date.add(
+                          Duration(days: i - (sheduleWeek.date.weekday - 1)));
                     } else {
-                      if(!isController) {
-                        if(sheduleWeek.date.weekday-1 > i) date = date.add(Duration(days: 1));
-                        else date = date.add(Duration(days: -1));
+                      if (!isController) {
+                        if (sheduleWeek.date.weekday - 1 > i)
+                          date = date.add(Duration(days: 1));
+                        else
+                          date = date.add(Duration(days: -1));
                       } else {
                         isController = false;
-                        date = date.add(Duration(days: i - (sheduleWeek.date.weekday-1)));
+                        date = date.add(
+                            Duration(days: i - (sheduleWeek.date.weekday - 1)));
                       }
                     }
-                
-                    sheduleWeek
-                        .updateDate(date);
+
+                    sheduleWeek.updateDate(date);
                   },
                   itemBuilder: ((BuildContext context, int i) {
                     return Container(
                       child: SheduleCard(
-                        timetable: timetables[i],
-                        header: (i+1).toString()),
+                          timetable: timetables[i], header: (i + 1).toString()),
                     );
                   }),
                   itemCount: 7,
@@ -172,9 +189,6 @@ class SheduleWeekState extends State {
                 ),
               ),
             ],
-          ),
-        );
-      },
-    );
+          );
   }
 }

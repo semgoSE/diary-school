@@ -29,13 +29,12 @@ void main() async {
   Hive.registerAdapter(TimetableAdapter());
   Hive.registerAdapter(SubjectAdapter());
 
-
   await Hive.openBox<Timetable>("lessons");
   await Hive.openBox<AuthData>("auth_data");
   await Hive.openBox<Timetable>("shedule_week");
 
   ThemeData themeData;
-  var theme;
+  CustomTheme theme;
 
   final Config config = Config();
 
@@ -49,18 +48,24 @@ void main() async {
 
   //получаем тему здесь
   themeData = ThemeData(
-      textTheme:
-          TextTheme(headline6: GoogleFonts.manrope(color: theme.header['header_text'], fontWeight: FontWeight.bold)),
+      textTheme: TextTheme(
+          headline6: GoogleFonts.manrope(
+              color: theme.header_text, fontWeight: FontWeight.bold),),
       fontFamily: "Inter",
       backgroundColor: theme.background,
       accentColor: theme.accent,
-      primaryColor: theme.textPrimary,
+      primaryColor: theme.text_primary,
       appBarTheme: AppBarTheme(
           elevation: 0,
           iconTheme: IconThemeData(color: theme.accent),
-          backgroundColor: theme.header["header_background"]));
-
-  //получаем из темы Theme.of(context).backgroundColor,
+          backgroundColor: theme.header_background),
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: theme.modal_card_background,
+        contentTextStyle: TextStyle(color: theme.text_primary, fontSize: 17),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        elevation: 50
+      ));
 
 
   Box<AuthData> box = Hive.box<AuthData>("auth_data");
@@ -68,7 +73,8 @@ void main() async {
       token: "", user: User(classId: 0, login: "", role: "test", userId: 0));
   AuthData? auth = box.get("value", defaultValue: init);
   config.setLogin(auth!.token != "");
-  config.addAuthData(auth.token, PayloadToken(user_id: auth.user.userId, role: auth.user.role));
+  config.addAuthData(auth.token,
+      PayloadToken(user_id: auth.user.userId, role: auth.user.role));
 
   initializeDateFormatting("ru_RU", "").then((value) {
     runApp(

@@ -80,15 +80,21 @@ class _LoginState extends State<Login> {
         Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
       }
     } else { //TODO
-      print("ошибка");
       Navigator.pop(context);
+      final snackBar = SnackBar(
+        content: Text(
+          f['msg']
+        ),
+        duration: const Duration(seconds: 4),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      // resizeToAvoidBottomInset: true,
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         textTheme: Theme.of(context).textTheme,
@@ -115,6 +121,9 @@ class _LoginState extends State<Login> {
                 hint: "Введите пароль",
                 controller: _passController,
                 keyboardType: TextInputType.text,
+                onSubmit: (String pass) {
+                  if(!(_login.length < 6) && pass != "") login();
+                },
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(18),
                   FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9_@#]')),
@@ -142,6 +151,7 @@ class _LoginState extends State<Login> {
                 child: CustomButton(
                   child: "Войти c VK",
                   mode: "outlined",
+                  disable: true,
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8))
           ], physics: PageScrollPhysics())),

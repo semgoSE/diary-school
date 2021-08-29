@@ -11,7 +11,7 @@ import 'colors.dart';
 class Input extends StatelessWidget {
   String? hint;
   TextInputAction? textInputAction;
-  Function? function;
+  void Function(String)? onSubmit;
   bool isPass;
   FocusNode? focusNode;
   TextEditingController? controller;
@@ -28,7 +28,7 @@ class Input extends StatelessWidget {
   Input(
       {this.hint,
       this.textInputAction = TextInputAction.done,
-      this.function,
+      this.onSubmit,
       this.isPass = false,
       this.focusNode,
       this.controller,
@@ -72,6 +72,7 @@ class Input extends StatelessWidget {
         return TextFormField(
           keyboardType: keyboardType,
           inputFormatters: inputFormatters,
+          onFieldSubmitted: onSubmit,
           style: TextStyle(fontSize: 16, color: textPrimary),
           obscureText: isPass,
           autocorrect: !isPass,
