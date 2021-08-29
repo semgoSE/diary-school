@@ -5,7 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
 
-class MyButton extends StatelessWidget {
+class CustomButton extends StatelessWidget {
   String? child;
   bool disable;
 
@@ -16,7 +16,7 @@ class MyButton extends StatelessWidget {
   String? mode;
   Function? click;
 
-  MyButton(
+  CustomButton(
       {this.mode = "primary",
       this.size = "s",
       this.click,
@@ -24,20 +24,15 @@ class MyButton extends StatelessWidget {
       this.disable = false});
 
   Color? accentColor;
-  Map<String, Color>? colors;
+  CustomTheme? colors;
 
   @override
   Widget build(BuildContext context) {
     return new Observer(
       builder: (_) {
         Config config = Provider.of<Config>(context, listen: false);
-        if (config.theme == ThemeConfig.light) {
-          this.colors = LightTheme().button;
-          this.accentColor = LightTheme().accent;
-        } else if (config.theme == ThemeConfig.dark) {
-          this.colors = DarkTheme().button;
-          this.accentColor = DarkTheme().accent;
-        }
+        this.colors = config.customTheme;
+        this.accentColor = config.customTheme.accent;
         return Container(
           decoration: BoxDecoration(
             border: Border.all(
@@ -93,16 +88,16 @@ class MyButton extends StatelessWidget {
   Color? getForeground() {
     switch (this.mode) {
       case "commerce":
-        return colors!['button_commerce_foreground'];
+        return colors!.button_commerce_foreground;
 
       case "primary":
-        return colors!['button_primary_foreground'];
+        return colors!.button_primary_foreground;
 
       case "secondary":
-        return colors!['button_secondary_foreground'];
+        return colors!.button_secondary_foreground;
 
       case "outlined":
-        return colors!['button_outline_foreground'];
+        return colors!.button_outline_foreground;
     }
   }
 
@@ -110,13 +105,13 @@ class MyButton extends StatelessWidget {
   Color? getBackground(BuildContext context) {
     switch (this.mode) {
       case "commerce":
-        return colors!['button_commerce_background'];
+        return colors!.button_commerce_background;
 
       case "primary":
-        return colors!['button_primary_background'];
+        return colors!.button_primary_background;
 
       case "secondary":
-        return colors!['button_secondary_background'];
+        return colors!.button_secondary_background;
 
       case "outlined":
         return Theme.of(context).backgroundColor;
@@ -136,7 +131,7 @@ class MyButton extends StatelessWidget {
         return Theme.of(context).backgroundColor;
 
       case "outlined":
-        return colors!['button_outline_border'];
+        return colors!.button_outline_border;
     }
   }
 }

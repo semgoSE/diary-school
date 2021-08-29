@@ -39,6 +39,7 @@ class SheduleWeekState extends State {
   int activeWeekDay = 0;
 
   void getTimetables() async {
+    Config config = Provider.of<Config>(context);
     Box<Timetable>  boxTimetables = Hive.box<Timetable>("shedule_week");
     List<Timetable> hiveTimetables = [];
 
@@ -59,8 +60,28 @@ class SheduleWeekState extends State {
       
       // showDialog(context: context, builder: (context) => WillPopScope(child: ScreenSpinner(), onWillPop: () => Future.value(true)), barrierDismissible: false);
       var response = await api.request();
-      // print(response);
       if(response['success']!) {
+        timetables = ResponseLessonsGet.fromJson(response).msg;
+        var timetables_clean = timetables.where((element) => element.lessons.length != 0);
+        if(timetables_clean.length == 0) {
+          api.setPath("lessons/search-lessons");
+          api.setBody({"date": "2021-09-08"}); //TODO: обрати внимание
+          var resp = await api.request();
+          print(resp);
+          // Navigator.pop(context);
+          if(resp['success']!) {
+            timetables = ResponseLessonsGet.fromJson(resp).msg;
+            timetables.toList().asMap().forEach((i, t) async { 
+              await boxTimetables.put(i, t);
+            });
+          } else {
+            final snackBar = SnackBar(
+              content: Text(resp['msg']),
+              backgroundColor: config.customTheme.modal_card_background,
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+        }
         // Navigator.pop(context); 
         setState(() {
           timetables = ResponseLessonsGet.fromJson(response).msg;
@@ -70,20 +91,9 @@ class SheduleWeekState extends State {
           await boxTimetables.put(i, t);
         });
         
-        if(timetables.length == 0) {
-          api.setPath("lessons/search-lessons");
-          api.setBody({"date": "2021-03-02"}); //TODO: обрати внимание
-          var resp = await api.request();
-          // Navigator.pop(context);
-          if(resp['success']!) {
-            timetables = ResponseLessonsGet.fromJson(resp).msg;
-            timetables.toList().asMap().forEach((i, t) async { 
-              await boxTimetables.put(i, t);
-            });
-          }
-        }
       }
     } else {
+      print("Расписание в hive");
       this.timetables = hiveTimetables;      
       // setState(() {
       //   this.timetables = hiveTimetables;        
@@ -99,6 +109,7 @@ class SheduleWeekState extends State {
 
     return Observer(
       builder: (_) {
+
         SheduleWeek sheduleWeek =
             Provider.of<SheduleWeek>(context, listen: false);
 

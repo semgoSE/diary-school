@@ -27,7 +27,7 @@ class StartPage extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.symmetric(vertical: 8.0),
-            child: MyButton(
+            child: CustomButton(
               click: () {
                 Navigator.pushNamed(context, "/login");
               },
@@ -38,7 +38,7 @@ class StartPage extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.symmetric(vertical: 8.0),
-            child: MyButton(
+            child: CustomButton(
               child: "Регистрация",
               mode: "secondary",
               disable: false,

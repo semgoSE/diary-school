@@ -24,6 +24,21 @@ mixin _$Config on _Config, Store {
     });
   }
 
+  final _$customThemeAtom = Atom(name: '_Config.customTheme');
+
+  @override
+  CustomTheme get customTheme {
+    _$customThemeAtom.reportRead();
+    return super.customTheme;
+  }
+
+  @override
+  set customTheme(CustomTheme value) {
+    _$customThemeAtom.reportWrite(value, super.customTheme, () {
+      super.customTheme = value;
+    });
+  }
+
   final _$loginAtom = Atom(name: '_Config.login');
 
   @override
@@ -72,11 +87,11 @@ mixin _$Config on _Config, Store {
   final _$_ConfigActionController = ActionController(name: '_Config');
 
   @override
-  void setTheme(ThemeConfig theme) {
+  void setTheme(ThemeConfig theme, CustomTheme customTheme) {
     final _$actionInfo =
         _$_ConfigActionController.startAction(name: '_Config.setTheme');
     try {
-      return super.setTheme(theme);
+      return super.setTheme(theme, customTheme);
     } finally {
       _$_ConfigActionController.endAction(_$actionInfo);
     }
@@ -108,6 +123,7 @@ mixin _$Config on _Config, Store {
   String toString() {
     return '''
 theme: ${theme},
+customTheme: ${customTheme},
 login: ${login},
 payloadToken: ${payloadToken},
 token: ${token}

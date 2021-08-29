@@ -109,7 +109,7 @@ class SignUp1State extends State<SignUp1> {
                 centerTitle: true),
             ...regions
                 .map((e) => SimpleCell(
-                    child: e['name'],
+                    child: Text(e['name']),
                     onClick: () => chooseRegion(e)))
                 .toList()
           ],

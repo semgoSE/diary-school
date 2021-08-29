@@ -11,7 +11,7 @@ class SelectMimicry extends StatelessWidget {
   Function? click;
   FocusNode? focusNode;
 
-  Map<String, Color>? colors;
+  CustomTheme? colors;
   Color? accentColor;
   Color? textPrimary;
   Color? textPlaceholder;
@@ -23,17 +23,10 @@ class SelectMimicry extends StatelessWidget {
     return new Observer(
       builder: (_) {
         Config config = Provider.of<Config>(context, listen: false);
-        if (config.theme == ThemeConfig.light) {
-          this.colors = LightTheme().field;
-          this.accentColor = LightTheme().accent;
-          this.textPrimary = LightTheme().textPrimary;
-          this.textPlaceholder = LightTheme().textPlaceholder;
-        } else if (config.theme == ThemeConfig.dark) {
-          this.colors = DarkTheme().field;
-          this.accentColor = DarkTheme().accent;
-          this.textPrimary = DarkTheme().textPrimary;
-          this.textPlaceholder = DarkTheme().textPlaceholder;
-        }
+        this.colors = config.customTheme;
+        this.accentColor = config.customTheme.accent;
+        this.textPrimary = config.customTheme.text_primary;
+        this.textPlaceholder = config.customTheme.text_placeholder;
         return TextFormField(
           controller: controller,
           focusNode: focusNode,
@@ -50,18 +43,18 @@ class SelectMimicry extends StatelessWidget {
               suffixIconConstraints: BoxConstraints(maxHeight: 32, maxWidth: 32),
               suffixIcon: Container(
                 margin: EdgeInsets.only(right: 8.0),
-                child: MyIcon(
+                child: CustomIcon(
                   type: IconType.svg,
                   svgPath: "resource/icons/dropdown_16.svg",
                   colorMode: ColorMode.placeholder,
                   //size: 14,
                 ),
               ),
-              fillColor: colors!['field_background'],
+              fillColor: colors!.field_background,
               contentPadding: EdgeInsets.symmetric(horizontal: 17, vertical: 8),
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(color: (colors!['field_border'])!)),
+                  borderSide: BorderSide(color: (colors!.field_border)!)),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
                 borderSide: BorderSide(color: (accentColor)!),

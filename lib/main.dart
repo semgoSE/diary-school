@@ -45,6 +45,8 @@ void main() async {
     theme = DarkTheme();
   }
 
+  config.setTheme(ThemeConfig.light, theme);
+
   //получаем тему здесь
   themeData = ThemeData(
       textTheme:
@@ -59,6 +61,7 @@ void main() async {
           backgroundColor: theme.header["header_background"]));
 
   //получаем из темы Theme.of(context).backgroundColor,
+
 
   Box<AuthData> box = Hive.box<AuthData>("auth_data");
   AuthData init = AuthData(

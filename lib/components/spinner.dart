@@ -38,7 +38,7 @@ class SpinnerState extends State<Spinner> with SingleTickerProviderStateMixin {
         child: Container(
             height: size,
             width: size,
-            child: MyIcon(type: IconType.svg, svgPath: "resource/icons/spinner.svg", size: size),
+            child: CustomIcon(type: IconType.svg, svgPath: "resource/icons/spinner.svg", size: size),
       ),
         turns: Tween(begin: 0.0, end: 1.0).animate(controller!)));
   }

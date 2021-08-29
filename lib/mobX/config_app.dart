@@ -1,4 +1,5 @@
 import 'package:diary_app/api/user/UserApi.dart';
+import 'package:diary_app/components/colors.dart';
 import 'package:mobx/mobx.dart';
 
 // Include generated file
@@ -11,6 +12,8 @@ class Config = _Config with _$Config;
 abstract class _Config with Store {
   @observable
   ThemeConfig theme = ThemeConfig.light;
+  @observable 
+  CustomTheme customTheme = CustomTheme();
 
   @observable
   bool login = false;
@@ -22,8 +25,9 @@ abstract class _Config with Store {
   String token = "";
 
   @action
-  void setTheme(ThemeConfig theme) {
+  void setTheme(ThemeConfig theme, CustomTheme customTheme) {
     this.theme = theme;
+    this.customTheme = customTheme;
   }
 
   @action 

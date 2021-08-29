@@ -123,7 +123,7 @@ class _LoginState extends State<Login> {
               top: "Пароль",
             ),
             Container(
-                child: MyButton(
+                child: CustomButton(
                   child: "Войти",
                   mode: "commerce",
                   click: login,
@@ -132,14 +132,14 @@ class _LoginState extends State<Login> {
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16)),
             Container(child: MyPlaceholder(child: "или"), height: 90),
             Container(
-                child: MyButton(
+                child: CustomButton(
                   disable: true,
                   child: "Войти с Google",
                   mode: "outlined",
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8)),
             Container(
-                child: MyButton(
+                child: CustomButton(
                   child: "Войти c VK",
                   mode: "outlined",
                 ),

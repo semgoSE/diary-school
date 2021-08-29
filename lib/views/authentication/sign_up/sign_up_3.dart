@@ -161,7 +161,7 @@ class SignUp3State extends State<SignUp3> {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                before: MyIcon(
+                before: CustomIcon(
                   svgPath: "resource/icons/add_outline_28.svg",
                   type: IconType.svg,
                   size: 32,
@@ -185,7 +185,7 @@ class SignUp3State extends State<SignUp3> {
                 physics: PageScrollPhysics(),
               )),
               Container(
-                  child: MyButton(
+                  child: CustomButton(
                     mode: accounts_bind.length == 0 ? "primary" : "commerce",
                     child:
                         accounts_bind.length == 0 ? "Пропустить" : "Завершить",

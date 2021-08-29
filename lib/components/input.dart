@@ -19,7 +19,7 @@ class Input extends StatelessWidget {
   TextInputType? keyboardType;
   List<TextInputFormatter>? inputFormatters;
 
-  Map<String, Color>? colors;
+  CustomTheme? colors;
   Color? accentColor;
   Color? textPrimary;
   Color? textPlaceholder;
@@ -39,24 +39,24 @@ class Input extends StatelessWidget {
   Color? getColorByStatus() {
     switch (status) {
       case InputStatus.def:
-        return colors!['field_border'];
+        return colors!.field_border;
       case InputStatus.error:
-        return colors!['field_error_border'];
+        return colors!.field_error_border;
 
       case InputStatus.valid:
-        return colors!['field_valid_border'];
+        return colors!.field_valid_border;
     }
   }
 
   Color? getBackgroundByStatus() {
     switch (status) {
       case InputStatus.def:
-        return colors!['field_background'];
+        return colors!.field_background;
       case InputStatus.error:
-        return colors!['field_error_background'];
+        return colors!.field_error_background;
 
       case InputStatus.valid:
-        return colors!['field_background'];
+        return colors!.field_background;
     }
   }
 
@@ -65,17 +65,10 @@ class Input extends StatelessWidget {
     return new Observer(
       builder: (_) {
         Config config = Provider.of<Config>(context, listen: false);
-        if (config.theme == ThemeConfig.light) {
-          this.colors = LightTheme().field;
+          this.colors = config.customTheme;
           this.accentColor = LightTheme().accent;
-          this.textPrimary = LightTheme().textPrimary;
-          this.textPlaceholder = LightTheme().textPlaceholder;
-        } else if (config.theme == ThemeConfig.dark) {
-          this.colors = DarkTheme().field;
-          this.accentColor = DarkTheme().accent;
-          this.textPrimary = DarkTheme().textPrimary;
-          this.textPlaceholder = DarkTheme().textPlaceholder;
-        }
+          this.textPrimary = LightTheme().text_primary;
+          this.textPlaceholder = LightTheme().text_placeholder;
         return TextFormField(
           keyboardType: keyboardType,
           inputFormatters: inputFormatters,

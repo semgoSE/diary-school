@@ -6,7 +6,7 @@ import 'colors.dart';
 
 final config = Config();
 
-class MyIcon extends StatelessWidget {
+class CustomIcon extends StatelessWidget {
   IconData? iconData;
   String? svgPath;
   double? size;
@@ -14,7 +14,7 @@ class MyIcon extends StatelessWidget {
 
   IconType type; // "icon" / "svg"
 
-  MyIcon(
+  CustomIcon(
       {this.iconData,
       this.svgPath,
       this.size = 28,
@@ -22,19 +22,14 @@ class MyIcon extends StatelessWidget {
       this.type = IconType.icon});
 
   Color? accentColor;
-  Map<String, Color>? colors;
+  CustomTheme? colors;
 
   @override
   Widget build(BuildContext context) {
     return new Observer(
       builder: (_) {
-        if (config.theme == ThemeConfig.light) {
-          this.colors = LightTheme().icons;
-          this.accentColor = LightTheme().accent;
-        } else if (config.theme == ThemeConfig.dark) {
-          this.colors = DarkTheme().icons;
-          this.accentColor = DarkTheme().accent;
-        }
+        this.colors = config.customTheme;
+        this.accentColor = config.customTheme.accent;
         return setIcon();
       },
     );
@@ -45,9 +40,9 @@ class MyIcon extends StatelessWidget {
       case ColorMode.accent:
         return accentColor;
       case ColorMode.name:
-        return colors!["icon_name"];
+        return colors!.icon_name;
       case ColorMode.placeholder:
-        return colors!["icon_secondary"];
+        return colors!.icon_secondary;
     }
   }
 

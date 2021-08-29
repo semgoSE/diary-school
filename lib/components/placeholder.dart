@@ -24,10 +24,7 @@ class MyPlaceholder extends StatelessWidget {
     return Observer(
         builder: (_) {
           Config config = Provider.of<Config>(context, listen: false);
-          if (config.theme == ThemeConfig.light)
-            textPlaceholder = LightTheme().textPlaceholder;
-          else
-            textPlaceholder = DarkTheme().textPlaceholder;
+          textPlaceholder = config.customTheme.text_placeholder;
           return Column(children: [
             Container(
               child: Text(
