@@ -122,6 +122,7 @@ class _LoginState extends State<Login> {
               child: Input(
                 isPass: isHidePass,
                 suffix: 
+                  isHidePass ?
                      IconButton(
                         icon: CustomIcon(
                           size: 16,
@@ -133,11 +134,11 @@ class _LoginState extends State<Login> {
                             isHidePass = false;                            
                           });
                          }, 
+                      ): CustomIcon(
+                        type: IconType.svg,
+                        size: 16,
+                        svgPath: "resource/icons/hide_outline_28.svg",
                       ),
-                    // : CustomIcon(
-                    //     type: IconType.svg,
-                    //     svgPath: "resource/icons/hide_outline_28.svg",
-                    //   ),
                 hint: "Введите пароль",
                 controller: _passController,
                 keyboardType: TextInputType.text,
