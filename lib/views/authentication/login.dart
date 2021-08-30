@@ -1,6 +1,7 @@
 import 'package:diary_app/api/common/CommonApi.dart';
 import 'package:diary_app/components/button.dart';
 import 'package:diary_app/components/form_item.dart';
+import 'package:diary_app/components/icon.dart';
 import 'package:diary_app/components/input.dart';
 import 'package:diary_app/components/placeholder.dart';
 import 'package:diary_app/components/spinner.dart';
@@ -25,6 +26,8 @@ class _LoginState extends State<Login> {
 
   String _login = "";
   String _pass = "";
+
+  bool isHidePass = true;
 
   void initState() {
     _loginController.addListener(() {
@@ -69,22 +72,22 @@ class _LoginState extends State<Login> {
     Box<AuthData> box = Hive.box<AuthData>("auth_data");
     CommonApi api = CommonApi();
     api.setPath("user/login");
-    api.setBody(RequestLogin(type: "DEFAULT", login: _login, password: _pass).toJson());
+    api.setBody(
+        RequestLogin(type: "DEFAULT", login: _login, password: _pass).toJson());
     var f = await api.request();
     if (f["success"]) {
       ResponseLogin response = ResponseLogin.fromJson(f);
-      if(response.msg.length == 1) {
+      if (response.msg.length == 1) {
         box.put("value", response.msg[0]);
         Provider.of<Config>(context, listen: false).setLogin(true);
         Navigator.pop(context);
         Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
       }
-    } else { //TODO
+    } else {
+      //TODO
       Navigator.pop(context);
       final snackBar = SnackBar(
-        content: Text(
-          f['msg']
-        ),
+        content: Text(f['msg']),
         duration: const Duration(seconds: 4),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -117,12 +120,29 @@ class _LoginState extends State<Login> {
             ),
             FormItem(
               child: Input(
-                isPass: true,
+                isPass: isHidePass,
+                suffix: 
+                     IconButton(
+                        icon: CustomIcon(
+                          size: 16,
+                          type: IconType.svg,
+                          svgPath: "resource/icons/view_outline_28.svg",
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isHidePass = false;                            
+                          });
+                         }, 
+                      ),
+                    // : CustomIcon(
+                    //     type: IconType.svg,
+                    //     svgPath: "resource/icons/hide_outline_28.svg",
+                    //   ),
                 hint: "Введите пароль",
                 controller: _passController,
                 keyboardType: TextInputType.text,
                 onSubmit: (String pass) {
-                  if(!(_login.length < 6) && pass != "") login();
+                  if (!(_login.length < 6) && pass != "") login();
                 },
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(18),

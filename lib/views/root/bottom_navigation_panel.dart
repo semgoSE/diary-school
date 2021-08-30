@@ -1,3 +1,5 @@
+import 'package:diary_app/components/icon.dart';
+import 'package:diary_app/components/spinner.dart';
 import 'package:diary_app/mobX/shedule_week.dart';
 import 'package:diary_app/views/root/SheduleWeek/SheduleWeek.dart';
 import 'package:flutter/material.dart';
@@ -25,10 +27,9 @@ class _BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
-
       SheduleWeek sheduleWeek =
-            Provider.of<SheduleWeek>(context, listen: false);
-      
+          Provider.of<SheduleWeek>(context, listen: false);
+
       final List<Widget> _childrens = [
         Container(),
         SheduleWeekView(),
@@ -39,7 +40,27 @@ class _BottomNavigationState extends State<BottomNavigation> {
         AppBar(textTheme: Theme.of(context).textTheme, title: Text("Сводка")),
         AppBar(
             textTheme: Theme.of(context).textTheme,
-            title: Text(DateFormat("d MMMM y", "ru_RU").format(sheduleWeek.date)),
+            title: Column(
+              children: [
+                Container(
+                    child: Text(DateFormat("d MMMM y", "ru_RU")
+                        .format(sheduleWeek.date))),
+                // Container(
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       Text("Обновление", style: TextStyle(color: config.customTheme.text_secondary, fontSize: 12)),
+                //       Container(
+                //         child: Spinner(
+                //           size: 9,
+                //         ),
+                //         padding: EdgeInsets.only(left: 8),
+                //       )
+                //     ],
+                //   ),
+                // )
+              ],
+            ),
             centerTitle: true),
         AppBar(
           textTheme: Theme.of(context).textTheme,
