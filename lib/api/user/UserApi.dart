@@ -4,18 +4,24 @@ import 'dart:convert';
 
 import 'package:diary_app/api/config.dart';
 import 'package:diary_app/models/index.dart';
+import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 
 
 class UserApi {
 
-  String url_server = URL; //адресс сервера
-  Uri? route;//марщрут
+  String url = URL; //адресс сервера
+  String route = "/"; //марщрут
+
+
+  Response? response;
+  late Dio dio;
 
   Map<String, dynamic> body = new Map();
 
   UserApi(String token, PayloadToken payload) {
-    this.url_server = URL;
+    dio = Dio(BaseOptions(baseUrl: url));
+    
     this.body.addAll({
       "token": token,
       "payload": {
@@ -28,7 +34,7 @@ class UserApi {
 
  //редактируем маршрут
   void setPath(String path) {
-    route = Uri.https(URL, path);
+    route = path;
   }
 
   //редактируем тело
@@ -39,10 +45,8 @@ class UserApi {
   //отправляем запрос
   Future<dynamic> request() async {
     try {
-      var response = await http.post(route!, body: jsonEncode(body), headers: {
-        "Content-Type": "application/json"
-      });
-      return jsonDecode(response.body);
+      response = await dio.post(route, data: body);
+      return jsonDecode(response!.data);
     } catch (e) {
       return "Жопа";
     }

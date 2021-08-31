@@ -19,6 +19,7 @@ class Input extends StatelessWidget {
   TextInputType? keyboardType;
   List<TextInputFormatter>? inputFormatters;
   Widget? suffix;
+  Widget? suffixIcon;
 
   CustomTheme? colors;
   Color? accentColor;
@@ -36,6 +37,7 @@ class Input extends StatelessWidget {
       this.keyboardType,
       this.inputFormatters,
       this.suffix,
+      this.suffixIcon,
       this.status = InputStatus.def});
 
   Color? getColorByStatus() {
@@ -83,6 +85,7 @@ class Input extends StatelessWidget {
           decoration: InputDecoration(
               // labelText: 'FFFF',
               suffix: suffix,
+              suffixIcon: suffixIcon,
               hintStyle: TextStyle(fontSize: 16, color: textPlaceholder),
               hintText: hint,
               filled: true,

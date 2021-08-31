@@ -121,19 +121,8 @@ class _LoginState extends State<Login> {
             FormItem(
               child: Input(
                 isPass: isHidePass,
-                suffix: 
-                     IconButton(
-                        icon: CustomIcon(
-                          size: 16,
-                          type: IconType.svg,
-                          svgPath: "resource/icons/view_outline_28.svg",
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            isHidePass = false;                            
-                          });
-                         }, 
-                      ),
+                suffixIcon: IconButton(icon: CustomIcon(type: IconType.svg, svgPath: "resource/icons/view_outline_28.svg", size: 28,), splashRadius: 12, onPressed: () {})
+                     ,
                     // : CustomIcon(
                     //     type: IconType.svg,
                     //     svgPath: "resource/icons/hide_outline_28.svg",

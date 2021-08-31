@@ -1,0 +1,7 @@
+{
+    "success": true,
+    "msg": {
+        "lesson": "$lesson",
+        "marks": []
+    }
+}
