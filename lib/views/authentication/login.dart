@@ -121,23 +121,30 @@ class _LoginState extends State<Login> {
             FormItem(
               child: Input(
                 isPass: isHidePass,
-                suffix: 
-                  isHidePass ?
-                     IconButton(
+                suffixIcon: isHidePass
+                    ? IconButton(
+                        splashRadius: 10,
                         icon: CustomIcon(
-                          size: 16,
                           type: IconType.svg,
                           svgPath: "resource/icons/view_outline_28.svg",
                         ),
                         onPressed: () {
                           setState(() {
-                            isHidePass = false;                            
+                            isHidePass = false;
                           });
-                         }, 
-                      ): CustomIcon(
-                        type: IconType.svg,
-                        size: 16,
-                        svgPath: "resource/icons/hide_outline_28.svg",
+                        },
+                      )
+                    : IconButton(
+                        splashRadius: 10,
+                        icon: CustomIcon(
+                          type: IconType.svg,
+                          svgPath: "resource/icons/hide_outline_28.svg",
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isHidePass = true;
+                          });
+                        },
                       ),
                 hint: "Введите пароль",
                 controller: _passController,
