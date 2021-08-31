@@ -8,7 +8,7 @@ part of 'response_lessons_get.dart';
 
 class ResponseLessonsGetAdapter extends TypeAdapter<ResponseLessonsGet> {
   @override
-  final int typeId = 7;
+  final int typeId = 9;
 
   @override
   ResponseLessonsGet read(BinaryReader reader) {

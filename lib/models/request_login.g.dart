@@ -8,7 +8,7 @@ part of 'request_login.dart';
 
 class RequestLoginAdapter extends TypeAdapter<RequestLogin> {
   @override
-  final int typeId = 5;
+  final int typeId = 6;
 
   @override
   RequestLogin read(BinaryReader reader) {

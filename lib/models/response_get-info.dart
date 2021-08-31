@@ -3,13 +3,13 @@ import 'package:flutter/foundation.dart';
 import 'package:quiver/core.dart';
 import 'index.dart';
 
-part 'response_check-login.g.dart';
+part 'response_get-info.g.dart';
 
 @immutable
-@HiveType(typeId: 7)
-class ResponseCheckLogin {
+@HiveType(typeId: 8)
+class ResponseGetInfo {
 
-  const ResponseCheckLogin({
+  const ResponseGetInfo({
     required this.success,
     required this.msg,
   });
@@ -17,35 +17,35 @@ class ResponseCheckLogin {
   @HiveField(0)
   final bool success;
   @HiveField(1)
-  final String msg;
+  final GetInfo msg;
 
-  factory ResponseCheckLogin.fromJson(Map<String,dynamic> json) => ResponseCheckLogin(
+  factory ResponseGetInfo.fromJson(Map<String,dynamic> json) => ResponseGetInfo(
     success: json['success'] as bool,
-    msg: json['msg'] as String
+    msg: GetInfo.fromJson(json['msg'] as Map<String, dynamic>)
   );
   
   Map<String, dynamic> toJson() => {
     'success': success,
-    'msg': msg
+    'msg': msg.toJson()
   };
 
-  ResponseCheckLogin clone() => ResponseCheckLogin(
+  ResponseGetInfo clone() => ResponseGetInfo(
     success: success,
-    msg: msg
+    msg: msg.clone()
   );
 
 
-  ResponseCheckLogin copyWith({
+  ResponseGetInfo copyWith({
     bool? success,
-    String? msg
-  }) => ResponseCheckLogin(
+    GetInfo? msg
+  }) => ResponseGetInfo(
     success: success ?? this.success,
     msg: msg ?? this.msg,
   );
 
   @override
   bool operator ==(Object other) => identical(this, other)
-    || other is ResponseCheckLogin && success == other.success && msg == other.msg;
+    || other is ResponseGetInfo && success == other.success && msg == other.msg;
 
   @override
   int get hashCode => success.hashCode ^ msg.hashCode;

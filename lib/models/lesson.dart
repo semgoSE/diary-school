@@ -6,7 +6,7 @@ import 'index.dart';
 part 'lesson.g.dart';
 
 @immutable
-@HiveType(typeId: 3)
+@HiveType(typeId: 4)
 class Lesson {
 
   const Lesson({

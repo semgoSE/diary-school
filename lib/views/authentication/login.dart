@@ -126,6 +126,7 @@ class _LoginState extends State<Login> {
                         splashRadius: 10,
                         icon: CustomIcon(
                           type: IconType.svg,
+                          colorMode: ColorMode.placeholder,
                           svgPath: "resource/icons/view_outline_28.svg",
                         ),
                         onPressed: () {
@@ -138,6 +139,7 @@ class _LoginState extends State<Login> {
                         splashRadius: 10,
                         icon: CustomIcon(
                           type: IconType.svg,
+                          colorMode: ColorMode.placeholder,
                           svgPath: "resource/icons/hide_outline_28.svg",
                         ),
                         onPressed: () {

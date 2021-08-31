@@ -6,7 +6,7 @@ import 'index.dart';
 part 'response_lessons_get.g.dart';
 
 @immutable
-@HiveType(typeId: 7)
+@HiveType(typeId: 9)
 class ResponseLessonsGet {
 
   const ResponseLessonsGet({

@@ -8,7 +8,7 @@ part of 'response_check-login.dart';
 
 class ResponseCheckLoginAdapter extends TypeAdapter<ResponseCheckLogin> {
   @override
-  final int typeId = 6;
+  final int typeId = 7;
 
   @override
   ResponseCheckLogin read(BinaryReader reader) {

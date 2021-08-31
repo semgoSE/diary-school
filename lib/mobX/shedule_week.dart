@@ -1,3 +1,4 @@
+import 'package:diary_app/models/index.dart';
 import 'package:mobx/mobx.dart';
 
 // Include generated file
@@ -13,12 +14,19 @@ abstract class _SheduleWeek with Store {
   DateTime date = new DateTime.now();
 
   @observable
+  Lesson? lesson;
+
+  @observable
   bool login = false;
 
   @action
-  void updateDate(DateTime date) {
-    this.date = date;
+  void updateDate(DateTime _date) {
+    this.date = _date;
   }
 
+  @action
+  void setLesson(Lesson _lesson) {
+    this.lesson = _lesson;
+  }
 }
 

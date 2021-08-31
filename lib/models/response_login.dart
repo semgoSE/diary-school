@@ -6,7 +6,7 @@ import 'index.dart';
 part 'response_login.g.dart';
 
 @immutable
-@HiveType(typeId: 8)
+@HiveType(typeId: 10)
 class ResponseLogin {
 
   const ResponseLogin({

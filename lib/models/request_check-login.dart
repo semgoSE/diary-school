@@ -6,7 +6,7 @@ import 'index.dart';
 part 'request_check-login.g.dart';
 
 @immutable
-@HiveType(typeId: 4)
+@HiveType(typeId: 5)
 class RequestCheckLogin {
 
   const RequestCheckLogin({

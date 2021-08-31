@@ -1,7 +1,4 @@
 {
     "success": true,
-    "msg": {
-        "lesson": "$lesson",
-        "marks": []
-    }
+    "msg": "$get_info"
 }

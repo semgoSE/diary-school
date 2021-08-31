@@ -1,35 +1,32 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'response_sign_up.dart';
+part of 'get_info.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ResponseSignUpAdapter extends TypeAdapter<ResponseSignUp> {
+class GetInfoAdapter extends TypeAdapter<GetInfo> {
   @override
-  final int typeId = 11;
+  final int typeId = 3;
 
   @override
-  ResponseSignUp read(BinaryReader reader) {
+  GetInfo read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return ResponseSignUp(
-      success: fields[0] as bool,
-      msg: fields[1] as AuthData,
+    return GetInfo(
+      lesson: fields[0] as Lesson,
     );
   }
 
   @override
-  void write(BinaryWriter writer, ResponseSignUp obj) {
+  void write(BinaryWriter writer, GetInfo obj) {
     writer
-      ..writeByte(2)
-      ..writeByte(0)
-      ..write(obj.success)
       ..writeByte(1)
-      ..write(obj.msg);
+      ..writeByte(0)
+      ..write(obj.lesson);
   }
 
   @override
@@ -38,7 +35,7 @@ class ResponseSignUpAdapter extends TypeAdapter<ResponseSignUp> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ResponseSignUpAdapter &&
+      other is GetInfoAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

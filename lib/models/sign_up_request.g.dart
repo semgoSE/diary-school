@@ -8,7 +8,7 @@ part of 'sign_up_request.dart';
 
 class SignUpRequestAdapter extends TypeAdapter<SignUpRequest> {
   @override
-  final int typeId = 10;
+  final int typeId = 12;
 
   @override
   SignUpRequest read(BinaryReader reader) {

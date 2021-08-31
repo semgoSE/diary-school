@@ -24,6 +24,21 @@ mixin _$SheduleWeek on _SheduleWeek, Store {
     });
   }
 
+  final _$lessonAtom = Atom(name: '_SheduleWeek.lesson');
+
+  @override
+  Lesson? get lesson {
+    _$lessonAtom.reportRead();
+    return super.lesson;
+  }
+
+  @override
+  set lesson(Lesson? value) {
+    _$lessonAtom.reportWrite(value, super.lesson, () {
+      super.lesson = value;
+    });
+  }
+
   final _$loginAtom = Atom(name: '_SheduleWeek.login');
 
   @override
@@ -42,11 +57,22 @@ mixin _$SheduleWeek on _SheduleWeek, Store {
   final _$_SheduleWeekActionController = ActionController(name: '_SheduleWeek');
 
   @override
-  void updateDate(DateTime date) {
+  void updateDate(DateTime _date) {
     final _$actionInfo = _$_SheduleWeekActionController.startAction(
         name: '_SheduleWeek.updateDate');
     try {
-      return super.updateDate(date);
+      return super.updateDate(_date);
+    } finally {
+      _$_SheduleWeekActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setLesson(Lesson _lesson) {
+    final _$actionInfo = _$_SheduleWeekActionController.startAction(
+        name: '_SheduleWeek.setLesson');
+    try {
+      return super.setLesson(_lesson);
     } finally {
       _$_SheduleWeekActionController.endAction(_$actionInfo);
     }
@@ -56,6 +82,7 @@ mixin _$SheduleWeek on _SheduleWeek, Store {
   String toString() {
     return '''
 date: ${date},
+lesson: ${lesson},
 login: ${login}
     ''';
   }

@@ -1,7 +1,11 @@
 import 'package:diary_app/components/simple_cell.dart';
+import 'package:diary_app/mobX/shedule_week.dart';
 import 'package:diary_app/models/index.dart';
+import 'package:diary_app/views/root/SheduleWeek/SheduleModalLessonInfo.dart';
 import 'package:diary_app/views/root/SheduleWeek/SheduleSimpleCell.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:provider/provider.dart';
 
 class SheduleCard extends StatelessWidget {
   final String header;
@@ -54,11 +58,22 @@ class SheduleCard extends StatelessWidget {
   }
 
   Widget buildLesson(context, i) {
+    SheduleWeek sheduleWeek = Provider.of<SheduleWeek>(context);
     return Container(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           SheduleSimpleCell(
+            onClick: () {
+              sheduleWeek.setLesson(timetable.lessons[i]);
+              showBarModalBottomSheet(
+                context: context,
+                topControl: Container(),
+                builder: (context) {
+                  return SheduleModalLessonInfo();
+                },
+              );
+            },
             before: Container(
               child: Row(
                 children: [

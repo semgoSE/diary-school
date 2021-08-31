@@ -1,9 +1,11 @@
 export 'account_bind.dart';
 export 'auth_data.dart';
+export 'get_info.dart';
 export 'lesson.dart';
 export 'request_check-login.dart';
 export 'request_login.dart';
 export 'response_check-login.dart';
+export 'response_get-info.dart';
 export 'response_lessons_get.dart';
 export 'response_login.dart';
 export 'response_sign_up.dart';
