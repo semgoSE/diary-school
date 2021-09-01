@@ -4,9 +4,9 @@ import 'package:quiver/core.dart';
 import 'index.dart';
 
 part 'auth_data.g.dart';
-
 @immutable
-@HiveType(typeId: 2)
+@HiveType(typeId: 1)
+
 class AuthData {
 
   const AuthData({

@@ -3,10 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:quiver/core.dart';
 import 'index.dart';
 
-part 'account_bind.g.dart';
-
-@immutable
-@HiveType(typeId: 1)
 class AccountBind {
 
   const AccountBind({

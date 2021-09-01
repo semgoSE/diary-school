@@ -4,9 +4,9 @@ import 'package:quiver/core.dart';
 import 'index.dart';
 
 part 'timetable.g.dart';
-
 @immutable
-@HiveType(typeId: 15)
+@HiveType(typeId: 4)
+
 class Timetable {
 
   const Timetable({

@@ -3,10 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:quiver/core.dart';
 import 'index.dart';
 
-part 'response_lesson_get.g.dart';
-
-@immutable
-@HiveType(typeId: 10)
 class ResponseLessonGet {
 
   const ResponseLessonGet({

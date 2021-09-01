@@ -8,7 +8,7 @@ part of 'auth_data.dart';
 
 class AuthDataAdapter extends TypeAdapter<AuthData> {
   @override
-  final int typeId = 2;
+  final int typeId = 1;
 
   @override
   AuthData read(BinaryReader reader) {

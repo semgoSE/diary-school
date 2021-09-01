@@ -4,9 +4,9 @@ import 'package:quiver/core.dart';
 import 'index.dart';
 
 part 'lesson.g.dart';
-
 @immutable
-@HiveType(typeId: 4)
+@HiveType(typeId: 2)
+
 class Lesson {
 
   const Lesson({

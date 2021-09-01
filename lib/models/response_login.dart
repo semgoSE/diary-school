@@ -3,10 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:quiver/core.dart';
 import 'index.dart';
 
-part 'response_login.g.dart';
-
-@immutable
-@HiveType(typeId: 11)
 class ResponseLogin {
 
   const ResponseLogin({

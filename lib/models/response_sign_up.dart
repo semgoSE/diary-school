@@ -3,10 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:quiver/core.dart';
 import 'index.dart';
 
-part 'response_sign_up.g.dart';
-
-@immutable
-@HiveType(typeId: 12)
 class ResponseSignUp {
 
   const ResponseSignUp({

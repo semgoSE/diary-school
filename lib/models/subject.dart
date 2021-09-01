@@ -4,9 +4,9 @@ import 'package:quiver/core.dart';
 import 'index.dart';
 
 part 'subject.g.dart';
-
 @immutable
-@HiveType(typeId: 14)
+@HiveType(typeId: 3)
+
 class Subject {
 
   const Subject({

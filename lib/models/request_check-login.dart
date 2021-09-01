@@ -3,10 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:quiver/core.dart';
 import 'index.dart';
 
-part 'request_check-login.g.dart';
-
-@immutable
-@HiveType(typeId: 5)
 class RequestCheckLogin {
 
   const RequestCheckLogin({

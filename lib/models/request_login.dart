@@ -3,10 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:quiver/core.dart';
 import 'index.dart';
 
-part 'request_login.g.dart';
-
-@immutable
-@HiveType(typeId: 6)
 class RequestLogin {
 
   const RequestLogin({

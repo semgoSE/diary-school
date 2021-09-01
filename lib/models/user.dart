@@ -4,9 +4,9 @@ import 'package:quiver/core.dart';
 import 'index.dart';
 
 part 'user.g.dart';
-
 @immutable
-@HiveType(typeId: 16)
+@HiveType(typeId: 5)
+
 class User {
 
   const User({
