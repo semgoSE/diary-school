@@ -44,6 +44,8 @@ class SheduleWeekState extends State {
     List<Timetable> hiveTimetables = [];
 
     if(sheduleWeek.timetables.length == 0) {
+      //ищем в hive
+      print("Ищем в hive");
       for (int i = 0; i < 7; i++) {
         var timetable = boxTimetables.get(i);
         if (timetable != null)
@@ -54,8 +56,8 @@ class SheduleWeekState extends State {
       }
 
       if (hiveTimetables.length == 0) {
+        print("нету в hive ищем на сервере");
         UserApi api = new UserApi(config.token, config.payloadToken);
-
         api.setPath("lessons/get");
 
         // showDialog(context: context, builder: (context) => WillPopScope(child: ScreenSpinner(), onWillPop: () => Future.value(true)), barrierDismissible: false);
@@ -108,6 +110,7 @@ class SheduleWeekState extends State {
       }
     } else {
       setState(() {
+            print("Данные есть в mobX");
             timetables = sheduleWeek.timetables;
       });
     }

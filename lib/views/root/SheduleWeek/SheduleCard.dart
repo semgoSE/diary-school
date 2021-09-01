@@ -105,7 +105,7 @@ class SheduleCard extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          i != sheduleWeek.timetables.length-1 ? Container(height: 1, color: Color(0xFFDEDEDE)) : Container()
+          i == sheduleWeek.timetables[sheduleWeek.date.weekday-1].lessons.length-1 ? Container() : Container(height: 1, color: Color(0xFFDEDEDE))
         ],
       ),
     );

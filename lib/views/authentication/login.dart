@@ -1,4 +1,5 @@
 import 'package:diary_app/api/common/CommonApi.dart';
+import 'package:diary_app/api/user/UserApi.dart';
 import 'package:diary_app/components/button.dart';
 import 'package:diary_app/components/form_item.dart';
 import 'package:diary_app/components/icon.dart';
@@ -44,6 +45,7 @@ class _LoginState extends State<Login> {
   }
 
   void login() async {
+
     showBarModalBottomSheet(
       context: context,
       builder: (context) {
@@ -69,17 +71,26 @@ class _LoginState extends State<Login> {
       topControl: Container(),
       enableDrag: false,
     );
+
     Box<AuthData> box = Hive.box<AuthData>("auth_data");
+
     CommonApi api = CommonApi();
     api.setPath("user/login");
-    api.setBody(
-        RequestLogin(type: "DEFAULT", login: _login, password: _pass).toJson());
+    api.setBody(RequestLogin(type: "DEFAULT", login: _login, password: _pass).toJson());
+
     var f = await api.request();
+    
     if (f["success"]) {
       ResponseLogin response = ResponseLogin.fromJson(f);
       if (response.msg.length == 1) {
+
+        Config config = Provider.of<Config>(context, listen: false);
+
         box.put("value", response.msg[0]);
-        Provider.of<Config>(context, listen: false).setLogin(true);
+        
+        config.setLogin(true);
+        config.addAuthData(response.msg[0].token, PayloadToken(user_id: response.msg[0].user.userId, role: response.msg[0].user.role));
+
         Navigator.pop(context);
         Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
       }

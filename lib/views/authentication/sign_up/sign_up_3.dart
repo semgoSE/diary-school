@@ -1,4 +1,5 @@
 import 'package:diary_app/api/common/CommonApi.dart';
+import 'package:diary_app/api/user/UserApi.dart';
 import 'package:diary_app/components/button.dart';
 import 'package:diary_app/components/icon.dart';
 import 'package:diary_app/components/placeholder.dart';
@@ -123,12 +124,17 @@ class SignUp3State extends State<SignUp3> {
           );
         });
     var response = await api.request();
-    print(response);
     if (response['success']) {
       ResponseSignUp res = ResponseSignUp.fromJson(response);
+      
       Box<AuthData> box = Hive.box<AuthData>("auth_data");
       box.put("value", res.msg);
-      Provider.of<Config>(context, listen: false).setLogin(true);
+
+      Config config = Provider.of<Config>(context, listen: false);
+  
+      config.setLogin(true);
+      config.addAuthData(response.msg.token, PayloadToken(user_id: response.msg.user.userId, role: response.ms.user.role));
+
       Navigator.pop(context);
       Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
     } else {

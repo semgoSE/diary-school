@@ -30,7 +30,7 @@ class CommonApi {
   Future<dynamic> request() async {
     try {
       var response = await dio.post(route, data: json_body);
-      return jsonDecode(response.data);
+      return response.data;
     } catch (e) {
       return null;
     }

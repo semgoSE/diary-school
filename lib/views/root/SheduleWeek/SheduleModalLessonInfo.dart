@@ -27,6 +27,7 @@ class SheduleModalLessonInfoState extends State {
             AppBar(
               title: Text(sheduleWeek.lesson!.subject.discipline),
               textTheme: Theme.of(context).textTheme,
+              automaticallyImplyLeading: false,
             ),
           ],
         ),
