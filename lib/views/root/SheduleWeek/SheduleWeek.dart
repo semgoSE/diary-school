@@ -200,13 +200,15 @@ class SheduleWeekState extends State {
                     } else {
                       //проверка на каникулы
                       sheduleWeek.setTypeDay(SheduleWeekTypeDay.load);
+
                       Config config = Provider.of<Config>(context, listen: false);
                       UserApi api = new UserApi(config.token, config.payloadToken);
                       api.setPath("shedule-holliday/check-day");
                       api.setBody({ "date": date.toString() });
                       var response = await api.request();
                       if(response['success']) {
-                        if(sheduleWeek.date == DateTime.parse(response['msg']['date'])) {
+                        ResponseCheckDay res = ResponseCheckDay.fromJson(response);
+                        if(sheduleWeek.date == DateTime.parse(res.msg.date)) {
                           sheduleWeek.setTypeDay(SheduleWeekTypeDay.work);
                         }
                       } else {
