@@ -8,7 +8,7 @@ part of 'timetable.dart';
 
 class TimetableAdapter extends TypeAdapter<Timetable> {
   @override
-  final int typeId = 14;
+  final int typeId = 15;
 
   @override
   Timetable read(BinaryReader reader) {

@@ -34,7 +34,7 @@ class UserApi {
 
  //редактируем маршрут
   void setPath(String path) {
-    route = path;
+    route =  "/" + path;
   }
 
   //редактируем тело
@@ -46,8 +46,9 @@ class UserApi {
   Future<dynamic> request() async {
     try {
       response = await dio.post(route, data: body);
-      return jsonDecode(response!.data);
+      return response!.data;
     } catch (e) {
+      print(e);
       return "Жопа";
     }
     

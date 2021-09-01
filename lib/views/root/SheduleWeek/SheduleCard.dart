@@ -4,18 +4,25 @@ import 'package:diary_app/models/index.dart';
 import 'package:diary_app/views/root/SheduleWeek/SheduleModalLessonInfo.dart';
 import 'package:diary_app/views/root/SheduleWeek/SheduleSimpleCell.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 class SheduleCard extends StatelessWidget {
-  final String header;
 
   final Timetable timetable;
 
-  SheduleCard({required this.header, required this.timetable});
+  SheduleCard({ required this.timetable});
+
+  String upperfirst(String text) {
+   if (text.isEmpty) return text; 
+   return '${text[0].toUpperCase()}${text.substring(1)}'; 
+  }
 
   @override
   Widget build(BuildContext context) {
+    SheduleWeek sheduleWeek = Provider.of<SheduleWeek>(context);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
@@ -37,14 +44,13 @@ class SheduleCard extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Text(
-            header,
-            style: TextStyle(
-              color: Color(0xFF383838),
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
+          SimpleCell(
+            child: Text(
+              upperfirst(DateFormat("EEEE", "ru_RU").format(sheduleWeek.date)),
+              style: GoogleFonts.manrope(fontSize: 20, fontWeight: FontWeight.bold)
             ),
           ),
+          Container(height: 1, color: Color(0xFFDEDEDE)),
           Expanded(
             child: ListView.builder(
               physics: PageScrollPhysics(),
@@ -82,9 +88,9 @@ class SheduleCard extends StatelessWidget {
                     time_end: timetable.lessons[i].timeEnd,
                   ),
                   Container(
-                    width: 3,
+                    width: 2,
                     height: 42,
-                    color: Color(0xFF3f8ae0),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(36), color: Color(0xFF3f8ae0)),
                     margin: EdgeInsets.only(left: 8),
                   ),
                 ],
@@ -93,13 +99,13 @@ class SheduleCard extends StatelessWidget {
             child: Text(
               timetable.lessons[i].subject.discipline,
               style: TextStyle(
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w500,
                 fontSize: 17,
               ),
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          Container(height: 1, color: Color(0xFFDEDEDE))
+          i != sheduleWeek.timetables.length-1 ? Container(height: 1, color: Color(0xFFDEDEDE)) : Container()
         ],
       ),
     );
@@ -115,6 +121,7 @@ class TimeSheduleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 40,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

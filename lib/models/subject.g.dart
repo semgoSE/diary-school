@@ -8,7 +8,7 @@ part of 'subject.dart';
 
 class SubjectAdapter extends TypeAdapter<Subject> {
   @override
-  final int typeId = 13;
+  final int typeId = 14;
 
   @override
   Subject read(BinaryReader reader) {

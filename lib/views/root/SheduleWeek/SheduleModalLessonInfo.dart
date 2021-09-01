@@ -21,9 +21,14 @@ class SheduleModalLessonInfoState extends State {
     return Observer(builder: (_) {
       SheduleWeek sheduleWeek = Provider.of<SheduleWeek>(context);
       return Container(
-        child: ListView(
-          physics: PageScrollPhysics(),
-          children: [AppBar(title: Text(sheduleWeek.lesson!.subject.discipline)), Container()],
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AppBar(
+              title: Text(sheduleWeek.lesson!.subject.discipline),
+              textTheme: Theme.of(context).textTheme,
+            ),
+          ],
         ),
       );
     });

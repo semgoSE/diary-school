@@ -24,6 +24,21 @@ mixin _$SheduleWeek on _SheduleWeek, Store {
     });
   }
 
+  final _$timetablesAtom = Atom(name: '_SheduleWeek.timetables');
+
+  @override
+  List<Timetable> get timetables {
+    _$timetablesAtom.reportRead();
+    return super.timetables;
+  }
+
+  @override
+  set timetables(List<Timetable> value) {
+    _$timetablesAtom.reportWrite(value, super.timetables, () {
+      super.timetables = value;
+    });
+  }
+
   final _$lessonAtom = Atom(name: '_SheduleWeek.lesson');
 
   @override
@@ -82,6 +97,7 @@ mixin _$SheduleWeek on _SheduleWeek, Store {
   String toString() {
     return '''
 date: ${date},
+timetables: ${timetables},
 lesson: ${lesson},
 login: ${login}
     ''';

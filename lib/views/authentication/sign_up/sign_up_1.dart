@@ -48,6 +48,8 @@ class SignUp1State extends State<SignUp1> {
   TextEditingController _controllerRegion = TextEditingController();
   int _region_id = -1;
 
+  bool isHidePass = true;
+
   void initState() {
     _loginController.addListener(() {
       setState(() {
@@ -175,7 +177,35 @@ class SignUp1State extends State<SignUp1> {
               FormItem(
                   top: "Пароль",
                   child: Input(
+                      isPass: isHidePass,
                       keyboardType: TextInputType.text,
+                      suffixIcon:  isHidePass
+                    ? IconButton(
+                        splashRadius: 10,
+                        icon: CustomIcon(
+                          type: IconType.svg,
+                          colorMode: ColorMode.placeholder,
+                          svgPath: "resource/icons/view_outline_28.svg",
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isHidePass = false;
+                          });
+                        },
+                      )
+                    : IconButton(
+                        splashRadius: 10,
+                        icon: CustomIcon(
+                          type: IconType.svg,
+                          colorMode: ColorMode.placeholder,
+                          svgPath: "resource/icons/hide_outline_28.svg",
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isHidePass = true;
+                          });
+                        },
+                      ),
                       textInputAction: TextInputAction.next,
                       onSubmit: (String pass) {
                         openMenuChooseRegion();

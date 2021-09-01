@@ -6,7 +6,7 @@ import 'index.dart';
 part 'user.g.dart';
 
 @immutable
-@HiveType(typeId: 15)
+@HiveType(typeId: 16)
 class User {
 
   const User({

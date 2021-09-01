@@ -3,13 +3,13 @@ import 'package:flutter/foundation.dart';
 import 'package:quiver/core.dart';
 import 'index.dart';
 
-part 'response_sign_up.g.dart';
+part 'response_lesson_get.g.dart';
 
 @immutable
-@HiveType(typeId: 12)
-class ResponseSignUp {
+@HiveType(typeId: 10)
+class ResponseLessonGet {
 
-  const ResponseSignUp({
+  const ResponseLessonGet({
     required this.success,
     required this.msg,
   });
@@ -17,11 +17,11 @@ class ResponseSignUp {
   @HiveField(0)
   final bool success;
   @HiveField(1)
-  final AuthData msg;
+  final Lesson msg;
 
-  factory ResponseSignUp.fromJson(Map<String,dynamic> json) => ResponseSignUp(
+  factory ResponseLessonGet.fromJson(Map<String,dynamic> json) => ResponseLessonGet(
     success: json['success'] as bool,
-    msg: AuthData.fromJson(json['msg'] as Map<String, dynamic>)
+    msg: Lesson.fromJson(json['msg'] as Map<String, dynamic>)
   );
   
   Map<String, dynamic> toJson() => {
@@ -29,23 +29,23 @@ class ResponseSignUp {
     'msg': msg.toJson()
   };
 
-  ResponseSignUp clone() => ResponseSignUp(
+  ResponseLessonGet clone() => ResponseLessonGet(
     success: success,
     msg: msg.clone()
   );
 
 
-  ResponseSignUp copyWith({
+  ResponseLessonGet copyWith({
     bool? success,
-    AuthData? msg
-  }) => ResponseSignUp(
+    Lesson? msg
+  }) => ResponseLessonGet(
     success: success ?? this.success,
     msg: msg ?? this.msg,
   );
 
   @override
   bool operator ==(Object other) => identical(this, other)
-    || other is ResponseSignUp && success == other.success && msg == other.msg;
+    || other is ResponseLessonGet && success == other.success && msg == other.msg;
 
   @override
   int get hashCode => success.hashCode ^ msg.hashCode;

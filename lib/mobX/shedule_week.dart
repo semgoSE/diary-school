@@ -14,6 +14,9 @@ abstract class _SheduleWeek with Store {
   DateTime date = new DateTime.now();
 
   @observable
+  List<Timetable> timetables = []; 
+
+  @observable
   Lesson? lesson;
 
   @observable
@@ -28,5 +31,11 @@ abstract class _SheduleWeek with Store {
   void setLesson(Lesson _lesson) {
     this.lesson = _lesson;
   }
+
+  void updateTimetables(List<Timetable> _timetables) {
+    this.timetables = _timetables;
+  }
+
+
 }
 
