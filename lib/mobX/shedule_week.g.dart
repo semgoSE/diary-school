@@ -54,6 +54,21 @@ mixin _$SheduleWeek on _SheduleWeek, Store {
     });
   }
 
+  final _$typeDayAtom = Atom(name: '_SheduleWeek.typeDay');
+
+  @override
+  SheduleWeekTypeDay get typeDay {
+    _$typeDayAtom.reportRead();
+    return super.typeDay;
+  }
+
+  @override
+  set typeDay(SheduleWeekTypeDay value) {
+    _$typeDayAtom.reportWrite(value, super.typeDay, () {
+      super.typeDay = value;
+    });
+  }
+
   final _$loginAtom = Atom(name: '_SheduleWeek.login');
 
   @override
@@ -94,11 +109,34 @@ mixin _$SheduleWeek on _SheduleWeek, Store {
   }
 
   @override
+  void updateTimetables(List<Timetable> _timetables) {
+    final _$actionInfo = _$_SheduleWeekActionController.startAction(
+        name: '_SheduleWeek.updateTimetables');
+    try {
+      return super.updateTimetables(_timetables);
+    } finally {
+      _$_SheduleWeekActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setTypeDay(SheduleWeekTypeDay _typeDay) {
+    final _$actionInfo = _$_SheduleWeekActionController.startAction(
+        name: '_SheduleWeek.setTypeDay');
+    try {
+      return super.setTypeDay(_typeDay);
+    } finally {
+      _$_SheduleWeekActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 date: ${date},
 timetables: ${timetables},
 lesson: ${lesson},
+typeDay: ${typeDay},
 login: ${login}
     ''';
   }

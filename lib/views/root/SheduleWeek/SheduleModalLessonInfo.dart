@@ -1,4 +1,7 @@
+import 'package:diary_app/components/icon.dart';
+import 'package:diary_app/components/simple_cell.dart';
 import 'package:diary_app/components/spinner.dart';
+import 'package:diary_app/mobX/config_app.dart';
 import 'package:diary_app/mobX/shedule_week.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +29,8 @@ class SheduleModalLessonInfoState extends State {
     double width = MediaQuery.of(context).size.width;
     return Observer(builder: (_) {
       SheduleWeek sheduleWeek = Provider.of<SheduleWeek>(context);
-      return Container(
+      return SingleChildScrollView(
+        physics: PageScrollPhysics(),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -46,6 +50,7 @@ class SheduleModalLessonInfoState extends State {
                 child: assessmentLoading
                     ? Spinner(
                         size: height * 0.03,
+                        colorMode: ColorMode.placeholder,
                       )
                     : Center(
                         child: Text(
@@ -53,7 +58,7 @@ class SheduleModalLessonInfoState extends State {
                           style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w400,
-                            color: Colors.grey,
+                            color: config.customTheme.text_placeholder,
                           ),
                         ),
                       ),
@@ -77,7 +82,7 @@ class SheduleModalLessonInfoState extends State {
                             style: TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w400,
-                              color: Colors.grey,
+                              color: config.customTheme.text_placeholder,
                             ),
                           ),
                         ),
@@ -89,11 +94,26 @@ class SheduleModalLessonInfoState extends State {
               width,
               height,
               "Подробнее",
-              Container(),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SimpleCell(
+                    child: Text(sheduleWeek.lesson!.office, style: TextStyle(color: config.customTheme.text_placeholder),),
+                    before: Padding(
+                      padding: const EdgeInsets.only(left: 12),
+                      child: CustomIcon(type: IconType.svg, svgPath: "resource/icons/location_map_outline_28.svg", colorMode: ColorMode.placeholder,),
+                    ),
+                  ),
+                  SimpleCell(
+                    child: Text(sheduleWeek.lesson!.office, style: TextStyle(color: config.customTheme.text_placeholder),),
+                    before: Padding(
+                      padding: const EdgeInsets.only(left: 12),
+                      child: CustomIcon(type: IconType.svg, svgPath: "resource/icons/location_map_outline_28.svg", colorMode: ColorMode.placeholder,),
+                    ),
+                  )
+                ],
+              ),
               false,
-            ),
-            Container(
-              height: 20,
             ),
           ],
         ),
@@ -108,36 +128,37 @@ class SheduleModalLessonInfoState extends State {
     Widget child,
     bool seporator,
   ) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: width,
-          margin: EdgeInsets.only(
-            top: height * 0.02,
-            left: width * 0.04,
-            bottom: height * 0.034,
-          ),
-          child: Text(
-            groupName,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: Colors.black,
+    Config config = Provider.of<Config>(context, listen: false);
+    return Container(
+      color: config.customTheme.modal_card_background,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: width,
+            margin: EdgeInsets.only(
+                top: height * 0.02, left: width * 0.04, bottom: 8),
+            child: Text(
+              groupName,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: config.customTheme.text_primary,
+              ),
             ),
           ),
-        ),
-        child,
-        seporator
-            ? Container(
-                margin: EdgeInsets.symmetric(horizontal: width * 0.04),
-                height: 2.0,
-                decoration: BoxDecoration(
-                    color: Color(0xFFDEDEDE),
-                    borderRadius: BorderRadius.circular(5.0)),
-              )
-            : Container(),
-      ],
+          child,
+          seporator
+              ? Container(
+                  margin: EdgeInsets.symmetric(horizontal: width * 0.04),
+                  height: 1.0,
+                  decoration: BoxDecoration(
+                      color: Color(0xFFDEDEDE),
+                      borderRadius: BorderRadius.circular(5.0)),
+                )
+              : Container(),
+        ],
+      ),
     );
   }
 }

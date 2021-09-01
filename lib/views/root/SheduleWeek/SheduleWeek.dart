@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:diary_app/api/user/UserApi.dart';
+import 'package:diary_app/components/icon.dart';
 import 'package:diary_app/components/screen_spinner.dart';
 import 'package:diary_app/views/root/SheduleWeek/SheduleCard.dart';
 import 'package:diary_app/components/spinner.dart';
@@ -175,7 +176,7 @@ class SheduleWeekState extends State {
               Expanded(
                 child: InfinityPageView(
                   controller: infinityPageController,
-                  onPageChanged: (i) {
+                  onPageChanged: (i) async {
                     DateTime date = sheduleWeek.date;
                     if (sheduleWeek.date.weekday + i != 7) {
                       date = date.add(
@@ -192,8 +193,29 @@ class SheduleWeekState extends State {
                             Duration(days: i - (sheduleWeek.date.weekday - 1)));
                       }
                     }
-
                     sheduleWeek.updateDate(date);
+                    //проеряем день на выходной
+                    if(date.weekday >= 6) {
+                      sheduleWeek.setTypeDay(SheduleWeekTypeDay.weekends);
+                    } else {
+                      //проверка на каникулы
+                      sheduleWeek.setTypeDay(SheduleWeekTypeDay.load);
+                      Config config = Provider.of<Config>(context, listen: false);
+                      UserApi api = new UserApi(config.token, config.payloadToken);
+                      api.setPath("shedule-holliday/check-day");
+                      api.setBody({ "date": date.toString() });
+                      var response = await api.request();
+                      if(response['success']) {
+                        if(sheduleWeek.date == DateTime.parse(response['msg']['date'])) {
+                          sheduleWeek.setTypeDay(SheduleWeekTypeDay.work);
+                        }
+                      } else {
+                          if(sheduleWeek.date == DateTime.parse(response['msg']['date'])) {
+                            sheduleWeek.setTypeDay(SheduleWeekTypeDay.holliday);
+                          }
+                      }
+                    }
+                    
                   },
                   itemBuilder: ((BuildContext context, int i) {
                     return Container(

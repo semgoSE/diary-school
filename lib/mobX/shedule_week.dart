@@ -20,6 +20,9 @@ abstract class _SheduleWeek with Store {
   Lesson? lesson;
 
   @observable
+  SheduleWeekTypeDay typeDay = SheduleWeekTypeDay.work;
+
+  @observable
   bool login = false;
 
   @action
@@ -32,10 +35,20 @@ abstract class _SheduleWeek with Store {
     this.lesson = _lesson;
   }
 
+  @action
   void updateTimetables(List<Timetable> _timetables) {
     this.timetables = _timetables;
+  }
+
+  @action
+  void setTypeDay(SheduleWeekTypeDay _typeDay) {
+    this.typeDay = _typeDay;
   }
 
 
 }
 
+
+enum SheduleWeekTypeDay {
+  work, weekends, holliday, load, offline
+}

@@ -18,7 +18,7 @@ class CustomButton extends StatelessWidget {
 
   CustomButton(
       {this.mode = "primary",
-      this.size = "s",
+      this.size = "m",
       this.click,
       this.child,
       this.disable = false});
@@ -76,11 +76,11 @@ class CustomButton extends StatelessWidget {
   double? getSize() {
     switch (size) {
       case "s":
-        return 8;
+        return 4;
       case "m":
-        return 12;
+        return 8;
       case "l":
-        return 14;
+        return 12;
     }
   }
 

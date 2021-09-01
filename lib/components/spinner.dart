@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 class Spinner extends StatefulWidget {
   double size;
 
-  Spinner({ this.size = 60 });
+  ColorMode colorMode;
 
+  Spinner({this.size = 60, this.colorMode = ColorMode.accent});
 
   @override
-  State<StatefulWidget> createState() => SpinnerState(size);
+  State<StatefulWidget> createState() => SpinnerState(size, colorMode);
 }
 
 class SpinnerState extends State<Spinner> with SingleTickerProviderStateMixin {
@@ -16,7 +17,9 @@ class SpinnerState extends State<Spinner> with SingleTickerProviderStateMixin {
   AnimationController? controller;
   double? size;
 
-  SpinnerState(this.size);  
+  ColorMode colorMode;
+
+  SpinnerState(this.size, this.colorMode);
 
   @override
   void initState() {
@@ -36,10 +39,15 @@ class SpinnerState extends State<Spinner> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return (RotationTransition(
         child: Container(
-            height: size,
-            width: size,
-            child: CustomIcon(type: IconType.svg, svgPath: "resource/icons/spinner.svg", size: size),
-      ),
+          height: size,
+          width: size,
+          child: CustomIcon(
+            type: IconType.svg,
+            svgPath: "resource/icons/spinner.svg",
+            size: size,
+            colorMode: colorMode,
+          ),
+        ),
         turns: Tween(begin: 0.0, end: 1.0).animate(controller!)));
   }
 }

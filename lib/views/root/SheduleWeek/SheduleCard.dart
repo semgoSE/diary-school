@@ -1,65 +1,159 @@
+import 'package:diary_app/components/button.dart';
+import 'package:diary_app/components/icon.dart';
 import 'package:diary_app/components/simple_cell.dart';
+import 'package:diary_app/components/spinner.dart';
+import 'package:diary_app/mobX/config_app.dart';
 import 'package:diary_app/mobX/shedule_week.dart';
 import 'package:diary_app/models/index.dart';
+import 'package:diary_app/views/root/SheduleWeek/SheduleModalHomework.dart';
 import 'package:diary_app/views/root/SheduleWeek/SheduleModalLessonInfo.dart';
 import 'package:diary_app/views/root/SheduleWeek/SheduleSimpleCell.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 class SheduleCard extends StatelessWidget {
-
   final Timetable timetable;
 
-  SheduleCard({ required this.timetable});
+  SheduleCard({required this.timetable});
 
   String upperfirst(String text) {
-   if (text.isEmpty) return text; 
-   return '${text[0].toUpperCase()}${text.substring(1)}'; 
+    if (text.isEmpty) return text;
+    return '${text[0].toUpperCase()}${text.substring(1)}';
+  }
+
+  Widget? getStatusDay(SheduleWeekTypeDay typeDay) {
+    switch (typeDay) {
+      case SheduleWeekTypeDay.load:
+        return Spinner(
+          size: 24,
+        );
+      case SheduleWeekTypeDay.work:
+        // TODO: Handle this case.
+        break;
+      case SheduleWeekTypeDay.weekends:
+        // TODO: Handle this case.
+        break;
+      case SheduleWeekTypeDay.holliday:
+        // TODO: Handle this case.
+        break;
+      case SheduleWeekTypeDay.offline:
+        // TODO: Handle this case.
+        break;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     SheduleWeek sheduleWeek = Provider.of<SheduleWeek>(context);
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.25),
-            offset: Offset(0.0, 4.0),
-            spreadRadius: 0.0,
-            blurRadius: 4.0,
+    return Observer(
+        builder: (_) => Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.0),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.25),
+                    offset: Offset(0.0, 4.0),
+                    spreadRadius: 0.0,
+                    blurRadius: 4.0,
+                  ),
+                ],
+              ),
+              padding: EdgeInsets.symmetric(
+                vertical: 16.0,
+                horizontal: 12.0,
+              ),
+              margin: EdgeInsets.all(16.0),
+              child: sheduleWeek.typeDay == SheduleWeekTypeDay.work ||
+                      sheduleWeek.typeDay == SheduleWeekTypeDay.load
+                  ? buildCardLesson(sheduleWeek)
+                  : getCardPlaceholder(sheduleWeek.typeDay, context),
+            ));
+  }
+
+  Widget? getCardPlaceholder(SheduleWeekTypeDay typeDay, BuildContext context) {
+    Config config = Provider.of<Config>(context, listen: false);
+    switch (typeDay) {
+      case SheduleWeekTypeDay.weekends:
+        return Container(
+          height: double.infinity,
+          width: double.infinity,
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.only(bottom: 12),
+                child: CustomIcon(
+                  colorMode: ColorMode.placeholder,
+                  type: IconType.svg,
+                  svgPath: "resource/icons/calendar_outline_28.svg",
+                  size: 56,
+                ),
+              ),
+              Container(
+                child: Text(
+                  "Сегодня выходной",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 12),
+                child: Text(
+                  "Отдохни в этот день",
+                  style: TextStyle(
+                    color: config.customTheme.text_placeholder,
+                    fontSize: 16,
+                  ),
+                ),
+              )
+            ],
           ),
-        ],
-      ),
-      padding: EdgeInsets.symmetric(
-        vertical: 16.0,
-        horizontal: 12.0,
-      ),
-      margin: EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          SimpleCell(
+        );
+      case SheduleWeekTypeDay.holliday:
+        return Container(
+          height: double.infinity,
+          width: double.infinity,
+          alignment: Alignment.center,
+          child: Text("Каникулы"),
+        );
+
+      case SheduleWeekTypeDay.work:
+        // TODO: Handle this case.
+        break;
+      case SheduleWeekTypeDay.load:
+        // TODO: Handle this case.
+        break;
+      case SheduleWeekTypeDay.offline:
+        // TODO: Handle this case.
+        break;
+    }
+  }
+
+  Column buildCardLesson(SheduleWeek sheduleWeek) {
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        SimpleCell(
             child: Text(
-              upperfirst(DateFormat("EEEE", "ru_RU").format(sheduleWeek.date)),
-              style: GoogleFonts.manrope(fontSize: 20, fontWeight: FontWeight.bold)
-            ),
+                upperfirst(
+                    DateFormat("EEEE", "ru_RU").format(sheduleWeek.date)),
+                style: GoogleFonts.manrope(
+                    fontSize: 20, fontWeight: FontWeight.bold)),
+            after: getStatusDay(sheduleWeek.typeDay)),
+        Container(height: 1, color: Color(0xFFDEDEDE)),
+        Expanded(
+          child: ListView.builder(
+            physics: PageScrollPhysics(),
+            itemBuilder: buildLesson,
+            itemCount: timetable.lessons.length,
           ),
-          Container(height: 1, color: Color(0xFFDEDEDE)),
-          Expanded(
-            child: ListView.builder(
-              physics: PageScrollPhysics(),
-              itemBuilder: buildLesson,
-              itemCount: timetable.lessons.length,
-            ),
-          )
-        ],
-      ),
+        )
+      ],
     );
   }
 
@@ -90,11 +184,31 @@ class SheduleCard extends StatelessWidget {
                   Container(
                     width: 2,
                     height: 42,
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(36), color: Color(0xFF3f8ae0)),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(36),
+                        color: Color(0xFF3f8ae0)),
                     margin: EdgeInsets.only(left: 8),
                   ),
                 ],
               ),
+            ),
+            after: Container(
+              child: CustomButton(
+                size: "s",
+                child: "Д/з",
+                mode: "secondary",
+                click: () {
+                  sheduleWeek.setLesson(timetable.lessons[i]);
+                  showBarModalBottomSheet(
+                    context: context,
+                    topControl: Container(),
+                    builder: (context) {
+                      return SheduleModalHomework();
+                    },
+                  );
+                },
+              ),
+              width: 56,
             ),
             child: Text(
               timetable.lessons[i].subject.discipline,
@@ -105,7 +219,12 @@ class SheduleCard extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          i == sheduleWeek.timetables[sheduleWeek.date.weekday-1].lessons.length-1 ? Container() : Container(height: 1, color: Color(0xFFDEDEDE))
+          i ==
+                  sheduleWeek.timetables[sheduleWeek.date.weekday - 1].lessons
+                          .length -
+                      1
+              ? Container()
+              : Container(height: 1, color: Color(0xFFDEDEDE))
         ],
       ),
     );

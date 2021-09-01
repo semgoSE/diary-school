@@ -29,7 +29,7 @@ class SimpleCell extends StatelessWidget {
       onTap: () => onClick!(),
       child: Container(
         padding: EdgeInsets.symmetric(
-          vertical: 16.0,
+          vertical: 12.0,
         ),
         child: Row(children: [
           Container(child: before),
