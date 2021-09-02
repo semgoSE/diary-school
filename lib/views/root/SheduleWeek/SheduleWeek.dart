@@ -16,7 +16,7 @@ import 'package:hive/hive.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:infinity_page_view/infinity_page_view.dart';
 import 'package:provider/provider.dart';
-//import 'package:infinite_view_pager/infinite_view_pager.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 class SheduleWeekView extends StatefulWidget {
   @override
@@ -44,7 +44,7 @@ class SheduleWeekState extends State {
     Box<Timetable> boxTimetables = Hive.box<Timetable>("shedule_week");
     List<Timetable> hiveTimetables = [];
 
-    if(sheduleWeek.timetables.length == 0) {
+    if (sheduleWeek.timetables.length == 0) {
       //ищем в hive
       print("Ищем в hive");
       for (int i = 0; i < 7; i++) {
@@ -62,7 +62,7 @@ class SheduleWeekState extends State {
         api.setPath("lessons/get");
 
         // showDialog(context: context, builder: (context) => WillPopScope(child: ScreenSpinner(), onWillPop: () => Future.value(true)), barrierDismissible: false);
-        var response  = await api.request();
+        var response = await api.request();
         if (response['success']!) {
           timetables = ResponseLessonsGet.fromJson(response).msg;
           var timetables_clean =
@@ -74,8 +74,9 @@ class SheduleWeekState extends State {
             var resp = await api.request();
             print(resp);
             // Navigator.pop(context);
-            if (resp['success']!) {   
-              sheduleWeek.updateTimetables(ResponseLessonsGet.fromJson(resp).msg);
+            if (resp['success']!) {
+              sheduleWeek
+                  .updateTimetables(ResponseLessonsGet.fromJson(resp).msg);
               setState(() {
                 timetables = ResponseLessonsGet.fromJson(resp).msg;
               });
@@ -84,16 +85,15 @@ class SheduleWeekState extends State {
               });
             } else {
               final snackBar = SnackBar(
-                content: Text(
-                  resp['msg']
-                ),
+                content: Text(resp['msg']),
                 duration: const Duration(seconds: 7),
               );
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }
           }
 
-          sheduleWeek.updateTimetables(ResponseLessonsGet.fromJson(response).msg);
+          sheduleWeek
+              .updateTimetables(ResponseLessonsGet.fromJson(response).msg);
 
           setState(() {
             timetables = ResponseLessonsGet.fromJson(response).msg;
@@ -111,12 +111,10 @@ class SheduleWeekState extends State {
       }
     } else {
       setState(() {
-            print("Данные есть в mobX");
-            timetables = sheduleWeek.timetables;
+        print("Данные есть в mobX");
+        timetables = sheduleWeek.timetables;
       });
     }
-
-    
   }
 
   @override
@@ -195,35 +193,51 @@ class SheduleWeekState extends State {
                     }
                     sheduleWeek.updateDate(date);
                     //проеряем день на выходной
-                    if(date.weekday >= 6) {
+                    if (date.weekday >= 6) {
                       sheduleWeek.setTypeDay(SheduleWeekTypeDay.weekends);
                     } else {
                       //проверка на каникулы
                       sheduleWeek.setTypeDay(SheduleWeekTypeDay.load);
 
-                      Config config = Provider.of<Config>(context, listen: false);
-                      UserApi api = new UserApi(config.token, config.payloadToken);
-                      api.setPath("shedule-holliday/check-day");
-                      api.setBody({ "date": date.toString() });
-                      var response = await api.request();
-                      if(response['success']) {
-                        ResponseCheckDay res = ResponseCheckDay.fromJson(response);
-                        if(sheduleWeek.date == DateTime.parse(res.msg.date)) {
-                          sheduleWeek.setTypeDay(SheduleWeekTypeDay.work);
+                      var connectivityResult =
+                          await (Connectivity().checkConnectivity());
+
+                      if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+                        Config config =
+                            Provider.of<Config>(context, listen: false);
+                        UserApi api =
+                            new UserApi(config.token, config.payloadToken);
+
+                        api.setPath("shedule-holliday/check-day");
+                        api.setBody({"date": date.toString()});
+                        var response = await api.request();
+
+                        if (response != false) {
+                          if (response['success']) {
+                            ResponseCheckDay res =
+                                ResponseCheckDay.fromJson(response);
+                            if (sheduleWeek.date ==
+                                DateTime.parse(res.msg.date)) {
+                              sheduleWeek.setTypeDay(SheduleWeekTypeDay.work);
+                            }
+                          } else {
+                            if (sheduleWeek.date ==
+                                DateTime.parse(response['msg']['date'])) {
+                              sheduleWeek
+                                  .setTypeDay(SheduleWeekTypeDay.holliday);
+                            }
+                          }
+                        } else {
+                          sheduleWeek.setTypeDay(SheduleWeekTypeDay.offline);
                         }
                       } else {
-                          if(sheduleWeek.date == DateTime.parse(response['msg']['date'])) {
-                            sheduleWeek.setTypeDay(SheduleWeekTypeDay.holliday);
-                          }
+                        sheduleWeek.setTypeDay(SheduleWeekTypeDay.offline);
                       }
                     }
-                    
                   },
                   itemBuilder: ((BuildContext context, int i) {
                     return Container(
-                      child: SheduleCard(
-                          timetable: timetables[i]
-                      ),
+                      child: SheduleCard(timetable: timetables[i]),
                     );
                   }),
                   itemCount: 7,

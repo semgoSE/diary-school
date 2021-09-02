@@ -5,7 +5,7 @@ import 'package:diary_app/components/spinner.dart';
 import 'package:diary_app/mobX/config_app.dart';
 import 'package:diary_app/mobX/shedule_week.dart';
 import 'package:diary_app/models/index.dart';
-import 'package:diary_app/views/root/SheduleWeek/SheduleModalHomework.dart';
+import 'package:diary_app/views/root/SheduleWeek/Homework/SheduleModalHomework.dart';
 import 'package:diary_app/views/root/SheduleWeek/SheduleModalLessonInfo.dart';
 import 'package:diary_app/views/root/SheduleWeek/SheduleSimpleCell.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +29,8 @@ class SheduleCard extends StatelessWidget {
     switch (typeDay) {
       case SheduleWeekTypeDay.load:
         return Spinner(
-          size: 24,
+          colorMode: ColorMode.placeholder,
+          size: 16,
         );
       case SheduleWeekTypeDay.work:
         // TODO: Handle this case.
@@ -41,7 +42,11 @@ class SheduleCard extends StatelessWidget {
         // TODO: Handle this case.
         break;
       case SheduleWeekTypeDay.offline:
-        // TODO: Handle this case.
+        return CustomIcon(
+            svgPath: "resource/icons/download_cancel_outline_28.svg",
+            type: IconType.svg,
+            colorMode: ColorMode.placeholder,
+            size: 28);
         break;
     }
   }
@@ -49,11 +54,12 @@ class SheduleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SheduleWeek sheduleWeek = Provider.of<SheduleWeek>(context);
+    Config config = Provider.of<Config>(context);
     return Observer(
         builder: (_) => Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.0),
-                color: Colors.white,
+                color: config.customTheme.background,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.25),
@@ -64,12 +70,13 @@ class SheduleCard extends StatelessWidget {
                 ],
               ),
               padding: EdgeInsets.symmetric(
-                vertical: 16.0,
+                vertical: 4.0,
                 horizontal: 12.0,
               ),
               margin: EdgeInsets.all(16.0),
               child: sheduleWeek.typeDay == SheduleWeekTypeDay.work ||
-                      sheduleWeek.typeDay == SheduleWeekTypeDay.load
+                      sheduleWeek.typeDay == SheduleWeekTypeDay.load ||
+                      sheduleWeek.typeDay == SheduleWeekTypeDay.offline
                   ? buildCardLesson(sheduleWeek)
                   : getCardPlaceholder(sheduleWeek.typeDay, context),
             ));

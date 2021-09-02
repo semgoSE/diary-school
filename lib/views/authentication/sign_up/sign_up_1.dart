@@ -212,7 +212,7 @@ class SignUp1State extends State<SignUp1> {
                       },
                       inputFormatters: [ 
                         LengthLimitingTextInputFormatter(18),
-                        FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9_@#]')),
+                        FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9_@#*%]")),
                     ],
                     hint: "Пароль", controller: _passController)),
               FormItem(

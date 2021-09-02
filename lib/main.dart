@@ -8,6 +8,7 @@ import 'package:diary_app/models/index.dart';
 import 'package:diary_app/views/authentication/sign_up/sign_up_1.dart';
 import 'package:diary_app/views/authentication/sign_up/sign_up_2.dart';
 import 'package:diary_app/views/authentication/sign_up/sign_up_3.dart';
+import 'package:diary_app/views/root/SheduleWeek/Homework/CreateHomework.dart';
 import 'package:diary_app/views/root/bottom_navigation_panel.dart';
 import 'package:diary_app/views/start_page.dart';
 import 'package:flutter/material.dart';
@@ -109,6 +110,9 @@ void main() async {
                           body: StartPage(),
                           backgroundColor: themeData.backgroundColor,
                         ));
+            },
+            '/create_homework': (BuildContext context) {
+              return CreateHomework();
             },
           },
         ),

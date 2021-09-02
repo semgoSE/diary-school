@@ -49,7 +49,7 @@ class UserApi {
       return response!.data;
     } catch (e) {
       print(e);
-      return "Жопа";
+      return false;
     }
     
     // try {

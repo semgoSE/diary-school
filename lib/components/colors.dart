@@ -1,15 +1,17 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 
 class CustomTheme {
 
   Color accent = Color(0xFF3f8ae0);
   Color background = Color(0xFFffffff);
-  Color text_primary = Color(0xFF000000);
+
+  Color text_primary = Color(0xFFe1e3e6);
   Color text_placeholder = Color(0xFF818c99);
   Color text_secondary = Color(0xFF818c99);
+  Color text_muted = Color(0xFF2c2d2e);
+  Color text_name = Color(0xFF4986cc);
+  Color text_subhead = Color(0xFF6d7885);
+  Color text_tertiary = Color(0xFF99a2ad);
 
   Color header_background = Color(0xFFffffff);
   Color header_text = Color(0xFF000000);
@@ -59,9 +61,14 @@ class LightTheme extends CustomTheme {
 
   Color accent = Color(0xFF3f8ae0);
   Color background = Color(0xFFffffff);
+ 
   Color text_primary = Color(0xFF000000);
   Color text_placeholder = Color(0xFF818c99);
   Color text_secondary = Color(0xFF818c99);
+  Color text_muted = Color(0xFF2c2d2e);
+  Color text_name = Color(0xFF4986cc);
+  Color text_subhead = Color(0xFF6d7885);
+  Color text_tertiary = Color(0xFF99a2ad);
 
   Color header_background = Color(0xFFffffff);
   Color header_text = Color(0xFF000000);
@@ -114,8 +121,11 @@ class DarkTheme extends CustomTheme {
 
   Color text_primary = Color(0xFFe1e3e6);
   Color text_placeholder = Color(0xFFaaaeb3);
-
   Color text_secondary = Color(0xFF76787a);
+  Color text_muted = Color(0xFFc4c8cc);
+  Color text_name = Color(0xFFe1e3e6);
+  Color text_subhead = Color(0xff909499);
+  Color text_tertiary = Color(0xFF5d5f61);
 
   //appBar
   Color header_background = Color(0xFF19191a);
