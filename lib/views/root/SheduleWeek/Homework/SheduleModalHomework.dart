@@ -1,5 +1,9 @@
+import 'package:diary_app/api/user/UserApi.dart';
 import 'package:diary_app/components/icon.dart';
+import 'package:diary_app/mobX/config_app.dart';
 import 'package:diary_app/mobX/shedule_week.dart';
+import 'package:diary_app/models/homework.dart';
+import 'package:diary_app/models/homeworks_get.dart';
 import 'package:diary_app/views/root/SheduleWeek/Homework/HomeworkCard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,11 +17,40 @@ class SheduleModalHomework extends StatefulWidget {
 }
 
 class SheduleModalHomeworkState extends State {
+
+  List<Homework> my_homeworks = [];
+  List<Homework> other_homeworks = [];
+
+
   @override
   void initState() {
     super.initState();
+    getHomework();
     //TODO: получаем подробную информацию по уроку
   }
+
+  void getHomework() async {
+    Config config = Provider.of<Config>(context, listen: false);
+    SheduleWeek sheduleWeek = Provider.of<SheduleWeek>(context, listen: false);
+    UserApi api = UserApi(config.token, config.payloadToken);
+    api.setPath("homeworks/get");
+    api.setBody({
+      "date": sheduleWeek.date.toString(),
+      "lesson_id": sheduleWeek.lesson!.lessonId,
+    });
+
+    var response = await api.request();
+    if(response != false) {
+      if(response['success']) {
+        HomeworksGet res =  HomeworksGet.fromJson(response['msg']);
+        setState(() {
+          my_homeworks = res.my;
+          other_homeworks = res.other;
+        });
+      }
+    }
+  }
+  
 
   @override
   Widget build(BuildContext context) {

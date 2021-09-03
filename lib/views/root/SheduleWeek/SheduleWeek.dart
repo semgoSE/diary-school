@@ -202,7 +202,8 @@ class SheduleWeekState extends State {
                       var connectivityResult =
                           await (Connectivity().checkConnectivity());
 
-                      if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+                      if (connectivityResult == ConnectivityResult.mobile ||
+                          connectivityResult == ConnectivityResult.wifi) {
                         Config config =
                             Provider.of<Config>(context, listen: false);
                         UserApi api =
@@ -214,10 +215,9 @@ class SheduleWeekState extends State {
 
                         if (response != false) {
                           if (response['success']) {
-                            ResponseCheckDay res =
-                                ResponseCheckDay.fromJson(response);
+                            CheckDay res = CheckDay.fromJson(response['msg']);
                             if (sheduleWeek.date ==
-                                DateTime.parse(res.msg.date)) {
+                                DateTime.parse(res.date)) {
                               sheduleWeek.setTypeDay(SheduleWeekTypeDay.work);
                             }
                           } else {
