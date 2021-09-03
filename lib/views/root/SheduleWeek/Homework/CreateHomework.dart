@@ -1,11 +1,14 @@
+import 'package:diary_app/api/user/UserApi.dart';
 import 'package:diary_app/components/form_item.dart';
 import 'package:diary_app/components/icon.dart';
+import 'package:diary_app/components/screen_spinner.dart';
 import 'package:diary_app/components/select_mimicry.dart';
 import 'package:diary_app/components/simple_cell.dart';
 import 'package:diary_app/components/textarea.dart';
 import 'package:diary_app/mobX/config_app.dart';
 import 'package:diary_app/mobX/shedule_week.dart';
 import 'package:diary_app/models/index.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -28,6 +31,7 @@ class DateChooseView {
 class CreateHomeworkState extends State {
   TextEditingController _text = TextEditingController();
   TextEditingController _date = TextEditingController();
+  int? lesson_id;
 
   List<DateChooseView> dates = [];
 
@@ -89,6 +93,7 @@ class CreateHomeworkState extends State {
                               onClick: () {
                                 Navigator.pop(context);
                                 _date.text = e.date;
+                                lesson_id = e.lesson_id;
                               },
                               child: Text(
                                 e.header,
@@ -108,6 +113,32 @@ class CreateHomeworkState extends State {
             ));
   }
 
+  void addHomework() async {
+    Config config = Provider.of<Config>(context, listen: false);
+    showDialog(
+      context: context,
+      builder: (context) => WillPopScope(
+          child: ScreenSpinner(), onWillPop: () => Future.value(false)),
+    );
+
+    UserApi api = UserApi(config.token, config.payloadToken);
+    api.setPath("homework/add");
+    api.setBody({
+      "date": _date.text,
+      "text": _text.text,
+      "lesson_id": lesson_id,
+    });
+    var response = await api.request();
+    if(response != false) {
+      if(response['success']) {
+        Homework homework = Homework.fromJson(response['msg']);
+        Navigator.pop(context);
+      } else {
+        
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Config config = Provider.of<Config>(context);
@@ -117,7 +148,12 @@ class CreateHomeworkState extends State {
         textTheme: Theme.of(context).textTheme,
         title: Text("Добавить задание"),
         actions: [
-          IconButton(icon: CustomIcon(svgPath: "resource/icons/done_outline_28.svg", type: IconType.svg,), onPressed: () {})
+          IconButton(
+              icon: CustomIcon(
+                svgPath: "resource/icons/done_outline_28.svg",
+                type: IconType.svg,
+              ),
+              onPressed: addHomework)
         ],
       ),
       body: Container(
@@ -145,11 +181,11 @@ class CreateHomeworkState extends State {
                 before: Container(
                     margin: EdgeInsets.only(left: 6),
                     child: Checkbox(
-                  materialTapTargetSize: MaterialTapTargetSize.padded,
-                  activeColor: config.customTheme.accent,    
-                  value: true,
-                  onChanged: (bool) {},
-                )))
+                      materialTapTargetSize: MaterialTapTargetSize.padded,
+                      activeColor: config.customTheme.accent,
+                      value: true,
+                      onChanged: (bool) {},
+                    )))
           ],
         ),
       ),

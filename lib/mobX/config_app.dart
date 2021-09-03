@@ -13,7 +13,7 @@ abstract class _Config with Store {
   @observable
   ThemeConfig theme = ThemeConfig.light;
   @observable 
-  CustomTheme customTheme = CustomTheme();
+  CustomTheme customTheme = DarkTheme();
 
   @observable
   bool login = false;

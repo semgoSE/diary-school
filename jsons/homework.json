@@ -1,0 +1,9 @@
+{
+    "homework_id": 1,
+        "author_id": 3,
+        "isPublic": false,
+        "date": "2021-09-09T00:00:00.000Z",
+        "lesson_id": 45,
+        "task_id": 1,
+        "task": "$task"
+}

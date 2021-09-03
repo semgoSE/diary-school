@@ -1,5 +1,6 @@
 export 'account_bind.dart';
 export 'auth_data.dart';
+export 'homework.dart';
 export 'lesson.dart';
 export 'request_check-login.dart';
 export 'request_login.dart';
@@ -11,6 +12,7 @@ export 'response_login.dart';
 export 'response_sign_up.dart';
 export 'sign_up_request.dart';
 export 'subject.dart';
+export 'task.dart';
 export 'timetable.dart';
 export 'user.dart';
 import 'package:quiver/core.dart';
