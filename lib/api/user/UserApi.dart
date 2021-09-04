@@ -44,8 +44,10 @@ class UserApi {
 
   //отправляем запрос
   Future<dynamic> request() async {
+    print(route);
     try {
       response = await dio.post(route, data: body);
+      print(response!.data['status']);
       return response!.data;
     } catch (e) {
       print(e);

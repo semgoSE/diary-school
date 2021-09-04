@@ -98,6 +98,7 @@ class SignUp3State extends State<SignUp3> {
         login: signUp.login,
         password: signUp.password,
         session: signUp.session,
+        regionId:  signUp.region_id,
         accountsBind: accounts_bind.map((e) => e.accountBind!).toList());
     api.setBody(data.toJson());
     showBarModalBottomSheet(
@@ -126,7 +127,6 @@ class SignUp3State extends State<SignUp3> {
     var response = await api.request();
     if (response['success']) {
       ResponseSignUp res = ResponseSignUp.fromJson(response);
-      
       Box<AuthData> box = Hive.box<AuthData>("auth_data");
       box.put("value", res.msg);
 

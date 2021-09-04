@@ -96,6 +96,7 @@ class _LoginState extends State<Login> {
       }
     } else {
       //TODO
+      print(f);
       Navigator.pop(context);
       final snackBar = SnackBar(
         content: Text(f['msg']),

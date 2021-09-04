@@ -16,16 +16,16 @@ abstract class _SignUp with Store {
   String password = "";
 
   @observable
-  String url = "";
+  int region_id = 0;
 
   @observable
   String session = "";
 
   @action
-  void setSignUp1(String _login, String _pass, String _url) {
+  void setSignUp1(String _login, String _pass, int _region_id) {
     login = _login;
     password = _pass;
-    url = _url;
+    region_id = _region_id;
   }
 
   @action
@@ -39,8 +39,8 @@ abstract class _SignUp with Store {
   }
 
   @action
-  void setUrl(String _url) {
-    url = _url;
+  void setUrl(int _region_id) {
+    region_id = _region_id;
   }
 
   @action

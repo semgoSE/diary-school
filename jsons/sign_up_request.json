@@ -2,5 +2,6 @@
     "login": "semgo",
     "password": "gg",
     "session": "dsadad",
+    "region_id": 1,
     "accounts_bind?": "$[]account_bind"
 }

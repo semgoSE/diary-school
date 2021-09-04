@@ -33,6 +33,7 @@ class SheduleModalHomeworkState extends State {
     Config config = Provider.of<Config>(context, listen: false);
     SheduleWeek sheduleWeek = Provider.of<SheduleWeek>(context, listen: false);
     UserApi api = UserApi(config.token, config.payloadToken);
+    
     api.setPath("homeworks/get");
     api.setBody({
       "date": sheduleWeek.date.toString(),
@@ -75,7 +76,8 @@ class SheduleModalHomeworkState extends State {
             color: Theme.of(context).backgroundColor,
             padding: EdgeInsets.only(left: 16, right: 16, bottom: 12),
             child: Column(children: [
-              HomeworkCard(name: "Семен Головин",)
+              ...my_homeworks.map((e) => HomeworkCard(name: e.task.text)).toList(),
+              // HomeworkCard(name: "Семен Головин",)
             ],),
           ),  
         ],

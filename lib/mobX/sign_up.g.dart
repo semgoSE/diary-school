@@ -39,18 +39,18 @@ mixin _$SignUp on _SignUp, Store {
     });
   }
 
-  final _$urlAtom = Atom(name: '_SignUp.url');
+  final _$region_idAtom = Atom(name: '_SignUp.region_id');
 
   @override
-  String get url {
-    _$urlAtom.reportRead();
-    return super.url;
+  int get region_id {
+    _$region_idAtom.reportRead();
+    return super.region_id;
   }
 
   @override
-  set url(String value) {
-    _$urlAtom.reportWrite(value, super.url, () {
-      super.url = value;
+  set region_id(int value) {
+    _$region_idAtom.reportWrite(value, super.region_id, () {
+      super.region_id = value;
     });
   }
 
@@ -72,11 +72,11 @@ mixin _$SignUp on _SignUp, Store {
   final _$_SignUpActionController = ActionController(name: '_SignUp');
 
   @override
-  void setSignUp1(String _login, String _pass, String _url) {
+  void setSignUp1(String _login, String _pass, int _region_id) {
     final _$actionInfo =
         _$_SignUpActionController.startAction(name: '_SignUp.setSignUp1');
     try {
-      return super.setSignUp1(_login, _pass, _url);
+      return super.setSignUp1(_login, _pass, _region_id);
     } finally {
       _$_SignUpActionController.endAction(_$actionInfo);
     }
@@ -105,11 +105,11 @@ mixin _$SignUp on _SignUp, Store {
   }
 
   @override
-  void setUrl(String _url) {
+  void setUrl(int _region_id) {
     final _$actionInfo =
         _$_SignUpActionController.startAction(name: '_SignUp.setUrl');
     try {
-      return super.setUrl(_url);
+      return super.setUrl(_region_id);
     } finally {
       _$_SignUpActionController.endAction(_$actionInfo);
     }
@@ -131,7 +131,7 @@ mixin _$SignUp on _SignUp, Store {
     return '''
 login: ${login},
 password: ${password},
-url: ${url},
+region_id: ${region_id},
 session: ${session}
     ''';
   }

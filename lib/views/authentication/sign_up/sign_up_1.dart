@@ -33,7 +33,7 @@ class SignUp1State extends State<SignUp1> {
 
   List<Map<String, dynamic>> regions = [
     {
-      "region_id": 0,
+      "region_id": 1,
       "name": "Рязанская область",
       "url": "https://e-school.ryazangov.ru"
     }
@@ -137,7 +137,7 @@ class SignUp1State extends State<SignUp1> {
     if(_login.length >= 6) { //проверяем логин согласно требованиям
       bool loginValid = await checkLogin(_login);
       if(loginValid) {
-        Provider.of<SignUp>(context, listen: false).setSignUp1(_login, _pass, regions[_region_id]['url']);
+        Provider.of<SignUp>(context, listen: false).setSignUp1(_login, _pass, regions[_region_id]['region_id']);
         Navigator.pushNamed(context, "/sign_up_2",
             arguments: ServerUrlArg(_url_region));
       }
