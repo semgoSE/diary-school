@@ -1,4 +1,4 @@
-package com.example.diary_app
+package ru.semgoSE.diary_school
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.diary_app">
+    package="ru.semgoSE.diary_school">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     
    <application
-        android:label="diary_app"
+        android:label="Где Дневник"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
 
