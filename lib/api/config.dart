@@ -1,1 +1,1 @@
-const String URL = 'http://api-diary-school.ru:3000/'; //адрес сервера
+const String URL = 'https://api-diary-school.ru/'; //адрес сервера

@@ -226,7 +226,7 @@ class SignUp1State extends State<SignUp1> {
             Container(
                 child: CustomButton(
                     child: "Далее",
-                    disable: (_login == "" || _pass == "" || _region_id == -1),
+                    disable: (_login.length < 6 || _pass.length < 4 || _region_id == -1),
                     click: () {
                       next();
                     }),

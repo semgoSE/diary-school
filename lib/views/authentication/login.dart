@@ -164,7 +164,7 @@ class _LoginState extends State<Login> {
                 controller: _passController,
                 keyboardType: TextInputType.text,
                 onSubmit: (String pass) {
-                  if (!(_login.length < 6) && pass != "") login();
+                  if (!(_login.length < 6) && !(pass.length < 4)) login();
                 },
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(18),
@@ -178,7 +178,7 @@ class _LoginState extends State<Login> {
                   child: "Войти",
                   mode: "commerce",
                   click: login,
-                  disable: _login.length < 6,
+                  disable: _login.length < 6 || _pass.length < 4,
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16)),
             Container(child: MyPlaceholder(child: "или"), height: 90),
