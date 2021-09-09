@@ -52,7 +52,6 @@ void main() async {
       textTheme: TextTheme(
           headline6: GoogleFonts.manrope(
               color: theme.header_text, fontWeight: FontWeight.bold),),
-      fontFamily: "Inter",
       backgroundColor: theme.background,
       accentColor: theme.accent,
       primaryColor: theme.text_primary,

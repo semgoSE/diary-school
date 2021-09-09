@@ -26,7 +26,6 @@ class SheduleModalHomeworkState extends State {
   void initState() {
     super.initState();
     getHomework();
-    //TODO: получаем подробную информацию по уроку
   }
 
   void getHomework() async {
@@ -41,6 +40,7 @@ class SheduleModalHomeworkState extends State {
     });
 
     var response = await api.request();
+    print(response);
     if(response != false) {
       if(response['success']) {
         HomeworksGet res =  HomeworksGet.fromJson(response['msg']);

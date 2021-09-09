@@ -68,17 +68,19 @@ class SheduleWeekState extends State {
           var timetables_clean =
               timetables.where((element) => element.lessons.length != 0);
 
+
           if (timetables_clean.length == 0) {
+            print("search-lessons");
             api.setPath("lessons/search-lessons");
             api.setBody({"date": "2021-09-08"}); //TODO: обрати внимание
             var resp = await api.request();
             print(resp);
             // Navigator.pop(context);
             if (resp['success']!) {
-              sheduleWeek
-                  .updateTimetables(ResponseLessonsGet.fromJson(resp).msg);
               setState(() {
                 timetables = ResponseLessonsGet.fromJson(resp).msg;
+                sheduleWeek
+                  .updateTimetables(timetables);
               });
               timetables.toList().asMap().forEach((i, t) async {
                 await boxTimetables.put(i, t);
@@ -90,18 +92,18 @@ class SheduleWeekState extends State {
               );
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }
-          }
-
-          sheduleWeek
+          } else {
+            sheduleWeek
               .updateTimetables(ResponseLessonsGet.fromJson(response).msg);
 
-          setState(() {
-            timetables = ResponseLessonsGet.fromJson(response).msg;
-          });
+            setState(() {
+              timetables = ResponseLessonsGet.fromJson(response).msg;
+            });
 
-          timetables.toList().asMap().forEach((i, t) async {
-            await boxTimetables.put(i, t);
-          });
+            timetables.toList().asMap().forEach((i, t) async {
+              await boxTimetables.put(i, t);
+            });
+          }
         }
       } else {
         sheduleWeek.updateTimetables(hiveTimetables);

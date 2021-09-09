@@ -176,7 +176,7 @@ class _LoginState extends State<Login> {
             Container(
                 child: CustomButton(
                   child: "Войти",
-                  mode: "commerce",
+                  mode: ModeCustomButton.commerce,
                   click: login,
                   disable: _login.length < 6 || _pass.length < 4,
                 ),
@@ -186,13 +186,13 @@ class _LoginState extends State<Login> {
                 child: CustomButton(
                   disable: true,
                   child: "Войти с Google",
-                  mode: "outlined",
+                  mode: ModeCustomButton.outlined,
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8)),
             Container(
                 child: CustomButton(
                   child: "Войти c VK",
-                  mode: "outlined",
+                  mode: ModeCustomButton.outlined,
                   disable: true,
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8))

@@ -125,6 +125,7 @@ class SignUp3State extends State<SignUp3> {
           );
         });
     var response = await api.request();
+    print(response);
     if (response['success']) {
       ResponseSignUp res = ResponseSignUp.fromJson(response);
       Box<AuthData> box = Hive.box<AuthData>("auth_data");
@@ -193,7 +194,7 @@ class SignUp3State extends State<SignUp3> {
               )),
               Container(
                   child: CustomButton(
-                    mode: accounts_bind.length == 0 ? "primary" : "commerce",
+                    mode: accounts_bind.length == 0 ? ModeCustomButton.primary : ModeCustomButton.outlined,
                     child:
                         accounts_bind.length == 0 ? "Пропустить" : "Завершить",
                     click: sign_up,

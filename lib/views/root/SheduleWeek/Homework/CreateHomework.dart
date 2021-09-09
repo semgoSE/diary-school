@@ -133,6 +133,13 @@ class CreateHomeworkState extends State {
       if(response['success']) {
         Homework homework = Homework.fromJson(response['msg']);
         Navigator.pop(context);
+        final snackBar = SnackBar(
+          content: Text("Задание успешно добавлено"),
+          duration: const Duration(seconds: 7),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        _date.text = "";
+        _text.text = "";
       } else {
         
       }

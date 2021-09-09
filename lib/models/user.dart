@@ -22,7 +22,6 @@ class User {
   final int userId;
   @HiveField(2)
   final int classId;
-  UserRoleEnum get userRoleEnum => _userRoleEnumValues.map[role]!;
   @HiveField(3)
   final String role;
 
@@ -67,25 +66,3 @@ class User {
   @override
   int get hashCode => login.hashCode ^ userId.hashCode ^ classId.hashCode ^ role.hashCode;
 }
-
-enum UserRoleEnum { PUPIL, TEACHER }
-
-extension UserRoleEnumEx on UserRoleEnum{
-  String? get value => _userRoleEnumValues.reverse[this];
-}
-
-final _userRoleEnumValues = _UserRoleEnumConverter({
-  'PUPIL': UserRoleEnum.PUPIL,
-  ' TEACHER)': UserRoleEnum.TEACHER,
-});
-
-
-class _UserRoleEnumConverter<String, O> {
-  final Map<String, O> map;
-  Map<O, String>? reverseMap;
-
-  _UserRoleEnumConverter(this.map);
-
-  Map<O, String> get reverse => reverseMap ??= map.map((k, v) => MapEntry(v, k));
-}
-
