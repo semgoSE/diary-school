@@ -52,7 +52,7 @@ dependencies:
   flutter_launcher_icons: ^0.9.2
 
 flutter_icons:
-  image_path: "resource/images/logo_light.png"
+  image_path: "resource/images/icon.png"
   android: true
 
 dev_dependencies:

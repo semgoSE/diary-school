@@ -134,12 +134,17 @@ class SignUp3State extends State<SignUp3> {
       Config config = Provider.of<Config>(context, listen: false);
   
       config.setLogin(true);
-      config.addAuthData(response.msg.token, PayloadToken(user_id: response.msg.user.userId, role: response.ms.user.role));
+      config.addAuthData(res.msg.token, PayloadToken(user_id: res.msg.user.userId, role: res.msg.user.role));
 
       Navigator.pop(context);
       Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
     } else {
-      //TODO ошибка
+      Navigator.pop(context);
+      final snackBar = SnackBar(
+          content: Text(response['msg']),
+          duration: const Duration(seconds: 7),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 
