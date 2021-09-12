@@ -69,6 +69,7 @@ class SignUp3State extends State<SignUp3> {
               AppBar(
                   title: Text("Выберите"),
                   automaticallyImplyLeading: false,
+                  elevation: 1,
                   textTheme: Theme.of(context).textTheme,
                   centerTitle: true),
               Container(

@@ -55,6 +55,7 @@ class _LoginState extends State<Login> {
             child: Column(children: [
               AppBar(
                   title: Text("Авторизация"),
+                  elevation: 1,
                   centerTitle: true,
                   textTheme: Theme.of(context).textTheme,
                   automaticallyImplyLeading: false),
