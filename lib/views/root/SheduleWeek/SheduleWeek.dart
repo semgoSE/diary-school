@@ -25,7 +25,6 @@ class SheduleWeekView extends StatefulWidget {
 }
 
 class SheduleWeekState extends State {
-  List<Timetable> timetables = [];
 
   bool isController = false;
 
@@ -63,27 +62,18 @@ class SheduleWeekState extends State {
         UserApi api = new UserApi(config.token, config.payloadToken);
         api.setPath("lessons/get");
 
-        // showDialog(context: context, builder: (context) => WillPopScope(child: ScreenSpinner(), onWillPop: () => Future.value(true)), barrierDismissible: false);
         var response = await api.request();
         if (response['success']!) {
-          timetables = ResponseLessonsGet.fromJson(response).msg;
-          var timetables_clean =
-              timetables.where((element) => element.lessons.length != 0);
-
+          List<Timetable> timetables = ResponseLessonsGet.fromJson(response).msg;
+          var timetables_clean = timetables.where((element) => element.lessons.length != 0);
 
           if (timetables_clean.length == 0) {
             print("search-lessons");
             api.setPath("lessons/search-lessons");
             api.setBody({"date": "2021-09-08"}); //TODO: обрати внимание
             var resp = await api.request();
-            print(resp);
-            // Navigator.pop(context);
             if (resp['success']!) {
-              setState(() {
-                timetables = ResponseLessonsGet.fromJson(resp).msg;
-                sheduleWeek
-                  .updateTimetables(timetables);
-              });
+              sheduleWeek.updateTimetables(ResponseLessonsGet.fromJson(resp).msg);
               timetables.toList().asMap().forEach((i, t) async {
                 await boxTimetables.put(i, t);
               });
@@ -95,13 +85,7 @@ class SheduleWeekState extends State {
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }
           } else {
-            sheduleWeek
-              .updateTimetables(ResponseLessonsGet.fromJson(response).msg);
-
-            setState(() {
-              timetables = ResponseLessonsGet.fromJson(response).msg;
-            });
-
+            sheduleWeek.updateTimetables(timetables);
             timetables.toList().asMap().forEach((i, t) async {
               await boxTimetables.put(i, t);
             });
@@ -109,15 +93,9 @@ class SheduleWeekState extends State {
         }
       } else {
         sheduleWeek.updateTimetables(hiveTimetables);
-        setState(() {
-          this.timetables = hiveTimetables;
-        });
       }
     } else {
-      setState(() {
-        print("Данные есть в mobX");
-        timetables = sheduleWeek.timetables;
-      });
+
     }
   }
 
@@ -153,7 +131,7 @@ class SheduleWeekState extends State {
 
   Widget buildBody(double height, double width, SheduleWeek sheduleWeek,
       changeDay(int day), InfinityPageController infinityPageController) {
-    return timetables.length == 0
+    return sheduleWeek.timetables.length == 0
         ? Container(
             color: Theme.of(context).backgroundColor,
             alignment: Alignment.center,
@@ -202,7 +180,7 @@ class SheduleWeekState extends State {
                   },
                   itemBuilder: ((BuildContext context, int i) {
                     return Container(
-                      child: SheduleCard(timetable: timetables[i]),
+                      child: SheduleCard(timetable: sheduleWeek.timetables[i]),
                     );
                   }),
                   itemCount: 7,

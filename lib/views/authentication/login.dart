@@ -124,10 +124,7 @@ class _LoginState extends State<Login> {
                 hint: "Введите логин",
                 controller: _loginController,
                 textInputAction: TextInputAction.next,
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(18),
-                  FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9_]')),
-                ],
+                keyboardType: TextInputType.emailAddress,
               ),
               top: "Логин",
             ),

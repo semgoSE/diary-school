@@ -164,24 +164,24 @@ class SignUp3State extends State<SignUp3> {
               Expanded(
                 child: CustomPlaceholder(
                     child:
-                        "Для удобства входа можете привязать различные соц.сети для доступа к аккаунту"),
+                        "Для удобства входа можете привязать различные соц.сети для доступа к аккаунту(следующая версия)"),
               ),
-              SimpleCell(
-                child: Text(
-                  "Добавить привязку",
-                  style: TextStyle(
-                    color: null,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                before: CustomIcon(
-                  svgPath: "resource/icons/add_outline_28.svg",
-                  type: IconType.svg,
-                  size: 32,
-                ),
-                onClick: showModal,
-              ),
+              // SimpleCell(
+              //   child: Text(
+              //     "Добавить привязку",
+              //     style: TextStyle(
+              //       color: null,
+              //       fontSize: 18,
+              //       fontWeight: FontWeight.w400,
+              //     ),
+              //   ),
+              //   before: CustomIcon(
+              //     svgPath: "resource/icons/add_outline_28.svg",
+              //     type: IconType.svg,
+              //     size: 32,
+              //   ),
+              //   onClick: showModal,
+              // ),
               Expanded(
                   child: ListView(
                 children: accounts_bind

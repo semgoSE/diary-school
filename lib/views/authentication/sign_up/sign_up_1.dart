@@ -134,7 +134,7 @@ class SignUp1State extends State<SignUp1> {
   void next() async {
     FocusScope.of(context).requestFocus(new FocusNode());
     showDialog(context: context, builder: (context) => WillPopScope(child: ScreenSpinner(), onWillPop: () => Future.value(true)), barrierDismissible: false);
-    if(_login.length >= 6) { //проверяем логин согласно требованиям
+    if(RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(_login)) { //проверяем логин согласно требованиям
       bool loginValid = await checkLogin(_login);
       if(loginValid) {
         Provider.of<SignUp>(context, listen: false).setSignUp1(_login, _pass, regions[_region_id-1]['region_id']);
@@ -145,7 +145,7 @@ class SignUp1State extends State<SignUp1> {
       Navigator.pop(context);
       setState(() {
         _loginStatus = FormItemStatus.error;
-        _loginError = "Лоигин слишком короткий";        
+        _loginError = "Введите почту!";        
       });
     }
 
@@ -166,14 +166,10 @@ class SignUp1State extends State<SignUp1> {
                   bottom:_loginError ,
                   child: Input(
                       status: _loginStatus == FormItemStatus.def ? InputStatus.def : InputStatus.error,
-                      keyboardType: TextInputType.text,
-                      inputFormatters: [ 
-                        LengthLimitingTextInputFormatter(18),
-                        FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9_]')),
-                      ],
+                      keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
-                      hint: "Введите логин", controller: _loginController),
-                  top: "Логин"),
+                      hint: "Введите почту", controller: _loginController),
+                  top: "Почта"),
               FormItem(
                   top: "Пароль",
                   child: Input(
