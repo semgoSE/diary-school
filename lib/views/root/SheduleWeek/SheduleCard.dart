@@ -256,7 +256,7 @@ class TimeSheduleCard extends StatelessWidget {
             style: TextStyle(fontSize: 13),
           ),
           Text(
-            time_begin,
+            time_end,
             style: TextStyle(fontSize: 13),
           )
         ],

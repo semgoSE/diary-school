@@ -98,7 +98,7 @@ class SignUp3State extends State<SignUp3> {
         login: signUp.login,
         password: signUp.password,
         session: signUp.session,
-        regionId:  signUp.region_id,
+        regionId: signUp.region_id,
         accountsBind: accounts_bind.map((e) => e.accountBind!).toList());
     api.setBody(data.toJson());
     showBarModalBottomSheet(
@@ -116,9 +116,8 @@ class SignUp3State extends State<SignUp3> {
                     automaticallyImplyLeading: false),
                 Container(child: Spinner()),
                 Container(
-                    child: MyPlaceholder(
-                        child: "Это может занять некоторое время"),
-                    height: 44)
+                    child: CustomPlaceholder(
+                        child: "Это может занять некоторое время"))
               ], mainAxisSize: MainAxisSize.min),
             ),
             onWillPop: () => Future.value(true),
@@ -132,17 +131,18 @@ class SignUp3State extends State<SignUp3> {
       box.put("value", res.msg);
 
       Config config = Provider.of<Config>(context, listen: false);
-  
+
       config.setLogin(true);
-      config.addAuthData(res.msg.token, PayloadToken(user_id: res.msg.user.userId, role: res.msg.user.role));
+      config.addAuthData(res.msg.token,
+          PayloadToken(user_id: res.msg.user.userId, role: res.msg.user.role));
 
       Navigator.pop(context);
       Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
     } else {
       Navigator.pop(context);
       final snackBar = SnackBar(
-          content: Text(response['msg']),
-          duration: const Duration(seconds: 7),
+        content: Text(response['msg']),
+        duration: const Duration(seconds: 7),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
@@ -161,7 +161,7 @@ class SignUp3State extends State<SignUp3> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
-                child: MyPlaceholder(
+                child: CustomPlaceholder(
                     child:
                         "Для удобства входа можете привязать различные соц.сети для доступа к аккаунту"),
               ),
@@ -199,7 +199,9 @@ class SignUp3State extends State<SignUp3> {
               )),
               Container(
                   child: CustomButton(
-                    mode: accounts_bind.length == 0 ? ModeCustomButton.primary : ModeCustomButton.outlined,
+                    mode: accounts_bind.length == 0
+                        ? ModeCustomButton.primary
+                        : ModeCustomButton.outlined,
                     child:
                         accounts_bind.length == 0 ? "Пропустить" : "Завершить",
                     click: sign_up,

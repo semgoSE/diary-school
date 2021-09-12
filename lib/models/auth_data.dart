@@ -17,11 +17,11 @@ class AuthData {
   @HiveField(0)
   final String token;
   @HiveField(1)
-  final User user;
+  final FullUser user;
 
   factory AuthData.fromJson(Map<String,dynamic> json) => AuthData(
     token: json['token'] as String,
-    user: User.fromJson(json['user'] as Map<String, dynamic>)
+    user: FullUser.fromJson(json['user'] as Map<String, dynamic>)
   );
   
   Map<String, dynamic> toJson() => {
@@ -37,7 +37,7 @@ class AuthData {
 
   AuthData copyWith({
     String? token,
-    User? user
+    FullUser? user
   }) => AuthData(
     token: token ?? this.token,
     user: user ?? this.user,

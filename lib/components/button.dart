@@ -83,6 +83,9 @@ class CustomButton extends StatelessWidget {
         return 8;
       case SizeCustomButton.l:
         return 12;
+
+      default: 
+        return 8;
     }
   }
 
@@ -100,6 +103,9 @@ class CustomButton extends StatelessWidget {
 
       case ModeCustomButton.outlined:
         return colors!.button_outline_foreground;
+
+      default: 
+        return colors!.button_primary_foreground;
     }
   }
 
@@ -117,6 +123,9 @@ class CustomButton extends StatelessWidget {
 
       case ModeCustomButton.outlined:
         return Theme.of(context).backgroundColor;
+
+      default:
+        return colors!.button_primary_background;
     }
   }
 
@@ -134,6 +143,9 @@ class CustomButton extends StatelessWidget {
 
       case ModeCustomButton.outlined:
         return colors!.button_outline_border;
+      
+      default: 
+        return Theme.of(context).backgroundColor;
     }
   }
 }

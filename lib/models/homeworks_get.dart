@@ -6,43 +6,43 @@ import 'index.dart';
 class HomeworksGet {
 
   const HomeworksGet({
-    required this.my,
-    required this.other,
+    required this.myHomeworks,
+    required this.otherHomeworks,
   });
 
   @HiveField(0)
-  final List<Homework> my;
+  final List<Homework> myHomeworks;
   @HiveField(1)
-  final List<Homework> other;
+  final List<Homework> otherHomeworks;
 
   factory HomeworksGet.fromJson(Map<String,dynamic> json) => HomeworksGet(
-    my: (json['my'] as List? ?? []).map((e) => Homework.fromJson(e as Map<String, dynamic>)).toList(),
-    other: (json['other'] as List? ?? []).map((e) => Homework.fromJson(e as Map<String, dynamic>)).toList()
+    myHomeworks: (json['my_homeworks'] as List? ?? []).map((e) => Homework.fromJson(e as Map<String, dynamic>)).toList(),
+    otherHomeworks: (json['other_homeworks'] as List? ?? []).map((e) => Homework.fromJson(e as Map<String, dynamic>)).toList()
   );
   
   Map<String, dynamic> toJson() => {
-    'my': my.map((e) => e.toJson()).toList(),
-    'other': other.map((e) => e.toJson()).toList()
+    'my_homeworks': myHomeworks.map((e) => e.toJson()).toList(),
+    'other_homeworks': otherHomeworks.map((e) => e.toJson()).toList()
   };
 
   HomeworksGet clone() => HomeworksGet(
-    my: my.map((e) => e.clone()).toList(),
-    other: other.map((e) => e.clone()).toList()
+    myHomeworks: myHomeworks.map((e) => e.clone()).toList(),
+    otherHomeworks: otherHomeworks.map((e) => e.clone()).toList()
   );
 
 
   HomeworksGet copyWith({
-    List<Homework>? my,
-    List<Homework>? other
+    List<Homework>? myHomeworks,
+    List<Homework>? otherHomeworks
   }) => HomeworksGet(
-    my: my ?? this.my,
-    other: other ?? this.other,
+    myHomeworks: myHomeworks ?? this.myHomeworks,
+    otherHomeworks: otherHomeworks ?? this.otherHomeworks,
   );
 
   @override
   bool operator ==(Object other) => identical(this, other)
-    || other is HomeworksGet && my == other.my && other == other.other;
+    || other is HomeworksGet && myHomeworks == other.myHomeworks && otherHomeworks == other.otherHomeworks;
 
   @override
-  int get hashCode => my.hashCode ^ other.hashCode;
+  int get hashCode => myHomeworks.hashCode ^ otherHomeworks.hashCode;
 }

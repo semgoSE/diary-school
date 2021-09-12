@@ -61,7 +61,7 @@ class _LoginState extends State<Login> {
               Container(child: Spinner()),
               Container(
                   child:
-                      MyPlaceholder(child: "Это может занять некоторое время"),
+                      CustomPlaceholder(child: "Это может занять некоторое время"),
                   height: 44),
             ], mainAxisSize: MainAxisSize.min),
           ),
@@ -181,7 +181,7 @@ class _LoginState extends State<Login> {
                   disable: _login.length < 6 || _pass.length < 4,
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16)),
-            Container(child: MyPlaceholder(child: "или"), height: 90),
+            Container(child: CustomPlaceholder(child: "или"), height: 90),
             Container(
                 child: CustomButton(
                   disable: true,

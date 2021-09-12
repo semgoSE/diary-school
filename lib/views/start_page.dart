@@ -13,7 +13,7 @@ class StartPage extends StatelessWidget {
           Expanded(
             child: Column(
                 children: [
-                  Image.asset("resource/images/logo.png"),
+                  // Image.asset("resource/images/icon.png"),
                   Container(
                     child: Text("Добро пожаловать!",
                         style: TextStyle(
