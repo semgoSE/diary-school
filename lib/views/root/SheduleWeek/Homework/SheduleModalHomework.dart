@@ -1,6 +1,7 @@
 import 'package:diary_app/api/user/UserApi.dart';
 import 'package:diary_app/components/header.dart';
 import 'package:diary_app/components/icon.dart';
+import 'package:diary_app/components/modal_panel_header.dart';
 import 'package:diary_app/components/placeholder.dart';
 import 'package:diary_app/components/spinner.dart';
 import 'package:diary_app/mobX/config_app.dart';
@@ -58,15 +59,34 @@ class SheduleModalHomeworkState extends State {
     return Observer(
       builder: (context) => WillPopScope(
         onWillPop: () {
+          sheduleWeek.updateHomeworkMy(null);
+          sheduleWeek.updateHomeworkMy(null);
           return Future.value(true);
         },
         child: CupertinoPageScaffold(
-          navigationBar: ModalPanelHeader(),
-          // appBar: 
+          navigationBar: ModalPanelHeader(
+            appBar: AppBar(
+              title: Text("Домашние задание"),
+              automaticallyImplyLeading: false,
+              textTheme: Theme.of(context).textTheme,
+              elevation: 1,
+              actions: [
+                IconButton(
+                    icon: CustomIcon(
+                      type: IconType.svg,
+                      svgPath: "resource/icons/add_outline_28.svg",
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/create_homework");
+                    })
+              ],
+            ),
+          ),
+          // appBar:
           child: ListView(
             shrinkWrap: true,
             controller: ModalScrollController.of(context),
-            physics: PageScrollPhysics(),
+            physics: ClampingScrollPhysics(),
             children: [
               Container(
                 color: Theme.of(context).backgroundColor,
@@ -130,36 +150,4 @@ class SheduleModalHomeworkState extends State {
       ),
     );
   }
-}
-
-class ModalPanelHeader extends StatelessWidget with ObstructingPreferredSizeWidget {
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-            title: Text("Домашние задание"),
-            automaticallyImplyLeading: false,
-            textTheme: Theme.of(context).textTheme,
-            elevation: 1,
-            actions: [
-              IconButton(
-                  icon: CustomIcon(
-                    type: IconType.svg,
-                    svgPath: "resource/icons/add_outline_28.svg",
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/create_homework");
-                  })
-            ],
-    );
-  }
-
-  @override
-  // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
-
-  @override
-  bool shouldFullyObstruct(BuildContext context) {
-    return true;
-  }
-
 }
