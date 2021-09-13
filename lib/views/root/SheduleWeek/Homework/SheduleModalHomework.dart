@@ -26,7 +26,10 @@ class SheduleModalHomeworkState extends State {
   @override
   void initState() {
     super.initState();
-    getHomework();
+    Future.delayed(const Duration(seconds: 1), () {
+      getHomework();
+    });
+    
   }
 
   void getHomework() async {
@@ -59,8 +62,10 @@ class SheduleModalHomeworkState extends State {
     return Observer(
       builder: (context) => WillPopScope(
         onWillPop: () {
-          sheduleWeek.updateHomeworkMy(null);
-          sheduleWeek.updateHomeworkMy(null);
+          Future.delayed(const Duration(milliseconds: 700), () {
+            sheduleWeek.updateHomeworkMy(null);
+            sheduleWeek.updateHomeworkMy(null);
+          });
           return Future.value(true);
         },
         child: CupertinoPageScaffold(
