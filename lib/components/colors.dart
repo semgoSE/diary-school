@@ -2,58 +2,58 @@ import 'package:flutter/material.dart';
 
 abstract class CustomTheme {
    // Brend
-   Color primary;
-   Color secondary;
-   Color accent;
+   late Color primary;
+   late Color secondary;
+   late Color accent;
     
    // Semantic
-   Color negative;
-   Color warning;
-   Color positive;
+   late Color negative;
+   late Color warning;
+   late Color positive;
    
    // Bacground
-   Color backgroundPrimary;
-   Color backgroundSecondary;
+   late Color backgroundPrimary;
+   late Color backgroundSecondary;
    
     // Text
-    Color textPrimary; // Heading, Display
-    Color textSecondary; // Label
-    Color textTertiary; // Heading, Label 
-    Color textBonus; // Placeholder, Headline
-    Color textLink; // Link
+    late Color textPrimary; // Heading, Display
+    late Color textSecondary; // Label
+    late Color textTertiary; // Heading, Label 
+    late Color textBonus; // Placeholder, Headline
+    late Color textLink; // Link
     
     // Icon
-    Color iconMedium;
-    Color iconSecondary;
-    Color iconTertiary;
+    late Color iconMedium;
+    late Color iconSecondary;
+    late Color iconTertiary;
 }
 
-class LightTheme extends CustomTheme {
-    primary = Color(0xFFFFFFFF);
-    secondary = Color(0xFF444444);
-    accent = Color(0xFFFFC60B);
+class LightTheme implements CustomTheme {
+    Color primary = Color(0xFFFFFFFF);
+    Color secondary = Color(0xFF444444);
+    Color accent = Color(0xFFFFC60B);
     
-    negative = Color(0xFFFF370B);
-    warning = Color(0xFFFF8B00);
-    positive = Color(0xFF46A918);
+    Color negative = Color(0xFFFF370B);
+    Color warning = Color(0xFFFF8B00);
+    Color positive = Color(0xFF46A918);
     
-    backgroundPrimary = Color(0xFFFFFFFF);
-    backgroundSecondary = Color(0xFFEBF1F9);
+    Color backgroundPrimary = Color(0xFFFFFFFF);
+    Color backgroundSecondary = Color(0xFFEBF1F9);
     
-    textPrimary = Color(0xFF000000);
-    textSecondary = Color(0xFF383838);
-    textTertiary = Color(0xFFFFFFFF);
-    textBonus = Color(0xFF818C99);
-    textLink = Color(0xFF0B7BFF);
+    Color textPrimary = Color(0xFF000000);
+    Color textSecondary = Color(0xFF383838);
+    Color textTertiary = Color(0xFFFFFFFF);
+    Color textBonus = Color(0xFF818C99);
+    Color textLink = Color(0xFF0B7BFF);
     
-    iconMedium = Color(0xFF818C99);
-    iconSecondary = Color(0xFF99A2AD);
-    iconTertiary = Color(0xFFB8C1CC);
+    Color iconMedium = Color(0xFF818C99);
+    Color iconSecondary = Color(0xFF99A2AD);
+    Color iconTertiary = Color(0xFFB8C1CC);
     
 }
 
-class DarkTheme extends CustomTheme {
+// class DarkTheme {
  
-  Color icon_tertiary_alpha = Color.fromRGBO(255, 255, 255, 0.24);
+//   Color icon_tertiary_alpha = Color.fromRGBO(255, 255, 255, 0.24);
   
-}
+// }
