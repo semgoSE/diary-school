@@ -84,7 +84,59 @@ mixin _$SheduleWeek on _SheduleWeek, Store {
     });
   }
 
+  final _$myHomeworksAtom = Atom(name: '_SheduleWeek.myHomeworks');
+
+  @override
+  List<Homework>? get myHomeworks {
+    _$myHomeworksAtom.reportRead();
+    return super.myHomeworks;
+  }
+
+  @override
+  set myHomeworks(List<Homework>? value) {
+    _$myHomeworksAtom.reportWrite(value, super.myHomeworks, () {
+      super.myHomeworks = value;
+    });
+  }
+
+  final _$otherHomeworksAtom = Atom(name: '_SheduleWeek.otherHomeworks');
+
+  @override
+  List<Homework>? get otherHomeworks {
+    _$otherHomeworksAtom.reportRead();
+    return super.otherHomeworks;
+  }
+
+  @override
+  set otherHomeworks(List<Homework>? value) {
+    _$otherHomeworksAtom.reportWrite(value, super.otherHomeworks, () {
+      super.otherHomeworks = value;
+    });
+  }
+
   final _$_SheduleWeekActionController = ActionController(name: '_SheduleWeek');
+
+  @override
+  void updateHomeworkMy(List<Homework>? _myHomeworks) {
+    final _$actionInfo = _$_SheduleWeekActionController.startAction(
+        name: '_SheduleWeek.updateHomeworkMy');
+    try {
+      return super.updateHomeworkMy(_myHomeworks);
+    } finally {
+      _$_SheduleWeekActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void updateHomeworkOther(List<Homework>? _otherHomeworks) {
+    final _$actionInfo = _$_SheduleWeekActionController.startAction(
+        name: '_SheduleWeek.updateHomeworkOther');
+    try {
+      return super.updateHomeworkOther(_otherHomeworks);
+    } finally {
+      _$_SheduleWeekActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   void updateDate(DateTime _date) {
@@ -137,7 +189,9 @@ date: ${date},
 timetables: ${timetables},
 lesson: ${lesson},
 typeDay: ${typeDay},
-login: ${login}
+login: ${login},
+myHomeworks: ${myHomeworks},
+otherHomeworks: ${otherHomeworks}
     ''';
   }
 }

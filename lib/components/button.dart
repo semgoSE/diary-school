@@ -4,21 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
+enum SizeCustomButton { s, m, l }
+enum ModeCustomButton { commerce, primary, secondary, outlined }
 
 class CustomButton extends StatelessWidget {
   String? child;
   bool disable;
 
   //size = ["s", "m", "l"]
-  String? size;
+  SizeCustomButton? size;
 
   //mode = ["commerce", "primary", "secondary", "outlined"]
-  String? mode;
+  ModeCustomButton? mode;
   Function? click;
 
   CustomButton(
-      {this.mode = "primary",
-      this.size = "m",
+      {this.mode = ModeCustomButton.primary,
+      this.size = SizeCustomButton.m,
       this.click,
       this.child,
       this.disable = false});
@@ -75,63 +77,75 @@ class CustomButton extends StatelessWidget {
 
   double? getSize() {
     switch (size) {
-      case "s":
+      case SizeCustomButton.s:
         return 4;
-      case "m":
+      case SizeCustomButton.m:
         return 8;
-      case "l":
+      case SizeCustomButton.l:
         return 12;
+
+      default: 
+        return 8;
     }
   }
 
   //цвет текста
   Color? getForeground() {
     switch (this.mode) {
-      case "commerce":
+      case ModeCustomButton.commerce:
         return colors!.button_commerce_foreground;
 
-      case "primary":
+      case ModeCustomButton.primary:
         return colors!.button_primary_foreground;
 
-      case "secondary":
+      case ModeCustomButton.secondary:
         return colors!.button_secondary_foreground;
 
-      case "outlined":
+      case ModeCustomButton.outlined:
         return colors!.button_outline_foreground;
+
+      default: 
+        return colors!.button_primary_foreground;
     }
   }
 
   //цвет фона
   Color? getBackground(BuildContext context) {
     switch (this.mode) {
-      case "commerce":
+      case ModeCustomButton.commerce:
         return colors!.button_commerce_background;
 
-      case "primary":
+      case ModeCustomButton.primary:
         return colors!.button_primary_background;
 
-      case "secondary":
+      case ModeCustomButton.secondary:
         return colors!.button_secondary_background;
 
-      case "outlined":
+      case ModeCustomButton.outlined:
         return Theme.of(context).backgroundColor;
+
+      default:
+        return colors!.button_primary_background;
     }
   }
 
   //цвет рамки
   Color? getBorder(BuildContext context) {
     switch (this.mode) {
-      case "commerce":
+      case ModeCustomButton.commerce:
         return Theme.of(context).backgroundColor;
 
-      case "primary":
+      case ModeCustomButton.primary:
         return Theme.of(context).backgroundColor;
 
-      case "secondary":
+      case ModeCustomButton.secondary:
         return Theme.of(context).backgroundColor;
 
-      case "outlined":
+      case ModeCustomButton.outlined:
         return colors!.button_outline_border;
+      
+      default: 
+        return Theme.of(context).backgroundColor;
     }
   }
 }

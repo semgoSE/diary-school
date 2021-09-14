@@ -69,6 +69,7 @@ class SignUp3State extends State<SignUp3> {
               AppBar(
                   title: Text("Выберите"),
                   automaticallyImplyLeading: false,
+                  elevation: 1,
                   textTheme: Theme.of(context).textTheme,
                   centerTitle: true),
               Container(
@@ -98,7 +99,7 @@ class SignUp3State extends State<SignUp3> {
         login: signUp.login,
         password: signUp.password,
         session: signUp.session,
-        regionId:  signUp.region_id,
+        regionId: signUp.region_id,
         accountsBind: accounts_bind.map((e) => e.accountBind!).toList());
     api.setBody(data.toJson());
     showBarModalBottomSheet(
@@ -116,29 +117,35 @@ class SignUp3State extends State<SignUp3> {
                     automaticallyImplyLeading: false),
                 Container(child: Spinner()),
                 Container(
-                    child: MyPlaceholder(
-                        child: "Это может занять некоторое время"),
-                    height: 44)
+                    child: CustomPlaceholder(
+                        child: "Это может занять некоторое время"))
               ], mainAxisSize: MainAxisSize.min),
             ),
             onWillPop: () => Future.value(true),
           );
         });
     var response = await api.request();
+    print(response);
     if (response['success']) {
       ResponseSignUp res = ResponseSignUp.fromJson(response);
       Box<AuthData> box = Hive.box<AuthData>("auth_data");
       box.put("value", res.msg);
 
       Config config = Provider.of<Config>(context, listen: false);
-  
+
       config.setLogin(true);
-      config.addAuthData(response.msg.token, PayloadToken(user_id: response.msg.user.userId, role: response.ms.user.role));
+      config.addAuthData(res.msg.token,
+          PayloadToken(user_id: res.msg.user.userId, role: res.msg.user.role));
 
       Navigator.pop(context);
       Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
     } else {
-      //TODO ошибка
+      Navigator.pop(context);
+      final snackBar = SnackBar(
+        content: Text(response['msg']),
+        duration: const Duration(seconds: 7),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 
@@ -155,26 +162,26 @@ class SignUp3State extends State<SignUp3> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
-                child: MyPlaceholder(
+                child: CustomPlaceholder(
                     child:
-                        "Для удобства входа можете привязать различные соц.сети для доступа к аккаунту"),
+                        "Для удобства входа можете привязать различные соц.сети для доступа к аккаунту(следующая версия)"),
               ),
-              SimpleCell(
-                child: Text(
-                  "Добавить привязку",
-                  style: TextStyle(
-                    color: null,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                before: CustomIcon(
-                  svgPath: "resource/icons/add_outline_28.svg",
-                  type: IconType.svg,
-                  size: 32,
-                ),
-                onClick: showModal,
-              ),
+              // SimpleCell(
+              //   child: Text(
+              //     "Добавить привязку",
+              //     style: TextStyle(
+              //       color: null,
+              //       fontSize: 18,
+              //       fontWeight: FontWeight.w400,
+              //     ),
+              //   ),
+              //   before: CustomIcon(
+              //     svgPath: "resource/icons/add_outline_28.svg",
+              //     type: IconType.svg,
+              //     size: 32,
+              //   ),
+              //   onClick: showModal,
+              // ),
               Expanded(
                   child: ListView(
                 children: accounts_bind
@@ -193,7 +200,9 @@ class SignUp3State extends State<SignUp3> {
               )),
               Container(
                   child: CustomButton(
-                    mode: accounts_bind.length == 0 ? "primary" : "commerce",
+                    mode: accounts_bind.length == 0
+                        ? ModeCustomButton.primary
+                        : ModeCustomButton.outlined,
                     child:
                         accounts_bind.length == 0 ? "Пропустить" : "Завершить",
                     click: sign_up,

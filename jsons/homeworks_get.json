@@ -1,5 +1,5 @@
 {
-    "my": "$[]homework",
-    "other": "$[]homework"
+    "my_homeworks": "$[]homework",
+    "other_homeworks": "$[]homework"
 }
 

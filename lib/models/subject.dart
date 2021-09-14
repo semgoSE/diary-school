@@ -5,7 +5,7 @@ import 'index.dart';
 
 part 'subject.g.dart';
 @immutable
-@HiveType(typeId: 3)
+@HiveType(typeId: 5)
 
 class Subject {
 

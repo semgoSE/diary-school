@@ -16,6 +16,7 @@ class HomeworkCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) => Container(
+      margin: EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
         color: Colors.white,

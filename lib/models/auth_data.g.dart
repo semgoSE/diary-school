@@ -18,7 +18,7 @@ class AuthDataAdapter extends TypeAdapter<AuthData> {
     };
     return AuthData(
       token: fields[0] as String,
-      user: fields[1] as User,
+      user: fields[1] as FullUser,
     );
   }
 

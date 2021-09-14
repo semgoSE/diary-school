@@ -13,7 +13,7 @@ class StartPage extends StatelessWidget {
           Expanded(
             child: Column(
                 children: [
-                  Image.asset("resource/images/logo.png"),
+                  Image.asset("resource/images/logo_dark.png"),
                   Container(
                     child: Text("Добро пожаловать!",
                         style: TextStyle(
@@ -32,7 +32,7 @@ class StartPage extends StatelessWidget {
                 Navigator.pushNamed(context, "/login");
               },
               child: "Вход",
-              mode: "primary",
+              mode: ModeCustomButton.primary,
               disable: false,
             ),
           ),
@@ -40,7 +40,7 @@ class StartPage extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 8.0),
             child: CustomButton(
               child: "Регистрация",
-              mode: "secondary",
+              mode: ModeCustomButton.secondary,
               disable: false,
               click: () {
                 Navigator.pushNamed(context, "/sign_up_1");

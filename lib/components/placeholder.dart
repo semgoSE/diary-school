@@ -5,13 +5,13 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
 
-class MyPlaceholder extends StatelessWidget {
+class CustomPlaceholder extends StatelessWidget {
 
   String? child;
   String? textAlign;
   double? fontSize;
 
-  MyPlaceholder({
+  CustomPlaceholder({
     this.child,
     this.textAlign = "center",
     this.fontSize = 16,
@@ -27,6 +27,8 @@ class MyPlaceholder extends StatelessWidget {
           textPlaceholder = config.customTheme.text_placeholder;
           return Column(children: [
             Container(
+              height: 60,
+              alignment: Alignment.center,
               child: Text(
                 child!,
                 style: TextStyle(color: textPlaceholder, fontSize: fontSize),

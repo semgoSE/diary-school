@@ -41,7 +41,7 @@ class CreateHomeworkState extends State {
     _dates.add(DateChooseView(
         lesson_id: sheduleWeek.lesson!.lessonId,
         header: "Этот урок",
-        date: DateFormat("dd.MM.y", "ru_RU").format(DateTime.now())));
+        date: DateFormat("dd.MM.y", "ru_RU").format(sheduleWeek.date)));
 
     for (int i = 1; i < 30; i++) {
       DateTime date = DateTime.now();
@@ -115,6 +115,7 @@ class CreateHomeworkState extends State {
 
   void addHomework() async {
     Config config = Provider.of<Config>(context, listen: false);
+    SheduleWeek sheduleWeek = Provider.of<SheduleWeek>(context, listen: false);
     showDialog(
       context: context,
       builder: (context) => WillPopScope(
@@ -128,11 +129,27 @@ class CreateHomeworkState extends State {
       "text": _text.text,
       "lesson_id": lesson_id,
     });
+    print(api.body);
     var response = await api.request();
+    print(response);
     if(response != false) {
       if(response['success']) {
         Homework homework = Homework.fromJson(response['msg']);
+        List<Homework>? myHomeworks = sheduleWeek.myHomeworks;
+        if(myHomeworks == null) 
+          myHomeworks = [homework];
+        else
+          myHomeworks.add(homework);
+        sheduleWeek.updateHomeworkMy(myHomeworks);
         Navigator.pop(context);
+        Navigator.pop(context);
+        final snackBar = SnackBar(
+          content: Text("Задание успешно добавлено"),
+          duration: const Duration(seconds: 7),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        _date.text = "";
+        _text.text = "";
       } else {
         
       }

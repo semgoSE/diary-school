@@ -55,13 +55,14 @@ class _LoginState extends State<Login> {
             child: Column(children: [
               AppBar(
                   title: Text("Авторизация"),
+                  elevation: 1,
                   centerTitle: true,
                   textTheme: Theme.of(context).textTheme,
                   automaticallyImplyLeading: false),
               Container(child: Spinner()),
               Container(
                   child:
-                      MyPlaceholder(child: "Это может занять некоторое время"),
+                      CustomPlaceholder(child: "Это может занять некоторое время"),
                   height: 44),
             ], mainAxisSize: MainAxisSize.min),
           ),
@@ -123,10 +124,7 @@ class _LoginState extends State<Login> {
                 hint: "Введите логин",
                 controller: _loginController,
                 textInputAction: TextInputAction.next,
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(18),
-                  FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9_]')),
-                ],
+                keyboardType: TextInputType.emailAddress,
               ),
               top: "Логин",
             ),
@@ -176,23 +174,23 @@ class _LoginState extends State<Login> {
             Container(
                 child: CustomButton(
                   child: "Войти",
-                  mode: "commerce",
+                  mode: ModeCustomButton.commerce,
                   click: login,
                   disable: _login.length < 6 || _pass.length < 4,
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16)),
-            Container(child: MyPlaceholder(child: "или"), height: 90),
+            Container(child: CustomPlaceholder(child: "или"), height: 90),
             Container(
                 child: CustomButton(
                   disable: true,
                   child: "Войти с Google",
-                  mode: "outlined",
+                  mode: ModeCustomButton.outlined,
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8)),
             Container(
                 child: CustomButton(
                   child: "Войти c VK",
-                  mode: "outlined",
+                  mode: ModeCustomButton.outlined,
                   disable: true,
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8))

@@ -201,9 +201,9 @@ class SheduleCard extends StatelessWidget {
             ),
             after: Container(
               child: CustomButton(
-                size: "s",
+                size: SizeCustomButton.s,
                 child: "Д/з",
-                mode: "secondary",
+                mode: ModeCustomButton.secondary,
                 click: () {
                   sheduleWeek.setLesson(timetable.lessons[i]);
                   showBarModalBottomSheet(
@@ -256,7 +256,7 @@ class TimeSheduleCard extends StatelessWidget {
             style: TextStyle(fontSize: 13),
           ),
           Text(
-            time_begin,
+            time_end,
             style: TextStyle(fontSize: 13),
           )
         ],

@@ -24,6 +24,21 @@ abstract class _SheduleWeek with Store {
 
   @observable
   bool login = false;
+  
+  @observable
+  List<Homework>? myHomeworks;
+  @observable
+  List<Homework>? otherHomeworks;
+
+  @action
+  void updateHomeworkMy(List<Homework>? _myHomeworks) {
+    myHomeworks = _myHomeworks;
+  }
+
+  @action
+  void updateHomeworkOther(List<Homework>? _otherHomeworks) {
+    otherHomeworks = _otherHomeworks;
+  }
 
   @action
   void updateDate(DateTime _date) {

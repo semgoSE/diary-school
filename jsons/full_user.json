@@ -1,0 +1,12 @@
+#hive
+{
+  "first_name": "",
+  "last_name": "",
+  "nickname": "",
+  "photo": "s",
+  "user_id": 0,
+  "role": "",
+  "class_id": 0,
+  "login": "",
+  "school_id": 0
+}

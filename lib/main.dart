@@ -24,7 +24,7 @@ import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
   await Hive.initFlutter();
-  Hive.registerAdapter(UserAdapter());
+  Hive.registerAdapter(FullUserAdapter());
   Hive.registerAdapter(AuthDataAdapter());
   Hive.registerAdapter(LessonAdapter());
   Hive.registerAdapter(TimetableAdapter());
@@ -52,7 +52,6 @@ void main() async {
       textTheme: TextTheme(
           headline6: GoogleFonts.manrope(
               color: theme.header_text, fontWeight: FontWeight.bold),),
-      fontFamily: "Inter",
       backgroundColor: theme.background,
       accentColor: theme.accent,
       primaryColor: theme.text_primary,
@@ -70,12 +69,14 @@ void main() async {
 
 
   Box<AuthData> box = Hive.box<AuthData>("auth_data");
-  AuthData init = AuthData(
-      token: "", user: User(classId: 0, login: "", role: "test", userId: 0));
-  AuthData? auth = box.get("value", defaultValue: init);
-  config.setLogin(auth!.token != "");
-  config.addAuthData(auth.token,
-      PayloadToken(user_id: auth.user.userId, role: auth.user.role));
+  AuthData? auth = box.get("value");
+
+  if(auth != null) {
+    config.setLogin(auth.token != "");
+    config.addAuthData(auth.token,
+        PayloadToken(user_id: auth.user.userId, role: auth.user.role));
+  }
+
 
   initializeDateFormatting("ru_RU", "").then((value) {
     runApp(

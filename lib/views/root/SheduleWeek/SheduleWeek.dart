@@ -1,5 +1,8 @@
 
 import 'package:diary_app/api/user/UserApi.dart';
+import 'package:diary_app/components/icon.dart';
+import 'package:diary_app/components/screen_spinner.dart';
+import 'package:diary_app/utils/checkDay.dart';
 import 'package:diary_app/views/root/SheduleWeek/SheduleCard.dart';
 import 'package:diary_app/components/spinner.dart';
 import 'package:diary_app/components/weekday_switch.dart';
@@ -21,15 +24,14 @@ class SheduleWeekView extends StatefulWidget {
 }
 
 class SheduleWeekState extends State {
-  List<Timetable> timetables = [];
 
   bool isController = false;
 
   void initState() {
     super.initState();
-
     Future.delayed(Duration.zero, () {
       getTimetables();
+      checkDay(context);
     });
   }
 
@@ -53,30 +55,24 @@ class SheduleWeekState extends State {
         // else hiveTimetables.add(Timetable(weekOfDay: i+1, lessons: []));
       }
 
+
       if (hiveTimetables.length == 0) {
         print("нету в hive ищем на сервере");
         UserApi api = new UserApi(config.token, config.payloadToken);
         api.setPath("lessons/get");
 
-        // showDialog(context: context, builder: (context) => WillPopScope(child: ScreenSpinner(), onWillPop: () => Future.value(true)), barrierDismissible: false);
         var response = await api.request();
         if (response['success']!) {
-          timetables = ResponseLessonsGet.fromJson(response).msg;
-          var timetables_clean =
-              timetables.where((element) => element.lessons.length != 0);
+          List<Timetable> timetables = ResponseLessonsGet.fromJson(response).msg;
+          var timetables_clean = timetables.where((element) => element.lessons.length != 0);
 
           if (timetables_clean.length == 0) {
+            print("search-lessons");
             api.setPath("lessons/search-lessons");
             api.setBody({"date": "2021-09-08"}); //TODO: обрати внимание
             var resp = await api.request();
-            print(resp);
-            // Navigator.pop(context);
             if (resp['success']!) {
-              sheduleWeek
-                  .updateTimetables(ResponseLessonsGet.fromJson(resp).msg);
-              setState(() {
-                timetables = ResponseLessonsGet.fromJson(resp).msg;
-              });
+              sheduleWeek.updateTimetables(ResponseLessonsGet.fromJson(resp).msg);
               timetables.toList().asMap().forEach((i, t) async {
                 await boxTimetables.put(i, t);
               });
@@ -87,30 +83,18 @@ class SheduleWeekState extends State {
               );
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }
+          } else {
+            sheduleWeek.updateTimetables(timetables);
+            timetables.toList().asMap().forEach((i, t) async {
+              await boxTimetables.put(i, t);
+            });
           }
-
-          sheduleWeek
-              .updateTimetables(ResponseLessonsGet.fromJson(response).msg);
-
-          setState(() {
-            timetables = ResponseLessonsGet.fromJson(response).msg;
-          });
-
-          timetables.toList().asMap().forEach((i, t) async {
-            await boxTimetables.put(i, t);
-          });
         }
       } else {
         sheduleWeek.updateTimetables(hiveTimetables);
-        setState(() {
-          this.timetables = hiveTimetables;
-        });
       }
     } else {
-      setState(() {
-        print("Данные есть в mobX");
-        timetables = sheduleWeek.timetables;
-      });
+
     }
   }
 
@@ -146,7 +130,7 @@ class SheduleWeekState extends State {
 
   Widget buildBody(double height, double width, SheduleWeek sheduleWeek,
       changeDay(int day), InfinityPageController infinityPageController) {
-    return timetables.length == 0
+    return sheduleWeek.timetables.length == 0
         ? Container(
             color: Theme.of(context).backgroundColor,
             alignment: Alignment.center,
@@ -190,50 +174,12 @@ class SheduleWeekState extends State {
                     }
                     sheduleWeek.updateDate(date);
                     //проеряем день на выходной
-                    if (date.weekday >= 6) {
-                      sheduleWeek.setTypeDay(SheduleWeekTypeDay.weekends);
-                    } else {
-                      //проверка на каникулы
-                      sheduleWeek.setTypeDay(SheduleWeekTypeDay.load);
+                    checkDay(context);
 
-                      var connectivityResult = await (Connectivity().checkConnectivity());
-
-                      if (connectivityResult == ConnectivityResult.mobile ||
-                          connectivityResult == ConnectivityResult.wifi) {
-                        Config config =
-                            Provider.of<Config>(context, listen: false);
-                        UserApi api =
-                            new UserApi(config.token, config.payloadToken);
-
-                        api.setPath("shedule-holliday/check-day");
-                        api.setBody({"date": date.toString()});
-                        var response = await api.request();
-
-                        if (response != false) {
-                          if (response['success']) {
-                            CheckDay res = CheckDay.fromJson(response['msg']);
-                            if (sheduleWeek.date ==
-                                DateTime.parse(res.date)) {
-                              sheduleWeek.setTypeDay(SheduleWeekTypeDay.work);
-                            }
-                          } else {
-                            if (sheduleWeek.date ==
-                                DateTime.parse(response['msg']['date'])) {
-                              sheduleWeek
-                                  .setTypeDay(SheduleWeekTypeDay.holliday);
-                            }
-                          }
-                        } else {
-                          sheduleWeek.setTypeDay(SheduleWeekTypeDay.offline);
-                        }
-                      } else {
-                        sheduleWeek.setTypeDay(SheduleWeekTypeDay.offline);
-                      }
-                    }
                   },
                   itemBuilder: ((BuildContext context, int i) {
                     return Container(
-                      child: SheduleCard(timetable: timetables[i]),
+                      child: SheduleCard(timetable: sheduleWeek.timetables[i]),
                     );
                   }),
                   itemCount: 7,

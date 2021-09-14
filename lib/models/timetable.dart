@@ -5,7 +5,7 @@ import 'index.dart';
 
 part 'timetable.g.dart';
 @immutable
-@HiveType(typeId: 4)
+@HiveType(typeId: 6)
 
 class Timetable {
 

@@ -57,7 +57,7 @@ class Input extends StatelessWidget {
       case InputStatus.def:
         return colors!.field_background;
       case InputStatus.error:
-        return colors!.field_error_background;
+        return colors!.negative;
 
       case InputStatus.valid:
         return colors!.field_background;
@@ -71,7 +71,7 @@ class Input extends StatelessWidget {
         Config config = Provider.of<Config>(context, listen: false);
         this.colors = config.customTheme;
         this.accentColor = config.customTheme.accent;
-        this.textPrimary = config.customTheme.text_primary;
+        this.textPrimary = config.customTheme.text;
         this.textPlaceholder = config.customTheme.text_placeholder;
         return TextFormField(
           keyboardType: keyboardType,
