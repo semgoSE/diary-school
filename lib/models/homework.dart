@@ -7,21 +7,22 @@ class Homework {
 
   const Homework({
     required this.homeworkId,
-    required this.authorId,
-    required this.author,
+    this.authorId,
+    required this.source,
     required this.isPublic,
     required this.date,
     required this.lessonId,
     required this.taskId,
     required this.task,
+    this.author,
   });
 
   @HiveField(0)
   final int homeworkId;
   @HiveField(1)
-  final int authorId;
+  final int? authorId;
   @HiveField(2)
-  final SmallUser author;
+  final String source;
   @HiveField(3)
   final bool isPublic;
   @HiveField(4)
@@ -32,65 +33,72 @@ class Homework {
   final int taskId;
   @HiveField(7)
   final Task task;
+  @HiveField(8)
+  final SmallUser? author;
 
   factory Homework.fromJson(Map<String,dynamic> json) => Homework(
     homeworkId: json['homework_id'] as int,
-    authorId: json['author_id'] as int,
-    author: SmallUser.fromJson(json['author'] as Map<String, dynamic>),
+    authorId: json['author_id'] != null ? json['author_id'] as int : null,
+    source: json['source'] as String,
     isPublic: json['isPublic'] as bool,
     date: json['date'] as String,
     lessonId: json['lesson_id'] as int,
     taskId: json['task_id'] as int,
-    task: Task.fromJson(json['task'] as Map<String, dynamic>)
+    task: Task.fromJson(json['task'] as Map<String, dynamic>),
+    author: json['author'] != null ? SmallUser.fromJson(json['author'] as Map<String, dynamic>) : null
   );
   
   Map<String, dynamic> toJson() => {
     'homework_id': homeworkId,
     'author_id': authorId,
-    'author': author.toJson(),
+    'source': source,
     'isPublic': isPublic,
     'date': date,
     'lesson_id': lessonId,
     'task_id': taskId,
-    'task': task.toJson()
+    'task': task.toJson(),
+    'author': author?.toJson()
   };
 
   Homework clone() => Homework(
     homeworkId: homeworkId,
     authorId: authorId,
-    author: author.clone(),
+    source: source,
     isPublic: isPublic,
     date: date,
     lessonId: lessonId,
     taskId: taskId,
-    task: task.clone()
+    task: task.clone(),
+    author: author?.clone()
   );
 
 
   Homework copyWith({
     int? homeworkId,
-    int? authorId,
-    SmallUser? author,
+    Optional<int?>? authorId,
+    String? source,
     bool? isPublic,
     String? date,
     int? lessonId,
     int? taskId,
-    Task? task
+    Task? task,
+    Optional<SmallUser?>? author
   }) => Homework(
     homeworkId: homeworkId ?? this.homeworkId,
-    authorId: authorId ?? this.authorId,
-    author: author ?? this.author,
+    authorId: checkOptional(authorId, this.authorId),
+    source: source ?? this.source,
     isPublic: isPublic ?? this.isPublic,
     date: date ?? this.date,
     lessonId: lessonId ?? this.lessonId,
     taskId: taskId ?? this.taskId,
     task: task ?? this.task,
+    author: checkOptional(author, this.author),
   );
 
   @override
   bool operator ==(Object other) => identical(this, other)
-    || other is Homework && homeworkId == other.homeworkId && authorId == other.authorId && author == other.author && isPublic == other.isPublic && date == other.date && lessonId == other.lessonId && taskId == other.taskId && task == other.task;
+    || other is Homework && homeworkId == other.homeworkId && authorId == other.authorId && source == other.source && isPublic == other.isPublic && date == other.date && lessonId == other.lessonId && taskId == other.taskId && task == other.task && author == other.author;
 
   @override
-  int get hashCode => homeworkId.hashCode ^ authorId.hashCode ^ author.hashCode ^ isPublic.hashCode ^ date.hashCode ^ lessonId.hashCode ^ taskId.hashCode ^ task.hashCode;
+  int get hashCode => homeworkId.hashCode ^ authorId.hashCode ^ source.hashCode ^ isPublic.hashCode ^ date.hashCode ^ lessonId.hashCode ^ taskId.hashCode ^ task.hashCode ^ author.hashCode;
 }

@@ -1,10 +1,11 @@
 {
-    "homework_id": 1,
-        "author_id": 3,
-        "author": "$small_user",
-        "isPublic": false,
-        "date": "2021-09-09T00:00:00.000Z",
-        "lesson_id": 45,
-        "task_id": 1,
-        "task": "$task"
+    "homework_id": 64,
+    "author_id?": 1,
+    "source": "BOT",
+    "isPublic": false,
+    "date": "14.09.2021",
+    "lesson_id": 2,
+    "task_id": 89,
+    "task": "$task",
+    "author?": "$small_user"
 }
