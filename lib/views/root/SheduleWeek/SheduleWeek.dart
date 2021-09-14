@@ -1,8 +1,5 @@
-import 'dart:developer';
 
 import 'package:diary_app/api/user/UserApi.dart';
-import 'package:diary_app/components/icon.dart';
-import 'package:diary_app/components/screen_spinner.dart';
 import 'package:diary_app/views/root/SheduleWeek/SheduleCard.dart';
 import 'package:diary_app/components/spinner.dart';
 import 'package:diary_app/components/weekday_switch.dart';
@@ -199,8 +196,7 @@ class SheduleWeekState extends State {
                       //проверка на каникулы
                       sheduleWeek.setTypeDay(SheduleWeekTypeDay.load);
 
-                      var connectivityResult =
-                          await (Connectivity().checkConnectivity());
+                      var connectivityResult = await (Connectivity().checkConnectivity());
 
                       if (connectivityResult == ConnectivityResult.mobile ||
                           connectivityResult == ConnectivityResult.wifi) {

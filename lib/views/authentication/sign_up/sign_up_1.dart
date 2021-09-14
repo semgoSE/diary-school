@@ -72,7 +72,7 @@ class SignUp1State extends State<SignUp1> {
     api.setBody(RequestCheckLogin(login: login).toJson());
     var res = await api.request();
     print(res);
-    if(res != null) {
+    if(res != false) {
       if(res['success']) {
         ResponseCheckLogin response = ResponseCheckLogin.fromJson(res);
         Navigator.pop(context);
