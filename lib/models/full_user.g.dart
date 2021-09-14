@@ -17,10 +17,10 @@ class FullUserAdapter extends TypeAdapter<FullUser> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return FullUser(
-      firstName: fields[0] as String,
-      lastName: fields[1] as String,
+      firstName: fields[0] as String?,
+      lastName: fields[1] as String?,
       nickname: fields[2] as String,
-      photo: fields[3] as String,
+      photo: fields[3] as String?,
       userId: fields[4] as int,
       role: fields[5] as String,
       classId: fields[6] as int,

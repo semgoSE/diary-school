@@ -17,10 +17,10 @@ class SmallUserAdapter extends TypeAdapter<SmallUser> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return SmallUser(
-      firstName: fields[0] as String,
-      lastName: fields[1] as String,
+      firstName: fields[0] as String?,
+      lastName: fields[1] as String?,
       login: fields[2] as String,
-      photo: fields[3] as String,
+      photo: fields[3] as String?,
       userId: fields[4] as int,
       role: fields[5] as String,
     );

@@ -1,5 +1,8 @@
+
+
 import 'package:diary_app/api/user/UserApi.dart';
 import 'package:diary_app/components/colors.dart';
+import 'package:diary_app/components/no_glow_behavior.dart';
 import 'package:diary_app/mobX/config_app.dart';
 import 'package:diary_app/mobX/shedule_week.dart';
 import 'package:diary_app/mobX/sign_up.dart';
@@ -90,6 +93,9 @@ void main() async {
           theme: themeData,
           initialRoute: "/",
           debugShowCheckedModeBanner: false,
+          builder: (context, child) {
+            return ScrollConfiguration(behavior: NoGlowBehavior(), child: child!);
+          },
           routes: <String, WidgetBuilder>{
             '/login': (BuildContext context) {
               return Login();

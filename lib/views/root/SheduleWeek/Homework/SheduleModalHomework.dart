@@ -59,8 +59,11 @@ class SheduleModalHomeworkState extends State {
     return Observer(
       builder: (context) => WillPopScope(
         onWillPop: () {
-          sheduleWeek.updateHomeworkMy(null);
-          sheduleWeek.updateHomeworkMy(null);
+          Future.delayed(const Duration(milliseconds: 600), () {
+            sheduleWeek.updateHomeworkMy(null);
+            sheduleWeek.updateHomeworkOther(null);
+          });
+          
           return Future.value(true);
         },
         child: CupertinoPageScaffold(

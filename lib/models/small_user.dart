@@ -10,32 +10,32 @@ part 'small_user.g.dart';
 class SmallUser {
 
   const SmallUser({
-    required this.firstName,
-    required this.lastName,
+    this.firstName,
+    this.lastName,
     required this.login,
-    required this.photo,
+    this.photo,
     required this.userId,
     required this.role,
   });
 
   @HiveField(0)
-  final String firstName;
+  final String? firstName;
   @HiveField(1)
-  final String lastName;
+  final String? lastName;
   @HiveField(2)
   final String login;
   @HiveField(3)
-  final String photo;
+  final String? photo;
   @HiveField(4)
   final int userId;
   @HiveField(5)
   final String role;
 
   factory SmallUser.fromJson(Map<String,dynamic> json) => SmallUser(
-    firstName: json['first_name'] as String,
-    lastName: json['last_name'] as String,
+    firstName: json['first_name'] != null ? json['first_name'] as String : null,
+    lastName: json['last_name'] != null ? json['last_name'] as String : null,
     login: json['login'] as String,
-    photo: json['photo'] as String,
+    photo: json['photo'] != null ? json['photo'] as String : null,
     userId: json['user_id'] as int,
     role: json['role'] as String
   );
@@ -60,17 +60,17 @@ class SmallUser {
 
 
   SmallUser copyWith({
-    String? firstName,
-    String? lastName,
+    Optional<String?>? firstName,
+    Optional<String?>? lastName,
     String? login,
-    String? photo,
+    Optional<String?>? photo,
     int? userId,
     String? role
   }) => SmallUser(
-    firstName: firstName ?? this.firstName,
-    lastName: lastName ?? this.lastName,
+    firstName: checkOptional(firstName, this.firstName),
+    lastName: checkOptional(lastName, this.lastName),
     login: login ?? this.login,
-    photo: photo ?? this.photo,
+    photo: checkOptional(photo, this.photo),
     userId: userId ?? this.userId,
     role: role ?? this.role,
   );
