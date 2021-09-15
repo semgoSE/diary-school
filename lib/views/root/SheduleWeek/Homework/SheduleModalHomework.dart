@@ -113,7 +113,7 @@ class SheduleModalHomeworkState extends State {
                                 ? Column(
                                     children: sheduleWeek.myHomeworks!
                                         .map((e) =>
-                                            HomeworkCard(name: e.task.text))
+                                            HomeworkCard(homework: e, isAuthor: false,))
                                         .toList(),
                                   )
                                 : CustomPlaceholder(
@@ -136,7 +136,7 @@ class SheduleModalHomeworkState extends State {
                                 ? Column(
                                     children: sheduleWeek.otherHomeworks!
                                         .map((e) =>
-                                            HomeworkCard(name: e.task.text))
+                                            HomeworkCard(homework: e, isAuthor: true,))
                                         .toList(),
                                   )
                                 : CustomPlaceholder(

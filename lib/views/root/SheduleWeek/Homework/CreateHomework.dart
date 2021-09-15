@@ -35,6 +35,12 @@ class CreateHomeworkState extends State {
 
   List<DateChooseView> dates = [];
 
+  void initState() {
+    super.initState();
+    SheduleWeek sheduleWeek = Provider.of<SheduleWeek>(context, listen: false);
+    _date.text = DateFormat("dd.MM.y", "ru_RU").format(sheduleWeek.date);
+  }
+
   void generateDate() {
     SheduleWeek sheduleWeek = Provider.of<SheduleWeek>(context, listen: false);
     List<DateChooseView> _dates = [];
@@ -44,7 +50,7 @@ class CreateHomeworkState extends State {
         date: DateFormat("dd.MM.y", "ru_RU").format(sheduleWeek.date)));
 
     for (int i = 1; i < 30; i++) {
-      DateTime date = DateTime.now();
+      DateTime date = sheduleWeek.date;
       date = date.add(Duration(days: i));
       if (date.weekday == 6 || date.weekday == 7) {
       } else {
@@ -116,6 +122,26 @@ class CreateHomeworkState extends State {
   void addHomework() async {
     Config config = Provider.of<Config>(context, listen: false);
     SheduleWeek sheduleWeek = Provider.of<SheduleWeek>(context, listen: false);
+
+    if(_text.text == "") {
+        final snackBar = SnackBar(
+          content: Text("Введите текст задания"),
+          duration: const Duration(seconds: 7),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        return;
+    } 
+
+    if(_date.text == "") {
+        final snackBar = SnackBar(
+          content: Text("Вы не указали дату"),
+          duration: const Duration(seconds: 7),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        return;
+    }
+
+
     showDialog(
       context: context,
       builder: (context) => WillPopScope(
