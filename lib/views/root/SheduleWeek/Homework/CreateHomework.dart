@@ -39,6 +39,7 @@ class CreateHomeworkState extends State {
     super.initState();
     SheduleWeek sheduleWeek = Provider.of<SheduleWeek>(context, listen: false);
     _date.text = DateFormat("dd.MM.y", "ru_RU").format(sheduleWeek.date);
+    lesson_id = sheduleWeek.lesson!.lessonId;
   }
 
   void generateDate() {
